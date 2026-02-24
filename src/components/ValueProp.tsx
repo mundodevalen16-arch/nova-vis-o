@@ -13,6 +13,7 @@ const delivers = [
   { icon: "🧪", text: "Testes que eliminam desperdício", detail: "Descubra o que funciona antes de gastar." },
   { icon: "💰", text: "Funis que convertem no automático", detail: "Venda enquanto dorme, viaja ou treina." },
   { icon: "🔮", text: "Pixel e API configurados do jeito certo", detail: "Dados precisos = decisões certeiras." },
+  { icon: "🎯", text: "Segmentação cirúrgica de público", detail: "Apareça só pra quem está pronto pra comprar." },
 ];
 
 const scatterPositions = [
@@ -24,6 +25,7 @@ const scatterPositions = [
   { x: -500, y: 100, rotate: 35, scale: 0.3 },
   { x: 350, y: -400, rotate: -55, scale: 0.2 },
   { x: -200, y: 500, rotate: 40, scale: 0.3 },
+  { x: 200, y: -350, rotate: -40, scale: 0.25 },
 ];
 
 const ValueProp = () => {
@@ -35,7 +37,7 @@ const ValueProp = () => {
   const titleBlur = useTransform(scrollYProgress, [0.05, 0.3], [15, 0]);
 
   return (
-    <section ref={sectionRef} className="py-32 px-6 relative overflow-hidden" style={{ perspective: "1500px" }}>
+    <section ref={sectionRef} className="py-16 px-6 relative overflow-hidden" style={{ perspective: "1500px" }}>
       {/* Explosion flash */}
       <motion.div
         style={{ opacity: useTransform(scrollYProgress, [0.12, 0.22, 0.35], [0, 0.5, 0]) }}
@@ -53,7 +55,7 @@ const ValueProp = () => {
             opacity: titleOpacity,
             filter: useTransform(titleBlur, v => `blur(${v}px)`),
           }}
-          className="text-center mb-16"
+          className="text-center mb-8"
         >
           <p className="text-xs text-primary font-bold uppercase tracking-[0.3em] mb-4">
             ⚡ NÃO É SOBRE APRENDER.
@@ -69,7 +71,7 @@ const ValueProp = () => {
         </motion.div>
 
         {/* Cards explode in — NO once:true for bidirectional */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
           {delivers.map((item, i) => {
             const scatter = scatterPositions[i];
             return (
