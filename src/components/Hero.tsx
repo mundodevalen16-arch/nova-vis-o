@@ -1,6 +1,6 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
-
+import PhoneNotifications from "@/components/SaleNotifications";
 const spring = { type: "spring" as const, stiffness: 100, damping: 20 };
 
 const Hero = () => {
@@ -146,61 +146,7 @@ const Hero = () => {
                   <div className="absolute top-3 left-1/2 -translate-x-1/2 w-20 h-5 bg-black rounded-full z-20" />
 
                   {/* Screen content */}
-                  <div className="absolute inset-2 rounded-[2rem] overflow-hidden" style={{
-                    background: "linear-gradient(180deg, hsl(270 50% 15%), hsl(328 40% 12%) 50%, hsl(0 0% 5%))",
-                  }}>
-                    {/* Mini app header */}
-                    <div className="px-4 pt-10 pb-3">
-                      <div className="text-[10px] font-bold text-foreground/40 tracking-widest uppercase">Área de Membros</div>
-                      <div className="text-sm font-black text-foreground mt-1">360 Digital</div>
-                    </div>
-
-                    {/* Module cards */}
-                    <div className="px-3 space-y-2">
-                      {[
-                        { emoji: "🗺️", name: "Trilha Completa", progress: 85 },
-                        { emoji: "🛡️", name: "Perfis Blindados", progress: 60 },
-                        { emoji: "📱", name: "Instagram Perfeito", progress: 30 },
-                        { emoji: "🎯", name: "Domínio de Públicos", progress: 0 },
-                        { emoji: "💰", name: "Vendas Online", progress: 0 },
-                      ].map((mod, i) => (
-                        <div key={i} className="rounded-xl p-2.5 flex items-center gap-2" style={{
-                          background: "hsl(0 0% 100% / 0.04)",
-                          border: "1px solid hsl(0 0% 100% / 0.06)",
-                        }}>
-                          <span className="text-sm">{mod.emoji}</span>
-                          <div className="flex-1 min-w-0">
-                            <div className="text-[9px] font-semibold text-foreground/70 truncate">{mod.name}</div>
-                            <div className="w-full h-1 rounded-full mt-1" style={{ background: "hsl(0 0% 100% / 0.08)" }}>
-                              <div
-                                className="h-full rounded-full"
-                                style={{
-                                  width: `${mod.progress}%`,
-                                  background: mod.progress > 0 ? "linear-gradient(90deg, hsl(328 100% 48%), hsl(270 80% 55%))" : "transparent",
-                                }}
-                              />
-                            </div>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-
-                    {/* Bottom stats */}
-                    <div className="px-4 mt-4 flex justify-between">
-                      <div className="text-center">
-                        <div className="text-xs font-black text-gradient-pink">12</div>
-                        <div className="text-[8px] text-foreground/30">Módulos</div>
-                      </div>
-                      <div className="text-center">
-                        <div className="text-xs font-black text-gradient-pink">500+</div>
-                        <div className="text-[8px] text-foreground/30">Alunos</div>
-                      </div>
-                      <div className="text-center">
-                        <div className="text-xs font-black text-gradient-pink">100%</div>
-                        <div className="text-[8px] text-foreground/30">Atualizado</div>
-                      </div>
-                    </div>
-                  </div>
+                  <PhoneNotifications />
                 </div>
 
                 {/* Reflection glow underneath */}

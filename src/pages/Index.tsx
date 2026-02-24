@@ -1,6 +1,5 @@
 import MouseGlow from "@/components/MouseGlow";
 import Navbar from "@/components/Navbar";
-import SaleNotifications from "@/components/SaleNotifications";
 import Hero from "@/components/Hero";
 import SocialProof from "@/components/SocialProof";
 import BeforeAfterSlider from "@/components/BeforeAfterSlider";
@@ -17,7 +16,6 @@ const Index = () => (
   <main className="min-h-screen bg-background text-foreground overflow-x-hidden">
     <MouseGlow />
     <Navbar />
-    <SaleNotifications />
     <Hero />
     <SocialProof />
     <BeforeAfterSlider />
