@@ -1,4 +1,7 @@
 import { motion } from "framer-motion";
+import SpotlightCard from "./SpotlightCard";
+
+const spring = { type: "spring" as const, stiffness: 100, damping: 20 };
 
 const before = [
   "Perdido sem saber por onde começar",
@@ -13,70 +16,54 @@ const after = [
   "Caminho claro rumo aos R$10k/mês",
 ];
 
-const Transformation = () => {
-  return (
-    <section id="transformacao" className="py-20 md:py-32 px-4">
-      <div className="max-w-6xl mx-auto">
-        <motion.h2
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="font-display text-5xl md:text-7xl text-center mb-16"
-          style={{ textShadow: "0 4px 20px hsl(var(--digital-purple) / 0.3)" }}
-        >
-          A <span className="text-gradient-purple">TRANSFORMAÇÃO</span>
-        </motion.h2>
+const Transformation = () => (
+  <section id="transformacao" className="py-32 px-6">
+    <div className="max-w-7xl mx-auto">
+      <motion.h2
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={spring}
+        className="text-5xl md:text-7xl font-black text-center mb-20 tracking-tight"
+      >
+        A <span className="text-gradient-pink">transformação</span>
+      </motion.h2>
 
-        <div className="grid md:grid-cols-2 gap-6">
-          {/* ANTES */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="cinematic-card"
-          >
-            <div className="absolute inset-0" style={{ background: "linear-gradient(160deg, hsl(0 0% 15% / 0.6), hsl(var(--card)))" }} />
-            <div className="relative z-10 p-8">
-              <span className="inline-block font-body text-xs font-semibold px-3 py-1 rounded-full bg-muted text-muted-foreground mb-4 uppercase tracking-wider">
-                Antes
-              </span>
-              <ul className="space-y-4 font-body">
-                {before.map((item, i) => (
-                  <li key={i} className="flex items-start gap-3 text-foreground/40">
-                    <span className="text-muted-foreground/50 mt-1 text-sm">—</span>
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </motion.div>
+      <div className="grid md:grid-cols-2 gap-6">
+        <SpotlightCard>
+          <div className="p-8">
+            <span className="inline-block px-3 py-1 rounded-full glass text-xs font-medium text-muted-foreground uppercase tracking-wider mb-6">
+              Antes
+            </span>
+            <ul className="space-y-4">
+              {before.map((item, i) => (
+                <li key={i} className="flex items-start gap-3 text-foreground/40 text-sm font-light">
+                  <span className="text-muted-foreground/50">—</span>
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </SpotlightCard>
 
-          {/* DEPOIS */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="cinematic-card"
-          >
-            <div className="absolute inset-0 bg-gradient-hero opacity-70" />
-            <div className="relative z-10 p-8">
-              <span className="inline-block font-body text-xs font-semibold px-3 py-1 rounded-full bg-primary/20 text-primary mb-4 uppercase tracking-wider">
-                Depois
-              </span>
-              <ul className="space-y-4 font-body">
-                {after.map((item, i) => (
-                  <li key={i} className="flex items-start gap-3 text-foreground/90">
-                    <span className="text-primary mt-1">✦</span>
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </motion.div>
-        </div>
+        <SpotlightCard delay={0.1}>
+          <div className="p-8">
+            <span className="inline-block px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-xs font-medium text-primary uppercase tracking-wider mb-6">
+              Depois
+            </span>
+            <ul className="space-y-4">
+              {after.map((item, i) => (
+                <li key={i} className="flex items-start gap-3 text-foreground/90 text-sm font-light">
+                  <span className="text-primary">✦</span>
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </SpotlightCard>
       </div>
-    </section>
-  );
-};
+    </div>
+  </section>
+);
 
 export default Transformation;

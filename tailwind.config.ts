@@ -11,10 +11,6 @@ export default {
       screens: { "2xl": "1400px" },
     },
     extend: {
-      fontFamily: {
-        display: ['"Bebas Neue"', '"Anton"', 'sans-serif'],
-        body: ['"DM Sans"', '"Sora"', 'sans-serif'],
-      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -28,11 +24,6 @@ export default {
         accent: { DEFAULT: "hsl(var(--accent))", foreground: "hsl(var(--accent-foreground))" },
         popover: { DEFAULT: "hsl(var(--popover))", foreground: "hsl(var(--popover-foreground))" },
         card: { DEFAULT: "hsl(var(--card))", foreground: "hsl(var(--card-foreground))" },
-        "digital-purple": "hsl(var(--digital-purple))",
-        "digital-violet": "hsl(var(--digital-violet))",
-        "digital-blue": "hsl(var(--digital-blue))",
-        "digital-magenta": "hsl(var(--digital-magenta))",
-        "neon-glow": "hsl(var(--neon-glow))",
         "bonus-gold": "hsl(var(--bonus-gold))",
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",

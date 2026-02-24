@@ -1,57 +1,66 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* 360 Digital — Cinematic Dark Design System */
-
 @layer base {
   :root {
-    --background: 240 60% 3%;
-    --foreground: 0 0% 100%;
+    --background: 0 0% 2%;
+    --foreground: 0 0% 98%;
 
-    --card: 240 40% 7%;
-    --card-foreground: 0 0% 100%;
+    --card: 0 0% 6%;
+    --card-foreground: 0 0% 98%;
 
-    --popover: 240 40% 7%;
-    --popover-foreground: 0 0% 100%;
+    --popover: 0 0% 6%;
+    --popover-foreground: 0 0% 98%;
 
-    --primary: 263 70% 58%;
+    --primary: 328 100% 48%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 240 30% 12%;
+    --secondary: 260 60% 50%;
     --secondary-foreground: 0 0% 100%;
 
-    --muted: 240 20% 15%;
-    --muted-foreground: 215 16% 57%;
+    --muted: 0 0% 10%;
+    --muted-foreground: 0 0% 55%;
 
-    --accent: 271 81% 65%;
+    --accent: 270 70% 55%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 263 30% 18%;
-    --input: 263 30% 18%;
-    --ring: 263 70% 58%;
+    --border: 0 0% 12%;
+    --input: 0 0% 12%;
+    --ring: 328 100% 48%;
 
-    --radius: 1.25rem;
+    --radius: 1rem;
 
-    /* Custom tokens */
-    --digital-purple: 263 70% 58%;
-    --digital-violet: 258 90% 66%;
+    /* Brand tokens */
+    --pink-hot: 328 100% 48%;
+    --purple-electric: 270 80% 55%;
+    --purple-deep: 260 60% 40%;
+    --glass-white: 0 0% 100%;
+    --glass-border: 0 0% 100%;
+    --glow-pink: 328 100% 48%;
+    --glow-purple: 270 80% 55%;
+
+    /* Legacy tokens for compatibility */
+    --digital-purple: 270 80% 55%;
+    --digital-violet: 260 90% 60%;
     --digital-blue: 217 91% 60%;
-    --digital-magenta: 310 80% 55%;
-    --neon-glow: 271 95% 65%;
+    --digital-magenta: 328 100% 48%;
+    --neon-glow: 328 100% 48%;
     --bonus-gold: 43 96% 56%;
 
-    --sidebar-background: 240 50% 5%;
+    --sidebar-background: 0 0% 4%;
     --sidebar-foreground: 0 0% 96%;
-    --sidebar-primary: 263 70% 58%;
+    --sidebar-primary: 328 100% 48%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 20% 12%;
+    --sidebar-accent: 0 0% 10%;
     --sidebar-accent-foreground: 0 0% 96%;
-    --sidebar-border: 263 30% 18%;
-    --sidebar-ring: 263 70% 58%;
+    --sidebar-border: 0 0% 12%;
+    --sidebar-ring: 328 100% 48%;
   }
 }
 
@@ -61,54 +70,104 @@
   }
   body {
     @apply bg-background text-foreground;
-    font-family: 'DM Sans', 'Sora', sans-serif;
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Bebas Neue', 'Anton', sans-serif;
+    font-family: 'Inter', sans-serif;
+    font-weight: 800;
   }
 }
 
 @layer utilities {
-  .text-gradient-purple {
-    @apply bg-clip-text text-transparent;
-    background-image: linear-gradient(135deg, hsl(var(--digital-purple)), hsl(var(--digital-magenta)));
+  /* Glass morphism */
+  .glass {
+    background: hsl(var(--glass-white) / 0.03);
+    border: 1px solid hsl(var(--glass-border) / 0.08);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
   }
 
-  .bg-gradient-purple {
-    background: linear-gradient(135deg, hsl(var(--digital-purple)), hsl(var(--digital-violet)));
+  .glass-strong {
+    background: hsl(var(--glass-white) / 0.06);
+    border: 1px solid hsl(var(--glass-border) / 0.12);
+    backdrop-filter: blur(40px);
+    -webkit-backdrop-filter: blur(40px);
+  }
+
+  /* Gradient text */
+  .text-gradient-pink {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, hsl(var(--pink-hot)), hsl(var(--purple-electric)));
+  }
+
+  .text-gradient-purple {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, hsl(var(--purple-electric)), hsl(var(--pink-hot)));
+  }
+
+  .text-gradient-white {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(180deg, hsl(0 0% 100%), hsl(0 0% 60%));
+  }
+
+  /* Gradient backgrounds */
+  .bg-gradient-pink {
+    background: linear-gradient(135deg, hsl(var(--pink-hot)), hsl(var(--purple-electric)));
   }
 
   .bg-gradient-hero {
-    background: linear-gradient(160deg, hsl(263 80% 25% / 0.9), hsl(271 60% 20% / 0.8) 40%, hsl(310 70% 40% / 0.6) 80%, hsl(330 80% 50% / 0.5));
+    background: radial-gradient(ellipse at 50% 0%, hsl(var(--pink-hot) / 0.15) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 50%, hsl(var(--purple-electric) / 0.1) 0%, transparent 50%),
+                hsl(var(--background));
   }
 
-  .glow-purple {
-    box-shadow: 0 0 30px hsl(var(--neon-glow) / 0.4), 0 0 60px hsl(var(--neon-glow) / 0.2);
+  /* Glow effects */
+  .glow-pink {
+    box-shadow: 0 0 40px hsl(var(--glow-pink) / 0.3), 0 0 80px hsl(var(--glow-pink) / 0.1);
   }
 
-  .glow-purple-intense {
-    box-shadow: 0 0 40px hsl(var(--neon-glow) / 0.5), 0 0 80px hsl(var(--neon-glow) / 0.25), 0 0 120px hsl(var(--neon-glow) / 0.1);
+  .glow-pink-intense {
+    box-shadow: 0 0 60px hsl(var(--glow-pink) / 0.4), 0 0 120px hsl(var(--glow-pink) / 0.15);
   }
 
-  /* Cinematic floating card */
-  .cinematic-card {
-    @apply relative rounded-[2rem] overflow-hidden;
-    border: 1px solid hsl(var(--digital-violet) / 0.15);
-    box-shadow:
-      0 25px 80px hsl(var(--digital-purple) / 0.3),
-      0 8px 32px hsl(0 0% 0% / 0.5),
-      inset 0 1px 0 hsl(var(--digital-violet) / 0.1);
+  /* Premium card */
+  .premium-card {
+    @apply relative rounded-2xl overflow-hidden;
+    background: hsl(var(--glass-white) / 0.03);
+    border: 1px solid hsl(var(--glass-border) / 0.08);
+    backdrop-filter: blur(24px);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  .card-glass {
-    background: hsl(var(--digital-purple) / 0.06);
-    border: 1px solid hsl(var(--digital-violet) / 0.15);
-    backdrop-filter: blur(16px);
+  .premium-card:hover {
+    border-color: hsl(var(--glass-border) / 0.15);
+    box-shadow: 0 20px 60px hsl(0 0% 0% / 0.4);
   }
 
+  /* Gradient border trick */
+  .border-gradient {
+    position: relative;
+  }
+  .border-gradient::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, hsl(var(--pink-hot) / 0.4), hsl(var(--purple-electric) / 0.2), transparent);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  /* Card glass gold */
   .card-glass-gold {
-    background: hsl(var(--bonus-gold) / 0.05);
-    border: 1px solid hsl(var(--bonus-gold) / 0.2);
+    background: hsl(var(--bonus-gold) / 0.04);
+    border: 1px solid hsl(var(--bonus-gold) / 0.15);
     backdrop-filter: blur(16px);
   }
 
@@ -127,31 +186,31 @@
   100% { transform: translateX(-50%); }
 }
 .animate-marquee {
-  animation: marquee 25s linear infinite;
+  animation: marquee 30s linear infinite;
 }
 
 /* Glow pulse */
 @keyframes glow-pulse {
-  0%, 100% { box-shadow: 0 0 20px hsl(var(--neon-glow) / 0.4), 0 0 40px hsl(var(--neon-glow) / 0.2); }
-  50% { box-shadow: 0 0 35px hsl(var(--neon-glow) / 0.6), 0 0 70px hsl(var(--neon-glow) / 0.3), 0 0 100px hsl(var(--neon-glow) / 0.15); }
+  0%, 100% { box-shadow: 0 0 30px hsl(var(--glow-pink) / 0.3), 0 0 60px hsl(var(--glow-pink) / 0.1); }
+  50% { box-shadow: 0 0 50px hsl(var(--glow-pink) / 0.5), 0 0 100px hsl(var(--glow-pink) / 0.2); }
 }
 .animate-glow-pulse {
-  animation: glow-pulse 2.5s ease-in-out infinite;
+  animation: glow-pulse 3s ease-in-out infinite;
 }
 
 /* Float */
 @keyframes float {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-12px); }
+  50% { transform: translateY(-10px); }
 }
 .animate-float {
-  animation: float 5s ease-in-out infinite;
+  animation: float 6s ease-in-out infinite;
 }
 
-/* Ambient breathing */
+/* Ambient */
 @keyframes ambient-breathe {
   0%, 100% { opacity: 0.3; transform: scale(1); }
-  50% { opacity: 0.5; transform: scale(1.1); }
+  50% { opacity: 0.5; transform: scale(1.05); }
 }
 .animate-ambient {
   animation: ambient-breathe 8s ease-in-out infinite;
