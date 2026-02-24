@@ -14,6 +14,9 @@ const saleTypes = [
   { type: "aprovada", flag: "🇧🇷", value: "R$ 397,00" },
 ];
 
+const weekdays = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"];
+const months = ["janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"];
+
 interface Notif {
   id: number;
   type: string;
@@ -21,32 +24,18 @@ interface Notif {
   value: string;
 }
 
-// Generate a simple notification beep using Web Audio API
-const playBeep = (audioCtxRef: React.MutableRefObject<AudioContext | null>) => {
-  try {
-    if (!audioCtxRef.current) {
-      audioCtxRef.current = new AudioContext();
-    }
-    const ctx = audioCtxRef.current;
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
-    osc.connect(gain);
-    gain.connect(ctx.destination);
-    osc.frequency.value = 880;
-    osc.type = "sine";
-    gain.gain.setValueAtTime(0.04, ctx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.3);
-    osc.start(ctx.currentTime);
-    osc.stop(ctx.currentTime + 0.3);
-  } catch {
-    // silently fail
-  }
-};
-
 const PhoneNotifications = () => {
   const [items, setItems] = useState<Notif[]>([]);
+  const [now, setNow] = useState(new Date());
   const counterRef = useRef(0);
-  const audioCtxRef = useRef<AudioContext | null>(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const startTimeRef = useRef(Date.now());
+
+  // Update clock every minute
+  useEffect(() => {
+    const iv = setInterval(() => setNow(new Date()), 60000);
+    return () => clearInterval(iv);
+  }, []);
 
   const addNotification = useCallback(() => {
     const idx = counterRef.current % saleTypes.length;
@@ -55,19 +44,22 @@ const PhoneNotifications = () => {
     counterRef.current += 1;
 
     setItems((prev) => [{ id, ...sale }, ...prev].slice(0, 6));
-    playBeep(audioCtxRef);
+
+    // Play sound only within first 6 seconds
+    const elapsed = Date.now() - startTimeRef.current;
+    if (elapsed < 6000 && audioRef.current) {
+      audioRef.current.currentTime = 0;
+      audioRef.current.play().catch(() => {});
+    }
   }, []);
 
   useEffect(() => {
-    // Add notifications at staggered intervals for realism
-    const delays = [1500, 4000, 6500, 10000, 14000, 18500];
-    const timers = delays.map((d, i) =>
-      setTimeout(() => {
-        addNotification();
-      }, d)
-    );
+    audioRef.current = new Audio("/sounds/shopify-notification.mp3");
+    audioRef.current.volume = 0.3;
+    audioRef.current.preload = "auto";
 
-    // Then continue every 6s
+    const delays = [800, 2000, 3500, 5000, 8000, 12000, 16000];
+    const timers = delays.map((d) => setTimeout(addNotification, d));
     const interval = setInterval(addNotification, 6000);
 
     return () => {
@@ -75,6 +67,9 @@ const PhoneNotifications = () => {
       clearInterval(interval);
     };
   }, [addNotification]);
+
+  const timeStr = `${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}`;
+  const dateStr = `${weekdays[now.getDay()]}, ${now.getDate()} de ${months[now.getMonth()]}`;
 
   return (
     <div className="absolute inset-2 rounded-[2rem] overflow-hidden flex flex-col" style={{
@@ -89,11 +84,11 @@ const PhoneNotifications = () => {
         </div>
       </div>
 
-      {/* Lock Screen - Date & Time */}
+      {/* Lock Screen - Real Date & Time */}
       <div className="text-center pt-4 pb-3">
-        <p className="text-[8px] text-foreground/50 font-medium">Segunda-feira, 24 de fevereiro</p>
+        <p className="text-[8px] text-foreground/50 font-medium">{dateStr}</p>
         <p className="text-[28px] font-bold text-foreground/90 leading-none tracking-tight mt-0.5" style={{ fontVariantNumeric: "tabular-nums" }}>
-          11:39
+          {timeStr}
         </p>
       </div>
 
@@ -123,13 +118,11 @@ const PhoneNotifications = () => {
                 backdropFilter: "blur(12px)",
               }}
             >
-              {/* App icon */}
               <div className="w-6 h-6 rounded-lg flex items-center justify-center flex-shrink-0" style={{
                 background: "linear-gradient(135deg, hsl(230 40% 20%), hsl(230 50% 30%))",
               }}>
                 <span className="text-[9px] font-black text-foreground">3</span>
               </div>
-              {/* Content */}
               <div className="flex-1 min-w-0">
                 <p className="text-[8px] font-bold text-foreground/90 truncate">
                   Venda {item.type}! | {item.flag}
