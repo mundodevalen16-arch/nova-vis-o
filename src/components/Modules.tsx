@@ -1,50 +1,33 @@
-import { motion, useMotionValue, useTransform, useSpring } from "framer-motion";
+import { motion } from "framer-motion";
 import { useRef } from "react";
 
 const modules = [
-  { num: "01", icon: "🗺️", name: "TRILHA COMPLETA", desc: "Receba o mapa definitivo para sua jornada no tráfego pago. Por onde começar, o que aprender e em que ordem." },
-  { num: "02", icon: "🛡️", name: "PERFIS BLINDADOS", desc: "Crie suas contas no Meta Ads sem risco de bloqueio ou restrição. A base que 99% das pessoas ignora." },
-  { num: "03", icon: "📱", name: "INSTAGRAM & PÁGINA PERFEITOS", desc: "Configure seu Instagram e Página do Facebook para vender todos os dias, do jeito certo." },
-  { num: "04", icon: "🎯", name: "DOMÍNIO DE PÚBLICOS", desc: "Do básico ao avançado — descubra como encontrar as pessoas certas para o seu produto ou serviço." },
-  { num: "05", icon: "🔓", name: "DESBLOQUEIO DE CONTAS", desc: "Aprenda a recuperar contas bloqueadas no Meta Ads e como nunca mais passar por isso." },
-  { num: "06", icon: "🏪", name: "NEGÓCIOS LOCAIS", desc: "O passo a passo para atrair clientes locais usando Meta Ads, do zero ao avançado." },
-  { num: "07", icon: "💰", name: "VENDAS ONLINE", desc: "Os segredos das estruturas que vendem todos os dias no digital. Do criativo à campanha." },
-  { num: "08", icon: "🧪", name: "TESTES QUE GERAM RESULTADOS", desc: "Como testar públicos, criativos e ofertas de forma inteligente e rápida." },
-  { num: "09", icon: "🔮", name: "META PIXEL & API", desc: "Configure e otimize o Pixel e a API de Conversões para extrair o máximo de cada real investido." },
-  { num: "10", icon: "📊", name: "LEITURA DE MÉTRICAS", desc: "Entenda cada número das suas campanhas e tome decisões baseadas em dados." },
-  { num: "11", icon: "⚙️", name: "OTIMIZAÇÃO DE CAMPANHAS", desc: "Mais importante que criar é saber otimizar. Aprenda a escalar o que funciona." },
-  { num: "12", icon: "🏗️", name: "ESTRUTURA 2026", desc: "A estrutura de campanhas mais atualizada do mercado para vender no digital em 2026." },
+  { num: "01", icon: "🗺️", name: "TRILHA COMPLETA", desc: "O mapa definitivo para sua jornada no tráfego pago." },
+  { num: "02", icon: "🛡️", name: "PERFIS BLINDADOS", desc: "Crie contas no Meta Ads sem risco de bloqueio." },
+  { num: "03", icon: "📱", name: "INSTAGRAM PERFEITO", desc: "Configure tudo para vender todos os dias." },
+  { num: "04", icon: "🎯", name: "DOMÍNIO DE PÚBLICOS", desc: "Encontre as pessoas certas para o seu produto." },
+  { num: "05", icon: "🔓", name: "DESBLOQUEIO", desc: "Recupere contas bloqueadas no Meta Ads." },
+  { num: "06", icon: "🏪", name: "NEGÓCIOS LOCAIS", desc: "Atraia clientes locais com Meta Ads." },
+  { num: "07", icon: "💰", name: "VENDAS ONLINE", desc: "Estruturas que vendem todos os dias no digital." },
+  { num: "08", icon: "🧪", name: "TESTES INTELIGENTES", desc: "Teste públicos e criativos de forma rápida." },
+  { num: "09", icon: "🔮", name: "META PIXEL & API", desc: "Extraia o máximo de cada real investido." },
+  { num: "10", icon: "📊", name: "MÉTRICAS", desc: "Decisões baseadas em dados, não achismos." },
+  { num: "11", icon: "⚙️", name: "OTIMIZAÇÃO", desc: "Escale o que funciona e corte o que drena." },
+  { num: "12", icon: "🏗️", name: "ESTRUTURA 2026", desc: "A estrutura mais atualizada do mercado." },
 ];
 
-const ModuleCard = ({ mod, index }: { mod: typeof modules[0]; index: number }) => (
-  <motion.div
-    initial={{ opacity: 0, y: 30 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true }}
-    transition={{ duration: 0.5, delay: index * 0.05 }}
-    whileHover={{ scale: 1.03 }}
-    className="min-w-[280px] md:min-w-[320px] card-glass rounded-2xl p-6 cursor-pointer transition-shadow duration-300 hover:glow-purple flex flex-col"
-  >
-    <div className="text-4xl mb-4">{mod.icon}</div>
-    <span className="text-xs font-body font-semibold text-primary/80 uppercase tracking-widest mb-2">
-      Módulo {mod.num}
-    </span>
-    <h3 className="font-display text-xl md:text-2xl mb-3 leading-tight">{mod.name}</h3>
-    <p className="font-body text-sm text-muted-foreground leading-relaxed flex-1">{mod.desc}</p>
-  </motion.div>
-);
-
 const Modules = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
 
   return (
-    <section className="py-20 md:py-32 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 mb-12">
+    <section id="modulos" className="py-20 md:py-32 overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4 md:px-8 mb-12">
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="font-display text-4xl md:text-6xl text-center"
+          className="font-display text-5xl md:text-7xl text-center mb-4"
+          style={{ textShadow: "0 4px 20px hsl(var(--digital-purple) / 0.3)" }}
         >
           O QUE VOCÊ VAI <span className="text-gradient-purple">DOMINAR</span>
         </motion.h2>
@@ -52,24 +35,38 @@ const Modules = () => {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.2 }}
-          className="text-center text-muted-foreground font-body mt-4"
+          className="text-center text-muted-foreground font-body"
         >
-          12 módulos do zero ao avançado • Arraste para explorar →
+          12 módulos completos • Arraste para explorar →
         </motion.p>
       </div>
 
-      <motion.div
-        ref={containerRef}
-        className="flex gap-6 px-4 md:px-8 overflow-x-auto scrollbar-hide cursor-grab active:cursor-grabbing pb-4"
-        drag="x"
-        dragConstraints={containerRef}
-        style={{ touchAction: "pan-y" }}
+      <div
+        ref={scrollRef}
+        className="flex gap-5 px-4 md:px-8 overflow-x-auto scrollbar-hide pb-4 cursor-grab active:cursor-grabbing"
       >
         {modules.map((mod, i) => (
-          <ModuleCard key={mod.num} mod={mod} index={i} />
+          <motion.div
+            key={mod.num}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: i * 0.04 }}
+            whileHover={{ scale: 1.04, y: -4 }}
+            className="cinematic-card min-w-[260px] md:min-w-[300px] flex-shrink-0 cursor-pointer group"
+          >
+            <div className="absolute inset-0 bg-gradient-hero opacity-60 group-hover:opacity-80 transition-opacity" />
+            <div className="relative z-10 p-6">
+              <div className="text-3xl mb-3">{mod.icon}</div>
+              <span className="font-body text-[10px] font-bold text-foreground/40 uppercase tracking-[0.25em]">
+                Módulo {mod.num}
+              </span>
+              <h3 className="font-display text-2xl mt-1 mb-2 leading-tight">{mod.name}</h3>
+              <p className="font-body text-xs text-foreground/50 leading-relaxed">{mod.desc}</p>
+            </div>
+          </motion.div>
         ))}
-      </motion.div>
+      </div>
     </section>
   );
 };

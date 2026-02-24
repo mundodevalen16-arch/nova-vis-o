@@ -2,28 +2,26 @@
 @tailwind components;
 @tailwind utilities;
 
-/* 360 Digital — Dark Cinematic Design System
-   All colors MUST be HSL. */
+/* 360 Digital — Cinematic Dark Design System */
 
 @layer base {
   :root {
-    /* Dark cinematic palette */
-    --background: 240 50% 3.5%;
+    --background: 240 60% 3%;
     --foreground: 0 0% 100%;
 
-    --card: 240 40% 6%;
+    --card: 240 40% 7%;
     --card-foreground: 0 0% 100%;
 
-    --popover: 240 40% 6%;
+    --popover: 240 40% 7%;
     --popover-foreground: 0 0% 100%;
 
     --primary: 263 70% 58%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 240 30% 10%;
+    --secondary: 240 30% 12%;
     --secondary-foreground: 0 0% 100%;
 
-    --muted: 240 20% 12%;
+    --muted: 240 20% 15%;
     --muted-foreground: 215 16% 57%;
 
     --accent: 271 81% 65%;
@@ -32,23 +30,18 @@
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 263 40% 20%;
-    --input: 263 40% 20%;
+    --border: 263 30% 18%;
+    --input: 263 30% 18%;
     --ring: 263 70% 58%;
 
-    --radius: 0.75rem;
+    --radius: 1.25rem;
 
-    /* Custom 360 tokens */
-    --digital-bg: 240 50% 3.5%;
-    --digital-bg-secondary: 240 35% 8%;
+    /* Custom tokens */
     --digital-purple: 263 70% 58%;
     --digital-violet: 258 90% 66%;
     --digital-blue: 217 91% 60%;
+    --digital-magenta: 310 80% 55%;
     --neon-glow: 271 95% 65%;
-    --card-bg: 263 70% 58%;
-    --card-border: 258 90% 66%;
-
-    /* Bonus gold */
     --bonus-gold: 43 96% 56%;
 
     --sidebar-background: 240 50% 5%;
@@ -57,7 +50,7 @@
     --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 240 20% 12%;
     --sidebar-accent-foreground: 0 0% 96%;
-    --sidebar-border: 263 40% 20%;
+    --sidebar-border: 263 30% 18%;
     --sidebar-ring: 263 70% 58%;
   }
 }
@@ -66,30 +59,27 @@
   * {
     @apply border-border;
   }
-
   body {
     @apply bg-background text-foreground;
     font-family: 'DM Sans', 'Sora', sans-serif;
   }
-
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Bebas Neue', 'Anton', sans-serif;
   }
 }
 
-/* Utility classes */
 @layer utilities {
   .text-gradient-purple {
     @apply bg-clip-text text-transparent;
-    background-image: linear-gradient(135deg, hsl(var(--digital-purple)), hsl(var(--digital-violet)), hsl(var(--digital-blue)));
+    background-image: linear-gradient(135deg, hsl(var(--digital-purple)), hsl(var(--digital-magenta)));
   }
 
   .bg-gradient-purple {
     background: linear-gradient(135deg, hsl(var(--digital-purple)), hsl(var(--digital-violet)));
   }
 
-  .bg-gradient-purple-blue {
-    background: linear-gradient(135deg, hsl(var(--digital-purple)), hsl(var(--digital-blue)));
+  .bg-gradient-hero {
+    background: linear-gradient(160deg, hsl(263 80% 25% / 0.9), hsl(271 60% 20% / 0.8) 40%, hsl(310 70% 40% / 0.6) 80%, hsl(330 80% 50% / 0.5));
   }
 
   .glow-purple {
@@ -97,19 +87,29 @@
   }
 
   .glow-purple-intense {
-    box-shadow: 0 0 40px hsl(var(--neon-glow) / 0.6), 0 0 80px hsl(var(--neon-glow) / 0.3), 0 0 120px hsl(var(--neon-glow) / 0.1);
+    box-shadow: 0 0 40px hsl(var(--neon-glow) / 0.5), 0 0 80px hsl(var(--neon-glow) / 0.25), 0 0 120px hsl(var(--neon-glow) / 0.1);
+  }
+
+  /* Cinematic floating card */
+  .cinematic-card {
+    @apply relative rounded-[2rem] overflow-hidden;
+    border: 1px solid hsl(var(--digital-violet) / 0.15);
+    box-shadow:
+      0 25px 80px hsl(var(--digital-purple) / 0.3),
+      0 8px 32px hsl(0 0% 0% / 0.5),
+      inset 0 1px 0 hsl(var(--digital-violet) / 0.1);
   }
 
   .card-glass {
-    background: hsl(var(--digital-purple) / 0.08);
-    border: 1px solid hsl(var(--card-border) / 0.2);
-    backdrop-filter: blur(12px);
+    background: hsl(var(--digital-purple) / 0.06);
+    border: 1px solid hsl(var(--digital-violet) / 0.15);
+    backdrop-filter: blur(16px);
   }
 
   .card-glass-gold {
-    background: hsl(var(--bonus-gold) / 0.06);
-    border: 1px solid hsl(var(--bonus-gold) / 0.3);
-    backdrop-filter: blur(12px);
+    background: hsl(var(--bonus-gold) / 0.05);
+    border: 1px solid hsl(var(--bonus-gold) / 0.2);
+    backdrop-filter: blur(16px);
   }
 
   .scrollbar-hide {
@@ -121,12 +121,11 @@
   }
 }
 
-/* Marquee animation */
+/* Marquee */
 @keyframes marquee {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
-
 .animate-marquee {
   animation: marquee 25s linear infinite;
 }
@@ -134,24 +133,30 @@
 /* Glow pulse */
 @keyframes glow-pulse {
   0%, 100% { box-shadow: 0 0 20px hsl(var(--neon-glow) / 0.4), 0 0 40px hsl(var(--neon-glow) / 0.2); }
-  50% { box-shadow: 0 0 30px hsl(var(--neon-glow) / 0.6), 0 0 60px hsl(var(--neon-glow) / 0.3), 0 0 90px hsl(var(--neon-glow) / 0.15); }
+  50% { box-shadow: 0 0 35px hsl(var(--neon-glow) / 0.6), 0 0 70px hsl(var(--neon-glow) / 0.3), 0 0 100px hsl(var(--neon-glow) / 0.15); }
 }
-
 .animate-glow-pulse {
-  animation: glow-pulse 2s ease-in-out infinite;
+  animation: glow-pulse 2.5s ease-in-out infinite;
 }
 
-/* Float animation */
+/* Float */
 @keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
 }
-
 .animate-float {
-  animation: float 4s ease-in-out infinite;
+  animation: float 5s ease-in-out infinite;
 }
 
-/* Smooth scrolling */
+/* Ambient breathing */
+@keyframes ambient-breathe {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.1); }
+}
+.animate-ambient {
+  animation: ambient-breathe 8s ease-in-out infinite;
+}
+
 html {
   scroll-behavior: smooth;
 }
