@@ -13,10 +13,10 @@ const stats = [
 
 const credentials = [
   "Milionário antes dos 25 🏌🏻",
-  "Meta Ads Expert — certificado oficial",
+  "Construiu 7 dígitos com Meta Ads",
   "Direct Response Specialist",
   "Mentor de +500 alunos ativos",
-  "Gestor de tráfego para grandes players",
+  "Escala previsível com execução real",
 ];
 
 const statScatter = [
