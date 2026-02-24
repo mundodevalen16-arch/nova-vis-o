@@ -7,15 +7,14 @@ const stats = [
   { value: "5+", label: "Anos no digital" },
   { value: "R$10M+", label: "Em ads gerenciados" },
   { value: "500+", label: "Alunos transformados" },
-  { value: "30+", label: "Nichos dominados" },
   { value: "100%", label: "Método atualizado 2026" },
   { value: "24/7", label: "Suporte e comunidade" },
 ];
 
 const credentials = [
+  "Milionário antes dos 25 🏌🏻",
   "Meta Ads Expert — certificado oficial",
   "Direct Response Specialist",
-  "Estrategista de funis de alta conversão",
   "Mentor de +500 alunos ativos",
   "Gestor de tráfego para grandes players",
 ];
@@ -26,7 +25,6 @@ const statScatter = [
   { x: -250, y: 200, rotate: -25 },
   { x: 300, y: 150, rotate: 45 },
   { x: -180, y: -200, rotate: 30 },
-  { x: 250, y: 250, rotate: -35 },
 ];
 
 const WhoIsBehind = () => {
@@ -72,25 +70,29 @@ const WhoIsBehind = () => {
             </p>
 
             <div className="space-y-5 text-foreground/60 text-sm font-light leading-relaxed max-w-xl mx-auto mb-8">
-              <p>
-                Mais de <span className="text-foreground/90 font-medium">5 anos no mercado digital</span>. 
-                Especialista em Meta Ads e Direct Response com mais de 
-                <span className="text-foreground/90 font-medium"> R$10 milhões gerenciados em anúncios</span>.
+              <p className="text-foreground/90 font-semibold text-lg">
+                Milionário antes dos 25. 🏌🏻
               </p>
               <p>
-                Já ajudou <span className="text-foreground/90 font-medium">centenas de pessoas</span> a saírem do zero 
-                e construírem renda consistente na internet — com método, estratégia e acompanhamento real.
+                Enquanto a maioria ainda tava decidindo o que fazer da vida, Biel já tinha 
+                <span className="text-foreground/90 font-medium"> ultrapassado os 7 dígitos</span> — 
+                com nada além de um notebook e Meta Ads.
               </p>
               <p>
-                Atuou em <span className="text-foreground/90 font-medium">+30 nichos diferentes</span>, de infoprodutos 
-                a e-commerce, dominando as particularidades de cada mercado e criando estratégias sob medida.
+                Mais de <span className="text-foreground/90 font-medium">R$10 milhões gerenciados em anúncios</span>.
+                Mais de <span className="text-foreground/90 font-medium">500 alunos</span> que saíram do zero 
+                e construíram renda real — não promessa de guru.
+              </p>
+              <p>
+                Começou do absoluto zero. Sem conexão. Sem herança. Sem atalho.
+                Só <span className="text-foreground/90 font-medium">estratégia, execução e obsessão por resultado</span>.
               </p>
               <p className="text-foreground/40">
                 Não ensino teoria. Ensino o que funciona.<br />
                 O que eu aplico. O que gera resultado. O que escala.
               </p>
               <p className="text-foreground/90 font-semibold text-base italic">
-                "Não vendo promessa — entrego preparação para resultado."
+                "Eu não vendo sonho — entrego o mapa, a bússola e caminho junto."
               </p>
             </div>
 
