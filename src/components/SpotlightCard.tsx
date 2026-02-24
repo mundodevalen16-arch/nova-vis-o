@@ -5,9 +5,10 @@ interface Props {
   children: React.ReactNode;
   className?: string;
   delay?: number;
+  animateIn?: boolean;
 }
 
-const SpotlightCard = ({ children, className = "", delay = 0 }: Props) => {
+const SpotlightCard = ({ children, className = "", delay = 0, animateIn = true }: Props) => {
   const ref = useRef<HTMLDivElement>(null);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
@@ -21,10 +22,10 @@ const SpotlightCard = ({ children, className = "", delay = 0 }: Props) => {
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ margin: "-60px" }}
-      transition={{ type: "spring", stiffness: 50, damping: 20, mass: 1, delay }}
+      initial={animateIn ? { opacity: 0, y: 40 } : false}
+      whileInView={animateIn ? { opacity: 1, y: 0 } : undefined}
+      viewport={animateIn ? { margin: "-60px" } : undefined}
+      transition={animateIn ? { type: "spring", stiffness: 50, damping: 20, mass: 1, delay } : undefined}
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
