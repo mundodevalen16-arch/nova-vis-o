@@ -1,12 +1,16 @@
 import { useState, useRef, useCallback } from "react";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 const spring = { type: "spring" as const, stiffness: 100, damping: 20 };
 
 const BeforeAfterSlider = () => {
   const [position, setPosition] = useState(50);
   const containerRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
   const isDragging = useRef(false);
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start end", "end start"] });
+  const sliderScale = useTransform(scrollYProgress, [0, 0.3], [0.88, 1]);
+  const sliderRotateX = useTransform(scrollYProgress, [0, 0.3], [10, 0]);
 
   const updatePosition = useCallback((clientX: number) => {
     if (!containerRef.current) return;
@@ -29,7 +33,7 @@ const BeforeAfterSlider = () => {
   };
 
   return (
-    <section className="py-20 md:py-32 px-6">
+    <section ref={sectionRef} className="py-20 md:py-32 px-6" style={{ perspective: "1400px" }}>
       <div className="max-w-7xl mx-auto">
         <motion.h2
           initial={{ opacity: 0, y: 40 }}
@@ -54,6 +58,7 @@ const BeforeAfterSlider = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={spring}
+          style={{ scale: sliderScale, rotateX: sliderRotateX, transformOrigin: "center bottom" }}
           className="max-w-4xl mx-auto"
         >
           <div
