@@ -1,4 +1,5 @@
 import MouseGlow from "@/components/MouseGlow";
+import ParticleBackground from "@/components/ParticleBackground";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import SocialProof from "@/components/SocialProof";
@@ -15,6 +16,7 @@ import Footer from "@/components/Footer";
 
 const Index = () => (
   <main className="min-h-screen bg-background text-foreground overflow-x-hidden">
+    <ParticleBackground />
     <MouseGlow />
     <Navbar />
     <Hero />
