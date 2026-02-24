@@ -2,7 +2,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import SpotlightCard from "./SpotlightCard";
 
-const spring = { type: "spring" as const, stiffness: 100, damping: 20 };
+const smooth = { type: "spring" as const, stiffness: 50, damping: 20, mass: 1 };
 
 const delivers = [
   { icon: "🗺️", text: "A rota exata para sair do zero" },
@@ -12,7 +12,6 @@ const delivers = [
   { icon: "🚀", text: "Otimização para escalar resultados" },
 ];
 
-// Explosion scatter positions — each card flies in from a wild position
 const scatterPositions = [
   { x: -400, y: -300, rotate: -45, scale: 0.3 },
   { x: 500, y: -200, rotate: 60, scale: 0.2 },
@@ -25,25 +24,23 @@ const ValueProp = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start end", "end start"] });
   
-  // Title zooms in dramatically
-  const titleScale = useTransform(scrollYProgress, [0, 0.3], [3, 1]);
-  const titleOpacity = useTransform(scrollYProgress, [0, 0.15, 0.3], [0, 0.5, 1]);
-  const titleBlur = useTransform(scrollYProgress, [0, 0.3], [20, 0]);
+  const titleScale = useTransform(scrollYProgress, [0.05, 0.3], [2.5, 1]);
+  const titleOpacity = useTransform(scrollYProgress, [0.05, 0.2, 0.3], [0, 0.6, 1]);
+  const titleBlur = useTransform(scrollYProgress, [0.05, 0.3], [15, 0]);
 
   return (
     <section ref={sectionRef} className="py-32 px-6 relative overflow-hidden" style={{ perspective: "1500px" }}>
       {/* Explosion flash */}
       <motion.div
-        style={{ opacity: useTransform(scrollYProgress, [0.1, 0.2, 0.35], [0, 0.6, 0]) }}
+        style={{ opacity: useTransform(scrollYProgress, [0.12, 0.22, 0.35], [0, 0.5, 0]) }}
         className="absolute inset-0 pointer-events-none z-0"
       >
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full blur-[150px]"
-          style={{ background: "radial-gradient(circle, hsl(328 100% 48% / 0.5), hsl(270 80% 55% / 0.3), transparent)" }}
+          style={{ background: "radial-gradient(circle, hsl(328 100% 48% / 0.4), hsl(270 80% 55% / 0.2), transparent)" }}
         />
       </motion.div>
 
       <div className="max-w-5xl mx-auto relative z-10">
-        {/* Title zooms in like flying through space */}
         <motion.div
           style={{ 
             scale: titleScale, 
@@ -65,7 +62,7 @@ const ValueProp = () => {
           </div>
         </motion.div>
 
-        {/* Cards explode in from scattered positions */}
+        {/* Cards explode in — NO once:true for bidirectional */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
           {delivers.map((item, i) => {
             const scatter = scatterPositions[i];
@@ -80,12 +77,13 @@ const ValueProp = () => {
                   opacity: 0 
                 }}
                 whileInView={{ x: 0, y: 0, rotate: 0, scale: 1, opacity: 1 }}
-                viewport={{ once: true, margin: "-100px" }}
+                viewport={{ margin: "-80px" }}
                 transition={{ 
                   type: "spring", 
-                  stiffness: 60, 
+                  stiffness: 40, 
                   damping: 12, 
-                  delay: i * 0.08,
+                  mass: 1.5,
+                  delay: i * 0.06,
                 }}
               >
                 <SpotlightCard>
@@ -102,8 +100,8 @@ const ValueProp = () => {
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.3 }}
+          viewport={{ margin: "-50px" }}
+          transition={{ duration: 0.6 }}
           className="text-center space-y-1 text-sm text-foreground/50 font-light"
         >
           <p>Você deixa de ser curioso.</p>

@@ -23,8 +23,8 @@ const SpotlightCard = ({ children, className = "", delay = 0 }: Props) => {
       ref={ref}
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{ type: "spring", stiffness: 100, damping: 20, delay }}
+      viewport={{ margin: "-60px" }}
+      transition={{ type: "spring", stiffness: 50, damping: 20, mass: 1, delay }}
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
