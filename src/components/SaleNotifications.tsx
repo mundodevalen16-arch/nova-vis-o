@@ -46,9 +46,9 @@ const PhoneNotifications = () => {
 
     setItems((prev) => [{ id, ...sale }, ...prev].slice(0, 6));
 
-    // Play sound only within first 6 seconds
+    // Play sound only within first 10 seconds
     const elapsed = Date.now() - startTimeRef.current;
-    if (elapsed < 6000 && audioRef.current) {
+    if (elapsed < 10000 && audioRef.current) {
       audioRef.current.currentTime = 0;
       audioRef.current.play().catch(() => {});
     }
@@ -108,11 +108,9 @@ const PhoneNotifications = () => {
           {items.map((item) => (
             <motion.div
               key={item.id}
-              layout
-              initial={{ opacity: 0, y: -24, scale: 0.92 }}
+              initial={{ opacity: 0, y: -20, scale: 0.9 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 10, scale: 0.85 }}
-              transition={{ type: "spring", stiffness: 350, damping: 30 }}
+              transition={{ type: "spring", stiffness: 300, damping: 24 }}
               className="rounded-2xl px-2 py-2 flex items-center gap-2"
               style={{
                 background: "hsl(0 0% 100% / 0.12)",
