@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
 import { useState, useRef, useCallback } from "react";
 
-/* Before/After Slider */
 const BeforeAfterSlider = () => {
   const [position, setPosition] = useState(50);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -14,7 +13,10 @@ const BeforeAfterSlider = () => {
     setPosition((x / rect.width) * 100);
   }, []);
 
-  const handlePointerDown = () => { isDragging.current = true; };
+  const handlePointerDown = (e: React.PointerEvent) => {
+    isDragging.current = true;
+    updatePosition(e.clientX);
+  };
   const handlePointerUp = () => { isDragging.current = false; };
   const handlePointerMove = (e: React.PointerEvent) => {
     if (isDragging.current) updatePosition(e.clientX);
@@ -24,49 +26,47 @@ const BeforeAfterSlider = () => {
     <div className="space-y-3">
       <div
         ref={containerRef}
-        className="relative w-full aspect-[4/5] rounded-2xl overflow-hidden cursor-ew-resize select-none"
+        className="cinematic-card relative w-full aspect-[3/4] cursor-ew-resize select-none touch-none"
         onPointerDown={handlePointerDown}
         onPointerUp={handlePointerUp}
         onPointerMove={handlePointerMove}
         onPointerLeave={handlePointerUp}
       >
-        {/* AFTER (background) */}
-        <div className="absolute inset-0 bg-gradient-to-br from-digital-purple/40 via-digital-violet/30 to-digital-blue/20 flex items-end p-6">
+        {/* AFTER */}
+        <div className="absolute inset-0 bg-gradient-hero flex items-end p-6 rounded-[2rem]">
           <div>
-            <span className="inline-block px-3 py-1 rounded-full text-xs font-body font-semibold bg-primary/20 border border-primary/30 text-foreground mb-2">DEPOIS</span>
-            <p className="font-display text-xl text-foreground">Método. Clareza. R$10k/mês.</p>
+            <span className="inline-block px-3 py-1 rounded-full text-[10px] font-body font-bold bg-primary/20 border border-primary/30 text-foreground mb-2 uppercase tracking-wider">Depois</span>
+            <p className="font-display text-2xl">Método. Clareza. R$10k/mês.</p>
           </div>
         </div>
 
-        {/* BEFORE (clipped) */}
+        {/* BEFORE */}
         <div
-          className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 grayscale brightness-[0.6] flex items-end p-6"
-          style={{ clipPath: `inset(0 ${100 - position}% 0 0)` }}
+          className="absolute inset-0 flex items-end p-6 rounded-[2rem]"
+          style={{
+            clipPath: `inset(0 ${100 - position}% 0 0)`,
+            background: "linear-gradient(160deg, hsl(0 0% 12%), hsl(0 0% 8%))",
+            filter: "grayscale(100%) brightness(0.5)",
+          }}
         >
           <div>
-            <span className="inline-block px-3 py-1 rounded-full text-xs font-body font-semibold bg-gray-700 text-gray-300 mb-2">ANTES</span>
-            <p className="font-display text-xl text-gray-400">Sem direção. Sem resultado.</p>
+            <span className="inline-block px-3 py-1 rounded-full text-[10px] font-body font-bold bg-muted text-muted-foreground mb-2 uppercase tracking-wider">Antes</span>
+            <p className="font-display text-2xl text-foreground/50">Sem direção. Sem resultado.</p>
           </div>
         </div>
 
         {/* Handle */}
-        <div
-          className="absolute top-0 bottom-0 w-1 bg-foreground/80 z-10"
-          style={{ left: `${position}%`, transform: "translateX(-50%)" }}
-        >
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-foreground/90 border-2 border-primary flex items-center justify-center text-background font-bold text-xs glow-purple">
+        <div className="absolute top-0 bottom-0 w-0.5 bg-foreground/60 z-20 pointer-events-none" style={{ left: `${position}%` }}>
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-foreground/90 border-2 border-primary flex items-center justify-center text-background font-bold text-xs glow-purple pointer-events-none">
             ⟨⟩
           </div>
         </div>
       </div>
-      <p className="text-center text-xs text-muted-foreground font-body animate-pulse">
-        ← Arraste para ver a transformação →
-      </p>
+      <p className="text-center text-xs text-muted-foreground font-body animate-pulse">← Arraste para ver a transformação →</p>
     </div>
   );
 };
 
-/* Counter */
 const Counter = ({ value, label }: { value: string; label: string }) => (
   <div className="text-center">
     <motion.p
@@ -77,7 +77,7 @@ const Counter = ({ value, label }: { value: string; label: string }) => (
     >
       {value}
     </motion.p>
-    <p className="font-body text-sm text-muted-foreground mt-1">{label}</p>
+    <p className="font-body text-xs text-muted-foreground mt-1">{label}</p>
   </div>
 );
 
@@ -89,7 +89,8 @@ const WhoIsBehind = () => {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="font-display text-4xl md:text-6xl text-center mb-16"
+          className="font-display text-5xl md:text-7xl text-center mb-16"
+          style={{ textShadow: "0 4px 20px hsl(var(--digital-purple) / 0.3)" }}
         >
           QUEM ESTÁ <span className="text-gradient-purple">POR TRÁS</span>
         </motion.h2>
@@ -109,22 +110,21 @@ const WhoIsBehind = () => {
             viewport={{ once: true }}
             className="space-y-6"
           >
-            <h3 className="font-display text-4xl md:text-5xl text-gradient-purple">iBielZz</h3>
-            <p className="font-body text-sm uppercase tracking-widest text-primary/70">
+            <h3 className="font-display text-5xl md:text-6xl text-gradient-purple">iBielZz</h3>
+            <p className="font-body text-xs uppercase tracking-[0.3em] text-primary/60">
               Especialista em Tráfego Pago e Marketing Digital
             </p>
-            <div className="space-y-4 font-body text-foreground/80 leading-relaxed">
+            <div className="space-y-4 font-body text-foreground/65 leading-relaxed text-sm">
               <p>Mais de 5 anos no mercado digital. Especialista em Meta Ads e Direct Response.</p>
               <p>Já ajudou centenas de pessoas a saírem do zero e construírem renda consistente na internet.</p>
-              <p className="text-foreground font-semibold">
+              <p className="text-foreground/90 font-semibold">
                 Não vendo teoria — ensino o que funciona na prática, com resultados reais e método testado.
               </p>
             </div>
-
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 pt-6 border-t border-border/30">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-6 border-t border-border/20">
               <Counter value="5+" label="Anos de experiência" />
-              <Counter value="R$10M+" label="Gerenciados em anúncios" />
-              <Counter value="500+" label="Alunos impactados" />
+              <Counter value="R$10M+" label="Em anúncios" />
+              <Counter value="500+" label="Alunos" />
               <Counter value="100%" label="Conteúdo 2026" />
             </div>
           </motion.div>

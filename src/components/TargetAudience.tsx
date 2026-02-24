@@ -23,46 +23,51 @@ const TargetAudience = () => {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="font-display text-4xl md:text-6xl text-center mb-16"
+          className="font-display text-5xl md:text-7xl text-center mb-16"
+          style={{ textShadow: "0 4px 20px hsl(var(--digital-purple) / 0.3)" }}
         >
           PARA QUEM É <span className="text-gradient-purple">ISSO?</span>
         </motion.h2>
 
-        <div className="grid md:grid-cols-2 gap-6 md:gap-8">
+        <div className="grid md:grid-cols-2 gap-6">
           <motion.div
-            initial={{ opacity: 0, x: -40 }}
+            initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="card-glass rounded-2xl p-8"
+            className="cinematic-card"
           >
-            <h3 className="font-display text-2xl md:text-3xl mb-6 text-green-400">✅ Para quem É</h3>
-            <ul className="space-y-4 font-body">
-              {forWho.map((item, i) => (
-                <li key={i} className="flex items-start gap-3 text-foreground/80">
-                  <span className="text-green-400 mt-0.5">✅</span>
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
+            <div className="absolute inset-0" style={{ background: "linear-gradient(160deg, hsl(140 60% 20% / 0.15), hsl(var(--card)))" }} />
+            <div className="relative z-10 p-8">
+              <h3 className="font-display text-3xl mb-6" style={{ color: "hsl(140 70% 60%)" }}>Para quem É</h3>
+              <ul className="space-y-4 font-body">
+                {forWho.map((item, i) => (
+                  <li key={i} className="flex items-start gap-3 text-foreground/75">
+                    <span className="mt-0.5" style={{ color: "hsl(140 70% 60%)" }}>✓</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, x: 40 }}
+            initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="card-glass rounded-2xl p-8"
+            className="cinematic-card"
           >
-            <h3 className="font-display text-2xl md:text-3xl mb-6 text-red-400">❌ Para quem NÃO É</h3>
-            <ul className="space-y-4 font-body">
-              {notForWho.map((item, i) => (
-                <li key={i} className="flex items-start gap-3 text-foreground/60">
-                  <span className="text-red-400 mt-0.5">❌</span>
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
+            <div className="absolute inset-0" style={{ background: "linear-gradient(160deg, hsl(0 60% 20% / 0.15), hsl(var(--card)))" }} />
+            <div className="relative z-10 p-8">
+              <h3 className="font-display text-3xl mb-6" style={{ color: "hsl(0 70% 65%)" }}>Para quem NÃO É</h3>
+              <ul className="space-y-4 font-body">
+                {notForWho.map((item, i) => (
+                  <li key={i} className="flex items-start gap-3 text-foreground/50">
+                    <span className="mt-0.5" style={{ color: "hsl(0 70% 65%)" }}>✕</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </motion.div>
         </div>
       </div>
