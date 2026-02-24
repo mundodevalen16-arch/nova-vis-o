@@ -5,11 +5,14 @@ import SpotlightCard from "./SpotlightCard";
 const smooth = { type: "spring" as const, stiffness: 50, damping: 20, mass: 1 };
 
 const delivers = [
-  { icon: "🗺️", text: "A rota exata para sair do zero" },
-  { icon: "🏗️", text: "Estrutura validada de campanhas" },
-  { icon: "⚙️", text: "Configuração profissional de contas" },
-  { icon: "📊", text: "Leitura estratégica de métricas" },
-  { icon: "🚀", text: "Otimização para escalar resultados" },
+  { icon: "🗺️", text: "A rota exata para sair do zero", detail: "Sem achismo, sem tentativa e erro." },
+  { icon: "🏗️", text: "Estrutura validada de campanhas", detail: "Copie, cole e adapte pro seu nicho." },
+  { icon: "⚙️", text: "Configuração profissional de contas", detail: "Perfis blindados contra bloqueios." },
+  { icon: "📊", text: "Leitura estratégica de métricas", detail: "Saiba exatamente onde está o lucro." },
+  { icon: "🚀", text: "Otimização para escalar resultados", detail: "Dobre o resultado sem dobrar o investimento." },
+  { icon: "🧪", text: "Testes que eliminam desperdício", detail: "Descubra o que funciona antes de gastar." },
+  { icon: "💰", text: "Funis que convertem no automático", detail: "Venda enquanto dorme, viaja ou treina." },
+  { icon: "🔮", text: "Pixel e API configurados do jeito certo", detail: "Dados precisos = decisões certeiras." },
 ];
 
 const scatterPositions = [
@@ -18,6 +21,9 @@ const scatterPositions = [
   { x: -300, y: 400, rotate: -30, scale: 0.4 },
   { x: 400, y: 300, rotate: 50, scale: 0.3 },
   { x: 0, y: -500, rotate: -20, scale: 0.2 },
+  { x: -500, y: 100, rotate: 35, scale: 0.3 },
+  { x: 350, y: -400, rotate: -55, scale: 0.2 },
+  { x: -200, y: 500, rotate: 40, scale: 0.3 },
 ];
 
 const ValueProp = () => {
@@ -63,7 +69,7 @@ const ValueProp = () => {
         </motion.div>
 
         {/* Cards explode in — NO once:true for bidirectional */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
           {delivers.map((item, i) => {
             const scatter = scatterPositions[i];
             return (
@@ -87,15 +93,32 @@ const ValueProp = () => {
                 }}
               >
                 <SpotlightCard>
-                  <div className="p-6 flex items-center gap-4">
+                  <div className="p-5 flex flex-col gap-2">
                     <span className="text-2xl">{item.icon}</span>
-                    <span className="text-sm text-foreground/80 font-medium">{item.text}</span>
+                    <span className="text-sm text-foreground/90 font-semibold leading-tight">{item.text}</span>
+                    <span className="text-xs text-muted-foreground font-light leading-relaxed">{item.detail}</span>
                   </div>
                 </SpotlightCard>
               </motion.div>
             );
           })}
         </div>
+
+        {/* Reforço visual com frase de impacto */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ margin: "-60px" }}
+          transition={{ type: "spring", stiffness: 50, damping: 18 }}
+          className="max-w-2xl mx-auto text-center mb-12 premium-card border-gradient p-8"
+        >
+          <p className="text-lg md:text-xl font-bold text-foreground/90 mb-2">
+            "Não é curso de guru. É sistema de execução."
+          </p>
+          <p className="text-xs text-muted-foreground font-light">
+            Cada módulo foi desenhado para você aplicar no mesmo dia — e ver resultado na mesma semana.
+          </p>
+        </motion.div>
 
         <motion.div
           initial={{ opacity: 0 }}
