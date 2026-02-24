@@ -1,96 +1,90 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 
-const names = [
-  "Lucas S.", "Maria F.", "João P.", "Ana C.", "Pedro H.",
-  "Camila R.", "Rafael M.", "Juliana L.", "Bruno A.", "Fernanda T.",
-  "Gabriel O.", "Larissa B.", "Thiago N.", "Beatriz K.", "Diego V.",
-  "Isabela G.", "Matheus D.", "Carolina E.", "Felipe W.", "Amanda Z.",
+const notifications = [
+  { flag: "🇧🇷", value: "R$397,00" },
+  { flag: "🇧🇷", value: "R$397,00" },
+  { flag: "🇵🇹", value: "€72,00" },
+  { flag: "🇧🇷", value: "R$397,00" },
+  { flag: "🇪🇸", value: "€72,00" },
+  { flag: "🇧🇷", value: "R$397,00" },
+  { flag: "🇺🇸", value: "$79,00" },
+  { flag: "🇧🇷", value: "R$397,00" },
 ];
 
-const cities = [
-  "São Paulo", "Rio de Janeiro", "Belo Horizonte", "Curitiba", "Salvador",
-  "Fortaleza", "Brasília", "Recife", "Porto Alegre", "Manaus",
-  "Goiânia", "Florianópolis", "Campinas", "Vitória", "Natal",
-];
-
-const timeAgo = () => {
-  const mins = Math.floor(Math.random() * 15) + 1;
-  return `há ${mins} min`;
-};
-
-interface Notification {
-  id: number;
-  name: string;
-  city: string;
-  time: string;
-}
-
-const SaleNotifications = () => {
-  const [notifications, setNotifications] = useState<Notification[]>([]);
+const PhoneNotifications = () => {
+  const [items, setItems] = useState<{ id: number; flag: string; value: string }[]>([]);
   const [counter, setCounter] = useState(0);
 
-  const addNotification = useCallback(() => {
-    const notif: Notification = {
-      id: counter,
-      name: names[Math.floor(Math.random() * names.length)],
-      city: cities[Math.floor(Math.random() * cities.length)],
-      time: timeAgo(),
+  useEffect(() => {
+    const add = () => {
+      const n = notifications[counter % notifications.length];
+      const id = counter;
+      setItems((prev) => [{ id, ...n }, ...prev].slice(0, 6));
+      setCounter((c) => c + 1);
     };
-    setCounter((c) => c + 1);
-    setNotifications((prev) => [notif, ...prev].slice(0, 3));
 
-    // Remove after 3.5s
-    setTimeout(() => {
-      setNotifications((prev) => prev.filter((n) => n.id !== notif.id));
-    }, 3500);
+    // First after 1s, then every 2.5s
+    const t = setTimeout(add, 1000);
+    const iv = setInterval(add, 2500);
+    return () => { clearTimeout(t); clearInterval(iv); };
   }, [counter]);
 
-  useEffect(() => {
-    // First one after 2s
-    const first = setTimeout(addNotification, 2000);
-    // Then every 4-7s
-    const interval = setInterval(() => {
-      addNotification();
-    }, 4000 + Math.random() * 3000);
-
-    return () => {
-      clearTimeout(first);
-      clearInterval(interval);
-    };
-  }, [addNotification]);
-
   return (
-    <div className="fixed top-16 left-4 right-4 md:left-auto md:right-6 md:w-72 z-40 flex flex-col gap-2 pointer-events-none">
-      <AnimatePresence mode="popLayout">
-        {notifications.map((notif) => (
-          <motion.div
-            key={notif.id}
-            initial={{ opacity: 0, y: -40, scale: 0.85 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, x: 80, scale: 0.9 }}
-            transition={{ type: "spring", stiffness: 300, damping: 25 }}
-            className="glass-strong rounded-xl px-3 py-2.5 flex items-center gap-3 pointer-events-auto"
-          >
-            <div className="w-8 h-8 rounded-full bg-gradient-pink flex items-center justify-center flex-shrink-0">
-              <span className="text-xs">🔥</span>
-            </div>
-            <div className="flex-1 min-w-0">
-              <p className="text-[11px] font-semibold text-foreground truncate">
-                {notif.name} <span className="text-foreground/40 font-normal">comprou</span>
-              </p>
-              <p className="text-[10px] text-foreground/50">
-                {notif.city} · {notif.time}
-              </p>
-            </div>
-            <div className="flex-shrink-0">
-              <div className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
-            </div>
-          </motion.div>
-        ))}
-      </AnimatePresence>
+    <div className="absolute inset-2 rounded-[2rem] overflow-hidden flex flex-col" style={{
+      background: "linear-gradient(180deg, hsl(270 50% 15%), hsl(328 40% 12%) 50%, hsl(0 0% 5%))",
+    }}>
+      {/* Status bar */}
+      <div className="px-3 pt-8 pb-1 flex items-center justify-between">
+        <span className="text-[8px] text-foreground/40 font-medium">9:41</span>
+        <div className="flex gap-1 items-center">
+          <div className="w-3 h-1.5 rounded-sm border border-foreground/30" />
+        </div>
+      </div>
+
+      {/* App header */}
+      <div className="px-3 pb-2 flex items-center justify-between">
+        <span className="text-[9px] font-bold text-foreground/60 tracking-wide">360 Digital</span>
+        <span className="text-[8px] text-foreground/30">agora</span>
+      </div>
+
+      {/* Notifications stream */}
+      <div className="flex-1 px-1.5 space-y-1.5 overflow-hidden">
+        <AnimatePresence initial={false}>
+          {items.map((item) => (
+            <motion.div
+              key={item.id}
+              initial={{ opacity: 0, y: -30, scale: 0.8 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.7 }}
+              transition={{ type: "spring", stiffness: 400, damping: 25 }}
+              className="rounded-xl px-2 py-1.5 flex items-center gap-1.5"
+              style={{
+                background: "hsl(0 0% 100% / 0.06)",
+                border: "1px solid hsl(0 0% 100% / 0.08)",
+                backdropFilter: "blur(8px)",
+              }}
+            >
+              {/* Icon */}
+              <div className="w-5 h-5 rounded-md bg-gradient-pink flex items-center justify-center flex-shrink-0">
+                <span className="text-[8px] font-black text-primary-foreground">3</span>
+              </div>
+              {/* Text */}
+              <div className="flex-1 min-w-0">
+                <p className="text-[8px] font-semibold text-foreground/80 truncate">
+                  Venda aprovada! | {item.flag}
+                </p>
+                <p className="text-[7px] text-foreground/40">
+                  Valor: {item.value}
+                </p>
+              </div>
+              <span className="text-[7px] text-foreground/25 flex-shrink-0">agora</span>
+            </motion.div>
+          ))}
+        </AnimatePresence>
+      </div>
     </div>
   );
 };
 
-export default SaleNotifications;
+export default PhoneNotifications;
