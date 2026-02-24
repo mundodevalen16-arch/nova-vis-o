@@ -1,3 +1,4 @@
+import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import SocialProof from "@/components/SocialProof";
 import TargetAudience from "@/components/TargetAudience";
@@ -9,21 +10,20 @@ import Price from "@/components/Price";
 import FAQ from "@/components/FAQ";
 import Footer from "@/components/Footer";
 
-const Index = () => {
-  return (
-    <main className="min-h-screen bg-background text-foreground overflow-x-hidden">
-      <Hero />
-      <SocialProof />
-      <TargetAudience />
-      <Modules />
-      <Transformation />
-      <WhoIsBehind />
-      <Bonus />
-      <Price />
-      <FAQ />
-      <Footer />
-    </main>
-  );
-};
+const Index = () => (
+  <main className="min-h-screen bg-background text-foreground overflow-x-hidden">
+    <Navbar />
+    <Hero />
+    <SocialProof />
+    <TargetAudience />
+    <Modules />
+    <Transformation />
+    <WhoIsBehind />
+    <Bonus />
+    <Price />
+    <FAQ />
+    <Footer />
+  </main>
+);
 
 export default Index;

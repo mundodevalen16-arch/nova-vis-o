@@ -6,6 +6,8 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
+const spring = { type: "spring" as const, stiffness: 100, damping: 20 };
+
 const faqs = [
   { q: "Preciso ter experiência prévia?", a: "Não. O curso foi feito do zero ao avançado. Se você nunca fez um anúncio na vida, é exatamente para você." },
   { q: "Por quanto tempo terei acesso?", a: "O acesso é anual. Você pode assistir as aulas quantas vezes quiser durante 1 ano." },
@@ -15,48 +17,44 @@ const faqs = [
   { q: "Os bônus estão inclusos no preço?", a: "Sim. Comunidade, sorteios e atualizações estão incluídos no valor anual de R$399." },
 ];
 
-const FAQ = () => {
-  return (
-    <section className="py-20 md:py-32 px-4">
-      <div className="max-w-3xl mx-auto">
-        <motion.h2
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="font-display text-5xl md:text-7xl text-center mb-16"
-          style={{ textShadow: "0 4px 20px hsl(var(--digital-purple) / 0.3)" }}
-        >
-          PERGUNTAS <span className="text-gradient-purple">FREQUENTES</span>
-        </motion.h2>
+const FAQ = () => (
+  <section className="py-32 px-6">
+    <div className="max-w-2xl mx-auto">
+      <motion.h2
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={spring}
+        className="text-5xl md:text-7xl font-black text-center mb-20 tracking-tight"
+      >
+        Perguntas <span className="text-gradient-pink">frequentes</span>
+      </motion.h2>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-        >
-          <Accordion type="single" collapsible className="space-y-3">
-            {faqs.map((faq, i) => (
-              <AccordionItem
-                key={i}
-                value={`faq-${i}`}
-                className="cinematic-card border-none overflow-visible"
-              >
-                <div className="absolute inset-0 rounded-[2rem]" style={{ background: "hsl(var(--card))" }} />
-                <div className="relative z-10 px-6">
-                  <AccordionTrigger className="font-body font-semibold text-left hover:no-underline py-5 text-sm">
-                    {faq.q}
-                  </AccordionTrigger>
-                  <AccordionContent className="font-body text-muted-foreground pb-5 text-sm">
-                    {faq.a}
-                  </AccordionContent>
-                </div>
-              </AccordionItem>
-            ))}
-          </Accordion>
-        </motion.div>
-      </div>
-    </section>
-  );
-};
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={spring}
+      >
+        <Accordion type="single" collapsible className="space-y-3">
+          {faqs.map((faq, i) => (
+            <AccordionItem
+              key={i}
+              value={`faq-${i}`}
+              className="premium-card border-none overflow-visible px-6"
+            >
+              <AccordionTrigger className="font-semibold text-left hover:no-underline py-5 text-sm">
+                {faq.q}
+              </AccordionTrigger>
+              <AccordionContent className="text-muted-foreground pb-5 text-sm font-light">
+                {faq.a}
+              </AccordionContent>
+            </AccordionItem>
+          ))}
+        </Accordion>
+      </motion.div>
+    </div>
+  </section>
+);
 
 export default FAQ;

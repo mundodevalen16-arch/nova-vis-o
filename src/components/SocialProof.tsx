@@ -9,11 +9,11 @@ const items = [
 const SocialProof = () => {
   const repeated = [...items, ...items, ...items, ...items];
   return (
-    <section className="relative py-5 overflow-hidden" style={{ background: "hsl(var(--digital-purple) / 0.08)" }}>
-      <div className="absolute inset-0 border-y border-primary/10" />
+    <section className="relative py-4 overflow-hidden border-y border-border/50">
+      <div className="absolute inset-0 bg-primary/[0.03]" />
       <div className="flex animate-marquee whitespace-nowrap">
         {repeated.map((item, i) => (
-          <span key={i} className="mx-8 text-sm md:text-base font-body text-foreground/60 font-medium">
+          <span key={i} className="mx-10 text-sm font-medium text-muted-foreground">
             {item}
           </span>
         ))}
