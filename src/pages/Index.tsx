@@ -1,4 +1,4 @@
-import Navbar from "@/components/Navbar";
+import MouseGlow from "@/components/MouseGlow";
 import Hero from "@/components/Hero";
 import SocialProof from "@/components/SocialProof";
 import TargetAudience from "@/components/TargetAudience";
@@ -12,7 +12,7 @@ import Footer from "@/components/Footer";
 
 const Index = () => (
   <main className="min-h-screen bg-background text-foreground overflow-x-hidden">
-    <Navbar />
+    <MouseGlow />
     <Hero />
     <SocialProof />
     <TargetAudience />

@@ -17,76 +17,66 @@ const modules = [
   { num: "12", icon: "🏗️", name: "Estrutura 2026", desc: "A estrutura mais atualizada do mercado." },
 ];
 
-// Sticky stacking cards — show 4 at a time in a stacked layout
-const stickyModules = modules.slice(0, 6);
-
-const StickyCard = ({ mod, index }: { mod: typeof modules[0]; index: number }) => {
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "start start"],
-  });
-  const scale = useTransform(scrollYProgress, [0, 1], [0.9, 1]);
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [0.3, 1]);
-
-  return (
-    <div ref={ref} className="sticky" style={{ top: `${120 + index * 30}px` }}>
-      <motion.div style={{ scale, opacity }} className="premium-card border-gradient p-8 mb-4">
-        <div className="flex items-start gap-5">
-          <span className="text-4xl">{mod.icon}</span>
-          <div>
-            <span className="text-xs font-medium text-muted-foreground tracking-widest uppercase">
-              Módulo {mod.num}
-            </span>
-            <h3 className="text-xl font-bold mt-1 mb-2 text-foreground">{mod.name}</h3>
-            <p className="text-sm text-muted-foreground font-light leading-relaxed">{mod.desc}</p>
-          </div>
-        </div>
-      </motion.div>
-    </div>
-  );
-};
+const spring = { type: "spring" as const, stiffness: 100, damping: 20 };
 
 const Modules = () => {
+  const constraintsRef = useRef<HTMLDivElement>(null);
+
   return (
-    <section id="modulos" className="py-32 px-6">
-      <div className="max-w-7xl mx-auto">
-        <motion.div
+    <section id="modulos" className="py-32 overflow-hidden">
+      <div className="max-w-7xl mx-auto px-6 mb-12">
+        <motion.h2
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ type: "spring", stiffness: 100, damping: 20 }}
-          className="text-center mb-20"
+          transition={spring}
+          className="text-5xl md:text-7xl font-black text-center mb-4 tracking-tight"
         >
-          <h2 className="text-5xl md:text-7xl font-black mb-4 tracking-tight">
-            O que você vai{" "}
-            <span className="text-gradient-pink">dominar</span>
-          </h2>
-          <p className="text-muted-foreground font-light">12 módulos completos • Do zero ao avançado</p>
-        </motion.div>
+          O que você vai <span className="text-gradient-pink">dominar</span>
+        </motion.h2>
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          className="text-center text-muted-foreground font-light text-sm"
+        >
+          12 módulos completos • Arraste para explorar →
+        </motion.p>
+      </div>
 
-        {/* Sticky stacking section */}
-        <div className="max-w-2xl mx-auto mb-20">
-          {stickyModules.map((mod, i) => (
-            <StickyCard key={mod.num} mod={mod} index={i} />
-          ))}
-        </div>
-
-        {/* Grid for the remaining */}
-        <div className="grid md:grid-cols-3 gap-4">
-          {modules.slice(6).map((mod, i) => (
-            <SpotlightCard key={mod.num} delay={i * 0.05}>
-              <div className="p-6">
-                <span className="text-3xl">{mod.icon}</span>
-                <span className="block text-[10px] font-medium text-muted-foreground tracking-widest uppercase mt-3">
+      {/* Draggable horizontal carousel */}
+      <div ref={constraintsRef} className="overflow-hidden px-6">
+        <motion.div
+          drag="x"
+          dragConstraints={constraintsRef}
+          dragElastic={0.1}
+          className="flex gap-5 cursor-grab active:cursor-grabbing pb-4"
+          style={{ width: "max-content" }}
+        >
+          {modules.map((mod, i) => (
+            <motion.div
+              key={mod.num}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ ...spring, delay: i * 0.04 }}
+              whileHover={{ scale: 1.04, y: -6 }}
+              className="premium-card border-gradient min-w-[260px] md:min-w-[300px] flex-shrink-0 cursor-pointer group"
+            >
+              <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{
+                background: "radial-gradient(circle at 50% 50%, hsl(328 100% 48% / 0.06), transparent 70%)",
+              }} />
+              <div className="relative z-10 p-6">
+                <div className="text-3xl mb-3">{mod.icon}</div>
+                <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-[0.25em]">
                   Módulo {mod.num}
                 </span>
-                <h3 className="text-lg font-bold mt-1 mb-2">{mod.name}</h3>
+                <h3 className="text-xl font-bold mt-1 mb-2 leading-tight">{mod.name}</h3>
                 <p className="text-xs text-muted-foreground font-light leading-relaxed">{mod.desc}</p>
               </div>
-            </SpotlightCard>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
