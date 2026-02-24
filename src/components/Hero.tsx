@@ -77,7 +77,7 @@ const Hero = () => {
                 className="mb-3"
               >
                 <span className="text-xs md:text-sm text-foreground/40 uppercase tracking-[0.3em] font-medium">
-                  Domine o Tráfego Pago em 2026
+                  Método completo de tráfego pago
                 </span>
               </motion.div>
 
@@ -99,7 +99,7 @@ const Hero = () => {
                 transition={{ delay: 0.6, duration: 0.5 }}
                 className="text-sm md:text-base text-foreground/50 max-w-md leading-relaxed mb-8 font-light"
               >
-                O único curso que te leva do absoluto zero ao domínio completo do tráfego pago no Meta Ads.
+                Aprenda a criar campanhas lucrativas no Meta Ads mesmo sem experiência. O passo a passo que já transformou centenas de alunos em gestores de tráfego profissionais.
               </motion.p>
 
               <motion.div
@@ -114,7 +114,6 @@ const Hero = () => {
                 >
                   QUERO ENTRAR AGORA
                 </a>
-                <span className="text-xs text-foreground/30">7 dias de garantia</span>
               </motion.div>
             </div>
 
