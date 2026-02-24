@@ -21,11 +21,17 @@ const spring = { type: "spring" as const, stiffness: 100, damping: 20 };
 
 const Modules = () => {
   const constraintsRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start end", "end start"] });
+  const titleY = useTransform(scrollYProgress, [0, 0.4], [80, 0]);
+  const carouselRotateX = useTransform(scrollYProgress, [0.1, 0.5], [6, 0]);
+  const carouselY = useTransform(scrollYProgress, [0.1, 0.5], [40, 0]);
 
   return (
-    <section id="modulos" className="py-32 overflow-hidden">
+    <section ref={sectionRef} id="modulos" className="py-32 overflow-hidden" style={{ perspective: "1400px" }}>
       <div className="max-w-7xl mx-auto px-6 mb-12">
         <motion.div
+          style={{ y: titleY }}
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -44,7 +50,7 @@ const Modules = () => {
       </div>
 
       {/* Draggable horizontal carousel */}
-      <div ref={constraintsRef} className="overflow-hidden px-6">
+      <motion.div ref={constraintsRef} className="overflow-hidden px-6" style={{ rotateX: carouselRotateX, y: carouselY, transformOrigin: "center top" }}>
         <motion.div
           drag="x"
           dragConstraints={constraintsRef}
@@ -76,7 +82,7 @@ const Modules = () => {
             </motion.div>
           ))}
         </motion.div>
-      </div>
+      </motion.div>
 
       <motion.div
         initial={{ opacity: 0 }}

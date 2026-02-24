@@ -118,10 +118,6 @@ const Hero = () => {
                 >
                   👉 QUERO ENTRAR AGORA
                 </a>
-                <div className="flex flex-col gap-1 text-xs text-foreground/40 font-light">
-                  <span>Acesso anual por R$399</span>
-                  <span>Garantia incondicional de 7 dias</span>
-                </div>
               </motion.div>
             </div>
 
