@@ -4,10 +4,20 @@ import { useRef } from "react";
 const smooth = { type: "spring" as const, stiffness: 50, damping: 20, mass: 1 };
 
 const stats = [
-  { value: "5+", label: "Anos de experiência" },
-  { value: "R$10M+", label: "Gerenciados em anúncios" },
-  { value: "500+", label: "Alunos impactados" },
-  { value: "100%", label: "Conteúdo 2026" },
+  { value: "5+", label: "Anos no digital" },
+  { value: "R$10M+", label: "Em ads gerenciados" },
+  { value: "500+", label: "Alunos transformados" },
+  { value: "30+", label: "Nichos dominados" },
+  { value: "100%", label: "Método atualizado 2026" },
+  { value: "24/7", label: "Suporte e comunidade" },
+];
+
+const credentials = [
+  "Meta Ads Expert — certificado oficial",
+  "Direct Response Specialist",
+  "Estrategista de funis de alta conversão",
+  "Mentor de +500 alunos ativos",
+  "Gestor de tráfego para grandes players",
 ];
 
 const statScatter = [
@@ -15,6 +25,8 @@ const statScatter = [
   { x: 200, y: -250, rotate: 35 },
   { x: -250, y: 200, rotate: -25 },
   { x: 300, y: 150, rotate: 45 },
+  { x: -180, y: -200, rotate: 30 },
+  { x: 250, y: 250, rotate: -35 },
 ];
 
 const WhoIsBehind = () => {
@@ -59,7 +71,7 @@ const WhoIsBehind = () => {
               Especialista em Meta Ads e Direct Response
             </p>
 
-            <div className="space-y-4 text-foreground/60 text-sm font-light leading-relaxed max-w-xl mx-auto mb-12">
+            <div className="space-y-5 text-foreground/60 text-sm font-light leading-relaxed max-w-xl mx-auto mb-8">
               <p>
                 Mais de <span className="text-foreground/90 font-medium">5 anos no mercado digital</span>. 
                 Especialista em Meta Ads e Direct Response com mais de 
@@ -69,18 +81,37 @@ const WhoIsBehind = () => {
                 Já ajudou <span className="text-foreground/90 font-medium">centenas de pessoas</span> a saírem do zero 
                 e construírem renda consistente na internet — com método, estratégia e acompanhamento real.
               </p>
+              <p>
+                Atuou em <span className="text-foreground/90 font-medium">+30 nichos diferentes</span>, de infoprodutos 
+                a e-commerce, dominando as particularidades de cada mercado e criando estratégias sob medida.
+              </p>
               <p className="text-foreground/40">
                 Não ensino teoria. Ensino o que funciona.<br />
                 O que eu aplico. O que gera resultado. O que escala.
               </p>
-              <p className="text-foreground/90 font-semibold text-base">
+              <p className="text-foreground/90 font-semibold text-base italic">
                 "Não vendo promessa — entrego preparação para resultado."
               </p>
+            </div>
+
+            {/* Credentials list */}
+            <div className="flex flex-wrap justify-center gap-3 mb-12">
+              {credentials.map((c, i) => (
+                <motion.span
+                  key={i}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: i * 0.06, type: "spring", stiffness: 80, damping: 15 }}
+                  className="px-4 py-1.5 text-xs font-medium rounded-full border border-primary/20 bg-primary/5 text-foreground/70"
+                >
+                  {c}
+                </motion.span>
+              ))}
             </div>
           </motion.div>
 
           {/* Stats explode in from scattered positions — bidirectional */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-5">
             {stats.map((s, i) => (
               <motion.div
                 key={i}
