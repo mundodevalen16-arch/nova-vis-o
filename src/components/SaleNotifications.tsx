@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect, useRef, useCallback } from "react";
+import notifIcon from "@/assets/notif-icon.png";
 
 const saleTypes = [
   { type: "aprovada", flag: "🇧🇷", value: "R$ 397,00" },
@@ -118,11 +119,7 @@ const PhoneNotifications = () => {
                 backdropFilter: "blur(12px)",
               }}
             >
-              <div className="w-6 h-6 rounded-lg flex items-center justify-center flex-shrink-0" style={{
-                background: "linear-gradient(135deg, hsl(230 40% 20%), hsl(230 50% 30%))",
-              }}>
-                <span className="text-[9px] font-black text-foreground">3</span>
-              </div>
+              <img src={notifIcon} alt="App" className="w-6 h-6 rounded-lg flex-shrink-0 object-cover" />
               <div className="flex-1 min-w-0">
                 <p className="text-[8px] font-bold text-foreground/90 truncate">
                   Venda {item.type}! | {item.flag}
