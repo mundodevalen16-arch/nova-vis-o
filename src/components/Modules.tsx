@@ -23,15 +23,40 @@ const Modules = () => {
   const constraintsRef = useRef<HTMLDivElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start end", "end start"] });
-  const titleY = useTransform(scrollYProgress, [0, 0.4], [80, 0]);
-  const carouselRotateX = useTransform(scrollYProgress, [0.1, 0.5], [6, 0]);
-  const carouselY = useTransform(scrollYProgress, [0.1, 0.5], [40, 0]);
+  
+  // Warp tunnel effect — carousel comes from extreme perspective
+  const carouselRotateX = useTransform(scrollYProgress, [0, 0.4], [40, 0]);
+  const carouselScale = useTransform(scrollYProgress, [0, 0.4], [0.4, 1]);
+  const carouselY = useTransform(scrollYProgress, [0, 0.4], [300, 0]);
+  const carouselOpacity = useTransform(scrollYProgress, [0, 0.15], [0, 1]);
+
+  // Speed lines behind carousel
+  const linesOpacity = useTransform(scrollYProgress, [0.05, 0.2, 0.4], [0, 0.6, 0]);
 
   return (
-    <section ref={sectionRef} id="modulos" className="py-32 overflow-hidden" style={{ perspective: "1400px" }}>
-      <div className="max-w-7xl mx-auto px-6 mb-12">
+    <section ref={sectionRef} id="modulos" className="py-32 overflow-hidden relative" style={{ perspective: "2500px" }}>
+      {/* Speed lines / warp effect */}
+      <motion.div
+        style={{ opacity: linesOpacity }}
+        className="absolute inset-0 pointer-events-none z-0 overflow-hidden"
+      >
+        {Array.from({ length: 12 }).map((_, i) => (
+          <div
+            key={i}
+            className="absolute h-[2px] rounded-full"
+            style={{
+              width: `${150 + Math.random() * 300}px`,
+              top: `${10 + (i * 7)}%`,
+              left: `${Math.random() * 100}%`,
+              background: `linear-gradient(90deg, transparent, hsl(328 100% 48% / ${0.2 + Math.random() * 0.4}), transparent)`,
+              transform: `rotate(${-5 + Math.random() * 10}deg)`,
+            }}
+          />
+        ))}
+      </motion.div>
+
+      <div className="max-w-7xl mx-auto px-6 mb-12 relative z-10">
         <motion.div
-          style={{ y: titleY }}
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -49,39 +74,50 @@ const Modules = () => {
         </motion.div>
       </div>
 
-      {/* Draggable horizontal carousel */}
-      <motion.div ref={constraintsRef} className="overflow-hidden px-6" style={{ rotateX: carouselRotateX, y: carouselY, transformOrigin: "center top" }}>
-        <motion.div
-          drag="x"
-          dragConstraints={constraintsRef}
-          dragElastic={0.1}
-          className="flex gap-5 cursor-grab active:cursor-grabbing pb-4"
-          style={{ width: "max-content" }}
-        >
-          {modules.map((mod, i) => (
-            <motion.div
-              key={mod.num}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ ...spring, delay: i * 0.04 }}
-              whileHover={{ scale: 1.04, y: -6 }}
-              className="premium-card border-gradient min-w-[260px] md:min-w-[300px] flex-shrink-0 cursor-pointer group"
-            >
-              <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{
-                background: "radial-gradient(circle at 50% 50%, hsl(328 100% 48% / 0.06), transparent 70%)",
-              }} />
-              <div className="relative z-10 p-6">
-                <div className="text-3xl mb-3">{mod.icon}</div>
-                <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-[0.25em]">
-                  Módulo {mod.num}
-                </span>
-                <h3 className="text-xl font-bold mt-1 mb-2 leading-tight">{mod.name}</h3>
-                <p className="text-xs text-muted-foreground font-light leading-relaxed">{mod.desc}</p>
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
+      {/* Carousel warps in from deep perspective */}
+      <motion.div 
+        style={{ 
+          rotateX: carouselRotateX, 
+          scale: carouselScale, 
+          y: carouselY, 
+          opacity: carouselOpacity,
+          transformOrigin: "center bottom" 
+        }}
+        className="relative z-10"
+      >
+        <div ref={constraintsRef} className="overflow-hidden px-6">
+          <motion.div
+            drag="x"
+            dragConstraints={constraintsRef}
+            dragElastic={0.1}
+            className="flex gap-5 cursor-grab active:cursor-grabbing pb-4"
+            style={{ width: "max-content" }}
+          >
+            {modules.map((mod, i) => (
+              <motion.div
+                key={mod.num}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ ...spring, delay: i * 0.04 }}
+                whileHover={{ scale: 1.04, y: -6 }}
+                className="premium-card border-gradient min-w-[260px] md:min-w-[300px] flex-shrink-0 cursor-pointer group"
+              >
+                <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{
+                  background: "radial-gradient(circle at 50% 50%, hsl(328 100% 48% / 0.06), transparent 70%)",
+                }} />
+                <div className="relative z-10 p-6">
+                  <div className="text-3xl mb-3">{mod.icon}</div>
+                  <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-[0.25em]">
+                    Módulo {mod.num}
+                  </span>
+                  <h3 className="text-xl font-bold mt-1 mb-2 leading-tight">{mod.name}</h3>
+                  <p className="text-xs text-muted-foreground font-light leading-relaxed">{mod.desc}</p>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
       </motion.div>
 
       <motion.div
@@ -89,7 +125,7 @@ const Modules = () => {
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         transition={{ delay: 0.3 }}
-        className="max-w-7xl mx-auto px-6 mt-8 text-center space-y-1 text-sm text-foreground/50 font-light"
+        className="max-w-7xl mx-auto px-6 mt-8 text-center space-y-1 text-sm text-foreground/50 font-light relative z-10"
       >
         <p>Você não sai sabendo "um pouco".</p>
         <p className="text-foreground/80 font-semibold">Você sai com estrutura montada.</p>

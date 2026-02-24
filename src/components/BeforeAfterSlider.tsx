@@ -9,8 +9,12 @@ const BeforeAfterSlider = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const isDragging = useRef(false);
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start end", "end start"] });
-  const sliderScale = useTransform(scrollYProgress, [0, 0.3], [0.88, 1]);
-  const sliderRotateX = useTransform(scrollYProgress, [0, 0.3], [10, 0]);
+  
+  // Dramatic flip reveal — entire slider does a backflip into view
+  const flipRotateX = useTransform(scrollYProgress, [0, 0.35], [120, 0]);
+  const flipScale = useTransform(scrollYProgress, [0, 0.35], [0.3, 1]);
+  const flipOpacity = useTransform(scrollYProgress, [0, 0.15], [0, 1]);
+  const flipY = useTransform(scrollYProgress, [0, 0.35], [200, 0]);
 
   const updatePosition = useCallback((clientX: number) => {
     if (!containerRef.current) return;
@@ -33,7 +37,7 @@ const BeforeAfterSlider = () => {
   };
 
   return (
-    <section ref={sectionRef} className="py-20 md:py-32 px-6" style={{ perspective: "1400px" }}>
+    <section ref={sectionRef} className="py-20 md:py-32 px-6" style={{ perspective: "2000px" }}>
       <div className="max-w-7xl mx-auto">
         <motion.h2
           initial={{ opacity: 0, y: 40 }}
@@ -53,12 +57,15 @@ const BeforeAfterSlider = () => {
           Arraste o slider para ver a diferença →
         </motion.p>
 
+        {/* Slider does a dramatic backflip */}
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={spring}
-          style={{ scale: sliderScale, rotateX: sliderRotateX, transformOrigin: "center bottom" }}
+          style={{ 
+            rotateX: flipRotateX, 
+            scale: flipScale, 
+            opacity: flipOpacity, 
+            y: flipY,
+            transformOrigin: "center bottom",
+          }}
           className="max-w-4xl mx-auto"
         >
           <div
@@ -98,7 +105,6 @@ const BeforeAfterSlider = () => {
                 background: "linear-gradient(135deg, hsl(0 0% 10%), hsl(0 0% 6%))",
               }}
             >
-              {/* Noise/grain for "dull" look */}
               <div className="absolute inset-0 opacity-30" style={{
                 backgroundImage: `radial-gradient(1px 1px at 20% 30%, hsl(0 0% 40%) 0.5px, transparent 0),
                   radial-gradient(1px 1px at 60% 60%, hsl(0 0% 30%) 0.3px, transparent 0),
