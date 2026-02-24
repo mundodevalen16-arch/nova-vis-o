@@ -114,7 +114,7 @@ const Hero = () => {
                 >
                   QUERO ENTRAR AGORA
                 </a>
-                <span className="text-xs text-foreground/30">R$399/ano • 7 dias de garantia</span>
+                <span className="text-xs text-foreground/30">7 dias de garantia</span>
               </motion.div>
             </div>
 
@@ -157,30 +157,41 @@ const Hero = () => {
             </motion.div>
           </div>
 
-          {/* Bottom carousel chips */}
+          {/* Bottom marquee carousel */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ ...spring, delay: 0.9 }}
-            className="mt-10"
+            className="mt-10 overflow-hidden"
           >
             <p className="text-xs text-foreground/40 mb-4 font-medium">Destaques do curso</p>
-            <div className="flex gap-3 overflow-x-auto scrollbar-hide pb-2">
-              {[
-                { icon: "🎯", label: "Meta Ads do Zero" },
-                { icon: "💰", label: "Vendas Online" },
-                { icon: "🏪", label: "Negócios Locais" },
-                { icon: "📊", label: "Métricas & Dados" },
-                { icon: "⚙️", label: "Otimização" },
-              ].map((chip, i) => (
-                <div
-                  key={i}
-                  className="flex-shrink-0 flex items-center gap-2 px-5 py-3 rounded-xl glass hover:scale-105 transition-transform cursor-pointer"
-                >
-                  <span className="text-lg">{chip.icon}</span>
-                  <span className="text-xs text-foreground/70 whitespace-nowrap font-medium">{chip.label}</span>
-                </div>
-              ))}
+            <div className="relative">
+              <div className="flex gap-3 animate-marquee w-max">
+                {[
+                  { icon: "🎯", label: "Meta Ads do Zero" },
+                  { icon: "💰", label: "Vendas Online" },
+                  { icon: "🏪", label: "Negócios Locais" },
+                  { icon: "📊", label: "Métricas & Dados" },
+                  { icon: "⚙️", label: "Otimização" },
+                  { icon: "🛡️", label: "Perfis Blindados" },
+                  { icon: "📱", label: "Instagram Perfeito" },
+                  { icon: "🎯", label: "Meta Ads do Zero" },
+                  { icon: "💰", label: "Vendas Online" },
+                  { icon: "🏪", label: "Negócios Locais" },
+                  { icon: "📊", label: "Métricas & Dados" },
+                  { icon: "⚙️", label: "Otimização" },
+                  { icon: "🛡️", label: "Perfis Blindados" },
+                  { icon: "📱", label: "Instagram Perfeito" },
+                ].map((chip, i) => (
+                  <div
+                    key={i}
+                    className="flex-shrink-0 flex items-center gap-2 px-5 py-3 rounded-xl glass"
+                  >
+                    <span className="text-lg">{chip.icon}</span>
+                    <span className="text-xs text-foreground/70 whitespace-nowrap font-medium">{chip.label}</span>
+                  </div>
+                ))}
+              </div>
             </div>
           </motion.div>
         </div>
