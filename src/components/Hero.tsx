@@ -1,7 +1,19 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import PhoneNotifications from "@/components/SaleNotifications";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+
 const spring = { type: "spring" as const, stiffness: 100, damping: 20 };
+
+const highlightChips = [
+  { icon: "🎯", label: "Meta Ads do Zero" },
+  { icon: "💰", label: "Vendas Online" },
+  { icon: "🏪", label: "Negócios Locais" },
+  { icon: "📊", label: "Métricas & Dados" },
+  { icon: "⚙️", label: "Otimização" },
+  { icon: "🛡️", label: "Perfis Blindados" },
+  { icon: "📱", label: "Instagram Perfeito" },
+];
 
 const Hero = () => {
   const ref = useRef<HTMLElement>(null);
@@ -217,37 +229,23 @@ const Hero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ ...spring, delay: 0.9 }}
-              className="mt-10 overflow-hidden"
+              className="mt-10"
             >
               <p className="text-xs text-foreground/40 mb-4 font-medium">Destaques do curso</p>
-              <div className="relative">
-                <div className="flex gap-3 animate-marquee w-max">
-                  {[
-                    { icon: "🎯", label: "Meta Ads do Zero" },
-                    { icon: "💰", label: "Vendas Online" },
-                    { icon: "🏪", label: "Negócios Locais" },
-                    { icon: "📊", label: "Métricas & Dados" },
-                    { icon: "⚙️", label: "Otimização" },
-                    { icon: "🛡️", label: "Perfis Blindados" },
-                    { icon: "📱", label: "Instagram Perfeito" },
-                    { icon: "🎯", label: "Meta Ads do Zero" },
-                    { icon: "💰", label: "Vendas Online" },
-                    { icon: "🏪", label: "Negócios Locais" },
-                    { icon: "📊", label: "Métricas & Dados" },
-                    { icon: "⚙️", label: "Otimização" },
-                    { icon: "🛡️", label: "Perfis Blindados" },
-                    { icon: "📱", label: "Instagram Perfeito" },
-                  ].map((chip, i) => (
-                    <div
-                      key={i}
-                      className="flex-shrink-0 flex items-center gap-2 px-5 py-3 rounded-xl glass"
-                    >
-                      <span className="text-lg">{chip.icon}</span>
-                      <span className="text-xs text-foreground/70 whitespace-nowrap font-medium">{chip.label}</span>
-                    </div>
+              <Carousel opts={{ align: "start", loop: true }} className="w-full px-1">
+                <CarouselContent>
+                  {highlightChips.map((chip, i) => (
+                    <CarouselItem key={`${chip.label}-${i}`} className="basis-auto pl-3">
+                      <div className="w-max flex items-center gap-2 px-5 py-3 rounded-xl glass">
+                        <span className="text-lg">{chip.icon}</span>
+                        <span className="text-xs text-foreground/70 whitespace-nowrap font-medium">{chip.label}</span>
+                      </div>
+                    </CarouselItem>
                   ))}
-                </div>
-              </div>
+                </CarouselContent>
+                <CarouselPrevious className="-left-1 top-1/2 border-border/50 bg-background/70 hover:bg-background/90" />
+                <CarouselNext className="-right-1 top-1/2 border-border/50 bg-background/70 hover:bg-background/90" />
+              </Carousel>
             </motion.div>
           </div>
         </motion.div>

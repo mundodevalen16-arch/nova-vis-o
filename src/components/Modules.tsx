@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import SpotlightCard from "./SpotlightCard";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 
 const modules = [
   { num: "01", icon: "🗺️", name: "Trilha Completa", desc: "O mapa definitivo para sua jornada no tráfego pago." },
@@ -20,7 +20,6 @@ const modules = [
 const spring = { type: "spring" as const, stiffness: 100, damping: 20 };
 
 const Modules = () => {
-  const constraintsRef = useRef<HTMLDivElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start end", "end start"] });
   
@@ -85,38 +84,40 @@ const Modules = () => {
         }}
         className="relative z-10"
       >
-        <div ref={constraintsRef} className="overflow-hidden px-6">
-          <motion.div
-            drag="x"
-            dragConstraints={constraintsRef}
-            dragElastic={0.1}
-            className="flex gap-5 cursor-grab active:cursor-grabbing pb-4"
-            style={{ width: "max-content" }}
-          >
-            {modules.map((mod, i) => (
-              <motion.div
-                key={mod.num}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ ...spring, delay: i * 0.04 }}
-                whileHover={{ scale: 1.04, y: -6 }}
-                className="premium-card border-gradient min-w-[260px] md:min-w-[300px] flex-shrink-0 cursor-pointer group"
-              >
-                <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{
-                  background: "radial-gradient(circle at 50% 50%, hsl(328 100% 48% / 0.06), transparent 70%)",
-                }} />
-                <div className="relative z-10 p-6">
-                  <div className="text-3xl mb-3">{mod.icon}</div>
-                  <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-[0.25em]">
-                    Módulo {mod.num}
-                  </span>
-                  <h3 className="text-xl font-bold mt-1 mb-2 leading-tight">{mod.name}</h3>
-                  <p className="text-xs text-muted-foreground font-light leading-relaxed">{mod.desc}</p>
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
+        <div className="relative px-6">
+          <Carousel opts={{ align: "start", loop: true }} className="w-full">
+            <CarouselContent>
+              {modules.map((mod, i) => (
+                <CarouselItem key={mod.num} className="basis-[84%] sm:basis-[56%] lg:basis-[34%]">
+                  <motion.article
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ margin: "-80px" }}
+                    transition={{ ...spring, delay: i * 0.04 }}
+                    whileHover={{ scale: 1.03, y: -6 }}
+                    className="premium-card border-gradient h-full cursor-pointer group"
+                  >
+                    <div
+                      className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                      style={{
+                        background: "radial-gradient(circle at 50% 50%, hsl(var(--pink-hot) / 0.08), transparent 70%)",
+                      }}
+                    />
+                    <div className="relative z-10 p-6">
+                      <div className="text-3xl mb-3">{mod.icon}</div>
+                      <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-[0.25em]">
+                        Módulo {mod.num}
+                      </span>
+                      <h3 className="text-xl font-bold mt-1 mb-2 leading-tight">{mod.name}</h3>
+                      <p className="text-xs text-muted-foreground font-light leading-relaxed">{mod.desc}</p>
+                    </div>
+                  </motion.article>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="left-2 top-1/2 border-border/50 bg-background/70 hover:bg-background/90" />
+            <CarouselNext className="right-2 top-1/2 border-border/50 bg-background/70 hover:bg-background/90" />
+          </Carousel>
         </div>
       </motion.div>
 
