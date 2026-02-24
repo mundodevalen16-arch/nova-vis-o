@@ -26,6 +26,7 @@ const Price = () => (
         className="premium-card border-gradient animate-glow-pulse"
       >
         <div className="p-8 md:p-12 text-center">
+          <p className="text-xs text-primary font-bold uppercase tracking-[0.3em] mb-6">💰 INVESTIMENTO</p>
           <h2 className="text-4xl md:text-5xl font-black mb-8 tracking-tight">
             Acesso completo ao{" "}
             <span className="text-gradient-pink">360 Digital</span>
@@ -40,34 +41,58 @@ const Price = () => (
             ))}
           </ul>
 
-          <p className="text-muted-foreground line-through text-lg mb-1">DE: R$997,00</p>
-          <p className="text-xs text-primary uppercase tracking-[0.3em] font-medium mb-3">POR APENAS:</p>
+          <p className="text-muted-foreground line-through text-lg mb-1">De R$997</p>
+          <p className="text-xs text-primary uppercase tracking-[0.3em] font-medium mb-3">Por apenas:</p>
 
           <div className="mb-2">
             <span className="text-7xl md:text-8xl font-black text-gradient-pink">R$399</span>
-            <span className="text-xl text-muted-foreground font-light">/ano</span>
+            <span className="text-xl text-muted-foreground font-light"> / ano</span>
           </div>
-          <p className="text-xs text-muted-foreground mb-10 font-light">Menos de R$1,10 por dia</p>
+          <p className="text-xs text-muted-foreground mb-3 font-light">Menos de R$1,10 por dia.</p>
+          <p className="text-sm text-foreground/50 font-light mb-10">
+            Você gasta isso com coisa que não muda sua vida.<br />
+            <span className="text-foreground/80 font-medium">Isso pode mudar.</span>
+          </p>
 
           <a
             href="#"
             className="inline-flex items-center justify-center px-12 py-5 rounded-full bg-gradient-pink text-primary-foreground font-bold text-lg animate-glow-pulse hover:scale-105 transition-transform cursor-pointer"
           >
-            GARANTIR MINHA VAGA AGORA
+            👉 GARANTIR MINHA VAGA AGORA
           </a>
 
-          <p className="text-xs text-muted-foreground mt-6 font-light">
-            🔒 Pagamento 100% Seguro • Garantia incondicional de 7 dias
-          </p>
-
-          <div className="flex items-center justify-center gap-6 mt-4 text-muted-foreground/50 text-xs">
-            <span>💳 Cartão</span>
-            <span>📲 Pix</span>
-            <span>📄 Boleto</span>
+          <div className="mt-6 space-y-2">
+            <div className="flex items-center justify-center gap-6 text-muted-foreground/50 text-xs">
+              <span>🔒 Pagamento 100% seguro</span>
+            </div>
+            <div className="flex items-center justify-center gap-6 text-muted-foreground/50 text-xs">
+              <span>💳 Cartão</span>
+              <span>📲 Pix</span>
+              <span>📄 Boleto</span>
+            </div>
+            <p className="text-xs text-muted-foreground/50">🛡️ Garantia incondicional de 7 dias</p>
           </div>
         </div>
       </motion.div>
     </div>
+
+    {/* DECISÃO section */}
+    <motion.div
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={spring}
+      className="max-w-2xl mx-auto text-center mt-24 relative z-10"
+    >
+      <h3 className="text-3xl md:text-4xl font-black mb-6 tracking-tight">DECISÃO</h3>
+      <div className="space-y-2 text-sm text-foreground/50 font-light leading-relaxed">
+        <p>Você pode continuar assistindo.<br />Ou pode começar estruturando.</p>
+        <p className="text-foreground/40">O 360 Digital não é promessa.<br />É preparação para resultado.</p>
+        <p className="text-foreground/80 font-semibold mt-4">
+          Se você quer virar o jogo,<br />essa é a porta.
+        </p>
+      </div>
+    </motion.div>
   </section>
 );
 

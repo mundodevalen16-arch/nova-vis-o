@@ -5,8 +5,8 @@ const spring = { type: "spring" as const, stiffness: 100, damping: 20 };
 
 const bonuses = [
   { icon: "💬", title: "Comunidade WhatsApp & Discord", desc: "Grupo exclusivo de alunos para tirar dúvidas, trocar experiências e networking." },
-  { icon: "🎁", title: "Sorteio de Setup", desc: "Participação automática em sorteios de itens do setup pessoal do iBielZz." },
-  { icon: "🔄", title: "Atualizações Gratuitas", desc: "Receba todas as atualizações de conteúdo sem pagar nada a mais." },
+  { icon: "🎁", title: "Sorteio de equipamentos do setup", desc: "Participação automática em sorteios de itens do setup pessoal do iBielZz." },
+  { icon: "🔄", title: "Atualizações gratuitas durante 2026", desc: "Receba todas as atualizações de conteúdo sem pagar nada a mais." },
 ];
 
 const Bonus = () => (
@@ -19,13 +19,14 @@ const Bonus = () => (
         transition={spring}
         className="text-center mb-20"
       >
+        <p className="text-xs text-primary font-bold uppercase tracking-[0.3em] mb-4">🎁 O QUE VEM JUNTO</p>
         <h2 className="text-5xl md:text-7xl font-black mb-4 tracking-tight">
           Bônus <span className="text-gradient-pink">exclusivos</span>
         </h2>
-        <p className="text-muted-foreground font-light text-sm">Incluídos sem custo adicional</p>
+        <p className="text-muted-foreground font-light text-sm">Além dos 12 módulos completos</p>
       </motion.div>
 
-      <div className="grid md:grid-cols-3 gap-5">
+      <div className="grid md:grid-cols-3 gap-5 mb-10">
         {bonuses.map((bonus, i) => (
           <SpotlightCard key={i} delay={i * 0.08}>
             <div className="p-7">
@@ -40,6 +41,17 @@ const Bonus = () => (
           </SpotlightCard>
         ))}
       </div>
+
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ delay: 0.3 }}
+        className="text-center space-y-1 text-sm text-foreground/50 font-light"
+      >
+        <p>Você não compra algo estático.</p>
+        <p className="text-foreground/80 font-semibold">Você entra num ecossistema atualizado.</p>
+      </motion.div>
     </div>
   </section>
 );

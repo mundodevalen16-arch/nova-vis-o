@@ -4,16 +4,16 @@ import SpotlightCard from "./SpotlightCard";
 const spring = { type: "spring" as const, stiffness: 100, damping: 20 };
 
 const before = [
-  "Perdido sem saber por onde começar",
-  "Gastando dinheiro em anúncios que não convertem",
-  "Assistindo tutoriais do YouTube sem resultado",
-  "Sem uma rota clara de crescimento",
+  "Perdido",
+  "Testando campanha aleatória",
+  "Gastando dinheiro sem retorno",
+  "Dependendo de tutorial no YouTube",
 ];
 const after = [
-  "Estrutura de anúncios montada e funcionando",
-  "Primeiro cliente ou venda fechada no digital",
-  "Campanhas otimizadas gerando retorno real",
-  "Caminho claro rumo aos R$10k/mês",
+  "Campanhas organizadas",
+  "Estratégia clara",
+  "Primeiro cliente ou venda validada",
+  "Caminho estruturado rumo aos R$10k/mês",
 ];
 
 const Transformation = () => (
@@ -26,7 +26,7 @@ const Transformation = () => (
         transition={spring}
         className="text-5xl md:text-7xl font-black text-center mb-20 tracking-tight"
       >
-        A <span className="text-gradient-pink">transformação</span>
+        🔄 A <span className="text-gradient-pink">transformação</span>
       </motion.h2>
 
       <div className="grid md:grid-cols-2 gap-6">
@@ -62,6 +62,17 @@ const Transformation = () => (
           </div>
         </SpotlightCard>
       </div>
+
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ delay: 0.3 }}
+        className="text-center mt-10 space-y-1 text-sm text-foreground/50 font-light"
+      >
+        <p>Isso não é exagero.</p>
+        <p className="text-foreground/80 font-semibold">É método aplicado.</p>
+      </motion.div>
     </div>
   </section>
 );

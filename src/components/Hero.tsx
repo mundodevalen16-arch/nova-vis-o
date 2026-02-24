@@ -76,8 +76,8 @@ const Hero = () => {
                 transition={{ ...spring, delay: 0.3 }}
                 className="mb-3"
               >
-                <span className="text-xs md:text-sm text-foreground/40 uppercase tracking-[0.3em] font-medium">
-                  Método completo de tráfego pago
+                <span className="text-xs md:text-sm text-primary uppercase tracking-[0.3em] font-bold">
+                  🚨 PARE DE TESTAR NO ESCURO.
                 </span>
               </motion.div>
 
@@ -90,30 +90,38 @@ const Hero = () => {
               >
                 DO ZERO
                 <br />
-                <span className="text-gradient-pink">AOS R$10K</span>
+                <span className="text-gradient-pink">AOS R$10K/MÊS</span>
               </motion.h1>
 
-              <motion.p
+              <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.6, duration: 0.5 }}
-                className="text-sm md:text-base text-foreground/50 max-w-md leading-relaxed mb-8 font-light"
+                className="text-sm md:text-base text-foreground/50 max-w-md leading-relaxed mb-8 font-light space-y-3"
               >
-                Aprenda a criar campanhas lucrativas no Meta Ads mesmo sem experiência. O passo a passo que já transformou centenas de alunos em gestores de tráfego profissionais.
-              </motion.p>
+                <p>Você não precisa de mais vídeos soltos.<br />Você precisa de um <span className="text-foreground font-medium">método</span>.</p>
+                <p>O 360 Digital foi criado para transformar completo iniciantes em pessoas capazes de gerar resultado real com Meta Ads — mesmo começando do absoluto zero.</p>
+                <p className="text-foreground/40">Sem achismo. Sem fórmula mágica. Sem promessas vazias.</p>
+                <p className="text-foreground/70 font-medium">Só estrutura. Estratégia. Execução.</p>
+              </motion.div>
 
               <motion.div
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ ...spring, delay: 0.75 }}
-                className="flex flex-wrap items-center gap-4"
+                className="flex flex-col items-start gap-3"
               >
+                <span className="text-xs text-primary font-bold uppercase tracking-[0.2em]">🔥 Turma 2026 aberta</span>
                 <a
                   href="#preco"
                   className="px-8 py-4 rounded-full bg-gradient-pink text-primary-foreground font-bold text-sm animate-glow-pulse hover:scale-105 transition-transform cursor-pointer"
                 >
-                  QUERO ENTRAR AGORA
+                  👉 QUERO ENTRAR AGORA
                 </a>
+                <div className="flex flex-col gap-1 text-xs text-foreground/40 font-light">
+                  <span>Acesso anual por R$399</span>
+                  <span>Garantia incondicional de 7 dias</span>
+                </div>
               </motion.div>
             </div>
 
