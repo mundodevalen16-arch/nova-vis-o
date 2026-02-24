@@ -25,23 +25,22 @@ const Modules = () => {
   return (
     <section id="modulos" className="py-32 overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 mb-12">
-        <motion.h2
+        <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={spring}
-          className="text-5xl md:text-7xl font-black text-center mb-4 tracking-tight"
+          className="text-center mb-2"
         >
-          O que você vai <span className="text-gradient-pink">dominar</span>
-        </motion.h2>
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          className="text-center text-muted-foreground font-light text-sm"
-        >
-          12 módulos completos • Arraste para explorar →
-        </motion.p>
+          <p className="text-xs text-primary font-bold uppercase tracking-[0.3em] mb-4">🧠 O QUE VOCÊ VAI DOMINAR</p>
+          <h2 className="text-5xl md:text-7xl font-black mb-4 tracking-tight">
+            Blocos <span className="text-gradient-pink">estratégicos</span>
+          </h2>
+          <div className="space-y-1 text-sm text-muted-foreground font-light">
+            <p>Não são "aulinhas". São blocos estratégicos de evolução.</p>
+            <p className="text-xs mt-2">Arraste para explorar →</p>
+          </div>
+        </motion.div>
       </div>
 
       {/* Draggable horizontal carousel */}
@@ -78,6 +77,17 @@ const Modules = () => {
           ))}
         </motion.div>
       </div>
+
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ delay: 0.3 }}
+        className="max-w-7xl mx-auto px-6 mt-8 text-center space-y-1 text-sm text-foreground/50 font-light"
+      >
+        <p>Você não sai sabendo "um pouco".</p>
+        <p className="text-foreground/80 font-semibold">Você sai com estrutura montada.</p>
+      </motion.div>
     </section>
   );
 };

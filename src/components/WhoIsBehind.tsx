@@ -4,8 +4,8 @@ const spring = { type: "spring" as const, stiffness: 100, damping: 20 };
 
 const stats = [
   { value: "5+", label: "Anos de experiência" },
-  { value: "R$10M+", label: "Em anúncios" },
-  { value: "500+", label: "Alunos" },
+  { value: "R$10M+", label: "Gerenciados em anúncios" },
+  { value: "500+", label: "Alunos impactados" },
   { value: "100%", label: "Conteúdo 2026" },
 ];
 
@@ -19,7 +19,7 @@ const WhoIsBehind = () => (
         transition={spring}
         className="text-5xl md:text-7xl font-black text-center mb-20 tracking-tight"
       >
-        Quem está <span className="text-gradient-pink">por trás</span>
+        👤 Quem está <span className="text-gradient-pink">por trás</span>
       </motion.h2>
 
       <div className="max-w-3xl mx-auto text-center">
@@ -31,13 +31,13 @@ const WhoIsBehind = () => (
         >
           <h3 className="text-5xl md:text-6xl font-black text-gradient-pink mb-2">iBielZz</h3>
           <p className="text-xs font-medium text-muted-foreground uppercase tracking-[0.3em] mb-8">
-            Especialista em Tráfego Pago e Marketing Digital
+            Especialista em Meta Ads e Direct Response
           </p>
-          <div className="space-y-4 text-foreground/60 text-sm font-light leading-relaxed max-w-xl mx-auto mb-12">
-            <p>Mais de 5 anos no mercado digital. Especialista em Meta Ads e Direct Response.</p>
-            <p>Já ajudou centenas de pessoas a saírem do zero e construírem renda consistente na internet.</p>
+          <div className="space-y-3 text-foreground/60 text-sm font-light leading-relaxed max-w-xl mx-auto mb-12">
+            <p>+5 anos no mercado digital.<br />+R$10M gerenciados em anúncios.<br />Centenas de alunos impactados.</p>
+            <p className="text-foreground/40">Não ensino teoria.<br />Ensino o que funciona.</p>
             <p className="text-foreground/90 font-medium">
-              Não vendo teoria — ensino o que funciona na prática, com resultados reais e método testado.
+              O que eu aplico. O que gera resultado. O que escala.
             </p>
           </div>
         </motion.div>

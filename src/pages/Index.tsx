@@ -2,6 +2,7 @@ import MouseGlow from "@/components/MouseGlow";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import SocialProof from "@/components/SocialProof";
+import ValueProp from "@/components/ValueProp";
 import BeforeAfterSlider from "@/components/BeforeAfterSlider";
 import TargetAudience from "@/components/TargetAudience";
 import Modules from "@/components/Modules";
@@ -18,9 +19,10 @@ const Index = () => (
     <Navbar />
     <Hero />
     <SocialProof />
-    <BeforeAfterSlider />
+    <ValueProp />
     <TargetAudience />
     <Modules />
+    <BeforeAfterSlider />
     <Transformation />
     <WhoIsBehind />
     <Bonus />
