@@ -34,7 +34,7 @@ const Modules = () => {
   const linesOpacity = useTransform(scrollYProgress, [0.05, 0.2, 0.4], [0, 0.6, 0]);
 
   return (
-    <section ref={sectionRef} id="modulos" className="py-32 overflow-hidden relative" style={{ perspective: "2500px" }}>
+    <section ref={sectionRef} id="modulos" className="py-16 md:py-20 overflow-hidden relative" style={{ perspective: "2500px" }}>
       {/* Speed lines / warp effect */}
       <motion.div
         style={{ opacity: linesOpacity }}

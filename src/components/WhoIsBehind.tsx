@@ -6,7 +6,7 @@ const smooth = { type: "spring" as const, stiffness: 50, damping: 20, mass: 1 };
 
 const stats = [
   { value: "5+", label: "Anos no digital" },
-  { value: "R$10M+", label: "Em ads gerenciados" },
+  { value: "R$10M+", label: "Em faturamento gerado" },
   { value: "500+", label: "Alunos transformados" },
   { value: "100%", label: "Método atualizado 2026" },
   { value: "24/7", label: "Suporte e comunidade" },
@@ -40,7 +40,7 @@ const WhoIsBehind = () => {
   const bioOpacity = useTransform(scrollYProgress, [0.2, 0.35], [0, 1]);
 
   return (
-    <section ref={ref} className="py-32 px-6 relative overflow-hidden" style={{ perspective: "1500px" }}>
+    <section ref={ref} className="py-16 md:py-20 px-6 relative overflow-hidden" style={{ perspective: "1500px" }}>
       <div className="max-w-7xl mx-auto">
         <motion.h2
           initial={{ opacity: 0, y: 40 }}
@@ -94,7 +94,7 @@ const WhoIsBehind = () => {
                 com nada além de um notebook e Meta Ads.
               </p>
               <p>
-                Mais de <span className="text-foreground/90 font-medium">R$10 milhões gerenciados em anúncios</span>.
+                Mais de <span className="text-foreground/90 font-medium">R$10 milhões em faturamento gerado</span>.
                 Mais de <span className="text-foreground/90 font-medium">500 alunos</span> que saíram do zero 
                 e construíram renda real — não promessa de guru.
               </p>
