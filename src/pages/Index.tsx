@@ -3,6 +3,7 @@ import EnergyBackground from "@/components/EnergyBackground";
 import ConstellationBackground from "@/components/ConstellationBackground";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
+import BattleTransitionEffect from "@/components/BattleTransitionEffect";
 import WarpTunnel from "@/components/WarpTunnel";
 import SocialProof from "@/components/SocialProof";
 import ValueProp from "@/components/ValueProp";
@@ -24,6 +25,7 @@ const Index = () => (
     <MouseGlow />
     <Navbar />
     <Hero />
+    <BattleTransitionEffect />
     <WarpTunnel />
     <SocialProof />
     <ValueProp />
