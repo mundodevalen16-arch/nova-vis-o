@@ -148,7 +148,7 @@ const BattleTransitionEffect = () => {
           const x = startX + dx * i;
           const noiseFactor = i / segments;
           const noise =
-            Math.sin(localTime * 0.08 + i * 0.48 + layer * 0.8) *
+            Math.sin(localTime * 0.055 + i * 0.4 + layer * 0.8) *
             (isMobile ? 22 : 36) *
             intensity *
             noiseFactor;
@@ -217,36 +217,36 @@ const BattleTransitionEffect = () => {
       let explosionRadius = 0;
       let flashOpacity = 0;
 
-      if (progress < 0.12) {
-        const p = progress / 0.12;
+      if (progress < 0.14) {
+        const p = progress / 0.14;
         redX = width * 0.05 + width * 0.15 * p;
         blueX = width * 0.95 - width * 0.15 * p;
         beamIntensity = 0.4 + p * 0.35;
-      } else if (progress < 0.50) {
-        const p = (progress - 0.12) / 0.38;
+      } else if (progress < 0.62) {
+        const p = (progress - 0.14) / 0.48;
         redX = width * 0.2 + (centerX - width * 0.2) * p;
         blueX = width * 0.8 - (width * 0.8 - centerX) * p;
         beamIntensity = 0.75 + p * 0.55;
-      } else if (progress < 0.72) {
-        const p = (progress - 0.50) / 0.22;
+      } else if (progress < 0.84) {
+        const p = (progress - 0.62) / 0.22;
         redX = centerX;
         blueX = centerX;
         beamIntensity = 1.3 + p * 0.45;
         collisionIntensity = p;
         explosionRadius = p * (isMobile ? 140 : 220);
-      } else if (progress < 0.90) {
-        const p = (progress - 0.72) / 0.18;
+      } else if (progress < 0.96) {
+        const p = (progress - 0.84) / 0.12;
         redX = centerX;
         blueX = centerX;
         beamIntensity = 1.6 * (1 - p);
         collisionIntensity = 1 - p * 0.86;
         explosionRadius = (isMobile ? 140 : 220) + p * Math.max(width, height) * 0.55;
 
-        if (progress < 0.82) {
-          const fp = (progress - 0.72) / 0.10;
+        if (progress < 0.90) {
+          const fp = (progress - 0.84) / 0.06;
           flashOpacity = Math.sin(fp * Math.PI) * 0.62;
         } else {
-          const fp = Math.min((progress - 0.82) / 0.08, 1);
+          const fp = Math.min((progress - 0.90) / 0.06, 1);
           flashOpacity = (1 - fp) * 0.2;
         }
       } else {
@@ -257,7 +257,7 @@ const BattleTransitionEffect = () => {
 
       let shakeX = 0;
       let shakeY = 0;
-      if (progress > 0.34 && progress < 0.88) {
+      if (progress > 0.34 && progress < 0.94) {
         const shakeStrength = collisionIntensity * (isMobile ? 7 : 12);
         shakeX = (Math.random() - 0.5) * shakeStrength;
         shakeY = (Math.random() - 0.5) * shakeStrength;
@@ -291,7 +291,7 @@ const BattleTransitionEffect = () => {
       }
 
       if (progress >= 0.35) {
-        if (particles.length < particleCap && progress < 0.84 && Math.random() > (isMobile ? 0.64 : 0.35)) {
+        if (particles.length < particleCap && progress < 0.92 && Math.random() > (isMobile ? 0.64 : 0.35)) {
           particles.push(
             createParticle(centerX, centerY, "explosion", 286, 100, 66),
             createParticle(centerX, centerY, "explosion", 332, 100, 76),
