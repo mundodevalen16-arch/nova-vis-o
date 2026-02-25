@@ -43,10 +43,12 @@ const BattleTransitionEffect = () => {
       const rect = section.getBoundingClientRect();
       const sectionHeight = section.offsetHeight - window.innerHeight;
       if (sectionHeight <= 0) return;
-      const scrolled = -rect.top;
+      // Start progress when section top hits viewport top
+      const scrolled = Math.max(0, -rect.top);
       progressRef.current = Math.max(0, Math.min(1, scrolled / sectionHeight));
     };
     window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll(); // initialize on mount
 
     const spawnParticle = (side: "left" | "right" | "center", p: number) => {
       const w = canvas.width;
