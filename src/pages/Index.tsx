@@ -2,6 +2,7 @@ import MouseGlow from "@/components/MouseGlow";
 import EnergyBackground from "@/components/EnergyBackground";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
+import WarpTunnel from "@/components/WarpTunnel";
 import SocialProof from "@/components/SocialProof";
 import ValueProp from "@/components/ValueProp";
 import BeforeAfterSlider from "@/components/BeforeAfterSlider";
@@ -20,6 +21,7 @@ const Index = () => (
     <MouseGlow />
     <Navbar />
     <Hero />
+    <WarpTunnel />
     <SocialProof />
     <ValueProp />
     <TargetAudience />
