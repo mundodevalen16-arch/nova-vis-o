@@ -11,7 +11,7 @@ interface Particle {
   saturation: number;
   lightness: number;
   size: number;
-  kind: "beam" | "explosion" | "spark";
+  kind: "beam" | "explosion" | "spark" | "ember";
 }
 
 const BattleTransitionEffect = () => {
@@ -102,6 +102,24 @@ const BattleTransitionEffect = () => {
           saturation,
           lightness,
           size: Math.random() * 2 + 0.8,
+          kind,
+        };
+      }
+
+      if (kind === "ember") {
+        const angle = Math.random() * Math.PI * 2;
+        const speed = Math.random() * 3 + 0.5;
+        return {
+          x,
+          y,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed - Math.random() * 1.5,
+          life: 60 + Math.random() * 80,
+          maxLife: 60 + Math.random() * 80,
+          hue,
+          saturation,
+          lightness,
+          size: Math.random() * 2.5 + 0.6,
           kind,
         };
       }
@@ -202,7 +220,7 @@ const BattleTransitionEffect = () => {
       ctx.fillStyle = "hsla(242, 40%, 4%, 0.24)";
       ctx.fillRect(0, 0, width, height);
 
-      if (progress <= 0 || progress >= 1) {
+      if (progress <= 0) {
         if (particles.length) particles = [];
         animationFrame = requestAnimationFrame(render);
         return;
@@ -216,6 +234,13 @@ const BattleTransitionEffect = () => {
       let collisionIntensity = 0;
       let explosionRadius = 0;
       let flashOpacity = 0;
+      let introFlash = 0;
+
+      // --- Intro flash (lightning effect at start) ---
+      if (progress < 0.06) {
+        const ip = progress / 0.06;
+        introFlash = Math.sin(ip * Math.PI) * 0.45;
+      }
 
       if (progress < 0.14) {
         const p = progress / 0.14;
@@ -250,9 +275,18 @@ const BattleTransitionEffect = () => {
           flashOpacity = (1 - fp) * 0.2;
         }
       } else {
-        // Buffer zone - effect already finished
+        // Buffer zone — spawn trailing embers that fade out
         beamIntensity = 0;
         collisionIntensity = 0;
+        const fadeOut = Math.max(0, 1 - (progress - 0.96) / 0.04);
+        if (particles.length < (isMobile ? 25 : 50) && Math.random() > 0.7 && fadeOut > 0.2) {
+          const rx = centerX + (Math.random() - 0.5) * width * 0.6;
+          const ry = centerY + (Math.random() - 0.5) * height * 0.4;
+          particles.push(
+            createParticle(rx, ry, "ember", 286, 80, 60),
+            createParticle(rx, ry, "ember", 344, 90, 55),
+          );
+        }
       }
 
       let shakeX = 0;
@@ -330,13 +364,17 @@ const BattleTransitionEffect = () => {
         if (particle.kind === "spark") {
           particle.vy += 0.36;
           particle.vx *= 0.95;
+        } else if (particle.kind === "ember") {
+          particle.vy -= 0.08;
+          particle.vx *= 0.99;
+          particle.vy *= 0.99;
         } else {
           particle.vx *= 0.98;
           particle.vy *= 0.98;
         }
 
         particle.life -= 1;
-        particle.size *= particle.kind === "explosion" ? 0.97 : 0.98;
+        particle.size *= particle.kind === "explosion" ? 0.97 : particle.kind === "ember" ? 0.993 : 0.98;
 
         const alpha = Math.max(0, particle.life / particle.maxLife);
         ctx.beginPath();
@@ -350,6 +388,14 @@ const BattleTransitionEffect = () => {
       ctx.shadowBlur = 0;
       ctx.restore();
 
+      // Intro lightning flash
+      if (introFlash > 0.01) {
+        ctx.globalCompositeOperation = "source-over";
+        ctx.fillStyle = `hsla(260, 80%, 90%, ${introFlash})`;
+        ctx.fillRect(0, 0, width, height);
+      }
+
+      // Explosion flash
       if (flashOpacity > 0.01) {
         ctx.globalCompositeOperation = "source-over";
         ctx.fillStyle = `hsla(0, 0%, 100%, ${flashOpacity})`;
