@@ -1,4 +1,4 @@
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import { useRef } from "react";
 import SpotlightCard from "./SpotlightCard";
 
@@ -26,28 +26,21 @@ const scatterPositions = [
   { x: 150, y: -180, rotate: -17, scale: 0.74 },
 ];
 
+const smooth = { type: "spring" as const, stiffness: 60, damping: 20, mass: 1 };
+
 const ValueProp = () => {
   const sectionRef = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start end", "end start"] });
-
-  const titleScale = useTransform(scrollYProgress, [0.06, 0.3], [1.7, 1]);
-  const titleOpacity = useTransform(scrollYProgress, [0.06, 0.22, 0.3], [0, 0.75, 1]);
-  const titleBlur = useTransform(scrollYProgress, [0.06, 0.3], [12, 0]);
-  const titleFilter = useTransform(titleBlur, (v) => `blur(${v}px)`);
-  const flashOpacity = useTransform(scrollYProgress, [0.12, 0.22, 0.34], [0, 0.45, 0]);
 
   return (
     <section ref={sectionRef} className="py-10 md:py-12 px-6 relative overflow-hidden" style={{ perspective: "1500px" }}>
-      {/* Explosion flash */}
-      <motion.div style={{ opacity: flashOpacity }} className="absolute inset-0 pointer-events-none z-0">
-        <div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full blur-[150px]"
-          style={{ background: "radial-gradient(circle, hsl(328 100% 48% / 0.4), hsl(270 80% 55% / 0.2), transparent)" }}
-        />
-      </motion.div>
-
       <div className="max-w-5xl mx-auto relative z-10">
-        <motion.div style={{ scale: titleScale, opacity: titleOpacity, filter: titleFilter }} className="text-center mb-5">
+        <motion.div
+          initial={{ opacity: 0, scale: 1.4, filter: "blur(12px)" }}
+          whileInView={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={smooth}
+          className="text-center mb-5"
+        >
           <p className="text-xs text-primary font-bold uppercase tracking-[0.3em] mb-4">⚡ NÃO É SOBRE APRENDER.</p>
           <h2 className="text-5xl md:text-7xl font-black tracking-tight mb-5">
             É sobre <span className="text-gradient-pink">DOMINAR.</span>
