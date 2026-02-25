@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import Autoplay from "embla-carousel-autoplay";
 
 const modules = [
   { num: "01", icon: "🗺️", name: "Trilha Completa", desc: "O mapa definitivo para sua jornada no tráfego pago." },
@@ -85,7 +86,7 @@ const Modules = () => {
         className="relative z-10"
       >
         <div className="relative px-6">
-          <Carousel opts={{ align: "start", loop: true }} className="w-full">
+          <Carousel opts={{ align: "start", loop: true }} plugins={[Autoplay({ delay: 3000, stopOnInteraction: false })]} className="w-full">
             <CarouselContent>
               {modules.map((mod, i) => (
                 <CarouselItem key={mod.num} className="basis-[84%] sm:basis-[56%] lg:basis-[34%]">
