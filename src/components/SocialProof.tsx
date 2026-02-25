@@ -1,5 +1,5 @@
 const items = [
-  "⚡ +500 alunos ativos",
+  "⚡ +200 mentorados ativos",
   "📈 Resultados reais desde o dia 1",
   "🎯 Estratégias 2026",
   "💰 Do zero a R$10k/mês",
