@@ -37,7 +37,7 @@ const Bonus = () => {
           <p className="text-muted-foreground font-light text-sm">Além dos 12 módulos completos</p>
         </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-5 mb-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 mb-10 justify-items-center max-w-4xl mx-auto [&>*:last-child]:sm:col-span-2 [&>*:last-child]:md:col-span-1 [&>*:last-child]:max-w-sm">
           {bonuses.map((bonus, i) => (
             <motion.div
               key={i}
@@ -86,12 +86,12 @@ const Bonus = () => {
             </p>
           </div>
 
-          <div className="max-w-2xl mx-auto">
+          <div className="max-w-xs sm:max-w-sm mx-auto">
             <div className="relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl shadow-primary/10">
               <video
                 controls
                 preload="metadata"
-                className="w-full aspect-video bg-black"
+                className="w-full aspect-[9/16] bg-black object-cover"
                 poster=""
               >
                 <source src="/videos/community-call.mp4" type="video/mp4" />
