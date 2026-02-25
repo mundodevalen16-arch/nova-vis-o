@@ -55,7 +55,7 @@ const LifestyleGallery = () => {
         </motion.p>
 
         {/* Carousel */}
-        <div className="relative max-w-md md:max-w-2xl mx-auto">
+        <div className="relative max-w-sm md:max-w-lg mx-auto">
           <div ref={emblaRef} className="overflow-hidden rounded-3xl">
             <div className="flex">
               {images.map((img, i) => (
