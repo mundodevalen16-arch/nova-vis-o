@@ -217,44 +217,48 @@ const BattleTransitionEffect = () => {
       let explosionRadius = 0;
       let flashOpacity = 0;
 
-      if (progress < 0.18) {
-        const p = progress / 0.18;
-        redX = width * 0.05 + width * 0.12 * p;
-        blueX = width * 0.95 - width * 0.12 * p;
-        beamIntensity = 0.35 + p * 0.4;
-      } else if (progress < 0.45) {
-        const p = (progress - 0.18) / 0.27;
-        redX = width * 0.17 + (centerX - width * 0.17) * p;
-        blueX = width * 0.83 - (width * 0.83 - centerX) * p;
-        beamIntensity = 0.75 + p * 0.55;
-      } else if (progress < 0.74) {
-        const p = (progress - 0.45) / 0.29;
+      if (progress < 0.10) {
+        // Phase 1: Charge up (10%)
+        const p = progress / 0.10;
+        redX = 100 * p;
+        blueX = width - 100 * p;
+        beamIntensity = p * 0.5;
+      } else if (progress < 0.40) {
+        // Phase 2: Advance (30%)
+        const p = (progress - 0.10) / 0.30;
+        redX = 100 + (centerX - 100) * p;
+        blueX = width - 100 - (width - 100 - centerX) * p;
+        beamIntensity = 0.5 + p * 0.5;
+      } else if (progress < 0.70) {
+        // Phase 3: Collision (30%)
+        const p = (progress - 0.40) / 0.30;
         redX = centerX;
         blueX = centerX;
-        beamIntensity = 1.3 + p * 0.45;
+        beamIntensity = 1 + p * 0.5;
         collisionIntensity = p;
-        explosionRadius = p * (isMobile ? 140 : 220);
+        explosionRadius = p * (isMobile ? 180 : 250);
       } else {
-        const p = (progress - 0.74) / 0.26;
+        // Phase 4: Explosion (30%)
+        const p = (progress - 0.70) / 0.30;
         redX = centerX;
         blueX = centerX;
-        beamIntensity = 1.6 * (1 - p);
-        collisionIntensity = 1 - p * 0.86;
-        explosionRadius = (isMobile ? 140 : 220) + p * Math.max(width, height) * 0.55;
+        beamIntensity = 1.5 * (1 - p);
+        collisionIntensity = 1 - p;
+        explosionRadius = (isMobile ? 180 : 250) + p * Math.max(width, height) * 1.2;
 
-        if (progress < 0.88) {
-          const fp = (progress - 0.74) / 0.14;
-          flashOpacity = Math.sin(fp * Math.PI) * 0.62;
+        if (progress < 0.90) {
+          const fp = (progress - 0.70) / 0.20;
+          flashOpacity = fp * 0.85;
         } else {
-          const fp = Math.min((progress - 0.88) / 0.12, 1);
-          flashOpacity = (1 - fp) * 0.2;
+          const fp = (progress - 0.90) / 0.10;
+          flashOpacity = 0.85 * (1 - fp);
         }
       }
 
       let shakeX = 0;
       let shakeY = 0;
-      if (progress > 0.45 && progress < 0.92) {
-        const shakeStrength = collisionIntensity * (isMobile ? 7 : 12);
+      if (progress > 0.40 && progress < 0.95) {
+        const shakeStrength = collisionIntensity * (isMobile ? 12 : 25);
         shakeX = (Math.random() - 0.5) * shakeStrength;
         shakeY = (Math.random() - 0.5) * shakeStrength;
       }
@@ -286,8 +290,8 @@ const BattleTransitionEffect = () => {
         }
       }
 
-      if (progress >= 0.45) {
-        if (particles.length < particleCap && progress < 0.9 && Math.random() > (isMobile ? 0.64 : 0.35)) {
+      if (progress >= 0.40) {
+        if (particles.length < particleCap && progress < 0.85 && Math.random() > (isMobile ? 0.64 : 0.1)) {
           particles.push(
             createParticle(centerX, centerY, "explosion", 286, 100, 66),
             createParticle(centerX, centerY, "explosion", 332, 100, 76),
@@ -367,7 +371,7 @@ const BattleTransitionEffect = () => {
     <section
       id="battle-transition"
       ref={sectionRef}
-      className="relative h-[118vh] md:h-[135vh] overflow-hidden"
+      className="relative h-[100vh] md:h-[115vh] overflow-hidden"
       aria-hidden="true"
     >
       <div className="sticky top-0 h-screen w-full pointer-events-none">
