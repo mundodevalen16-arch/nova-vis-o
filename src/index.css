@@ -216,6 +216,101 @@
   animation: ambient-breathe 8s ease-in-out infinite;
 }
 
+/* ===== ENERGY BACKGROUND SYSTEM ===== */
+
+/* Left energy: blue spatial distortion */
+.energy-blob-left {
+  background:
+    radial-gradient(ellipse at 30% 40%, hsl(217 91% 60% / 0.18) 0%, transparent 60%),
+    radial-gradient(ellipse at 60% 70%, hsl(260 90% 60% / 0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 20% 80%, hsl(217 91% 40% / 0.08) 0%, transparent 70%);
+  filter: blur(80px);
+  animation: energy-drift-left 12s ease-in-out infinite;
+  mix-blend-mode: screen;
+}
+
+/* Right energy: pink/red turbulent fracture */
+.energy-blob-right {
+  background:
+    radial-gradient(ellipse at 70% 30%, hsl(328 100% 48% / 0.2) 0%, transparent 55%),
+    radial-gradient(ellipse at 40% 60%, hsl(350 90% 45% / 0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 80%, hsl(270 80% 55% / 0.1) 0%, transparent 60%);
+  filter: blur(80px);
+  animation: energy-drift-right 14s ease-in-out infinite;
+  mix-blend-mode: screen;
+}
+
+/* Central bloom glow */
+.bloom-core {
+  width: 40vw;
+  height: 40vh;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, hsl(328 100% 48% / 0.08) 0%, hsl(270 80% 55% / 0.04) 40%, transparent 70%);
+  filter: blur(60px);
+  animation: bloom-pulse 8s ease-in-out infinite;
+}
+
+.bloom-accent {
+  width: 30vw;
+  height: 30vh;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, hsl(270 80% 55% / 0.06) 0%, transparent 60%);
+  filter: blur(80px);
+  animation: bloom-pulse 10s ease-in-out infinite reverse;
+}
+
+/* Floating orbs */
+.energy-orb {
+  background: hsl(328 100% 48% / 0.4);
+  box-shadow: 0 0 12px hsl(328 100% 48% / 0.3), 0 0 30px hsl(270 80% 55% / 0.15);
+  animation: orb-float 6s ease-in-out infinite;
+}
+
+/* Noise overlay via SVG data URI */
+.noise-overlay {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+  mix-blend-mode: overlay;
+}
+
+/* Scan lines */
+.scan-lines {
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    hsl(0 0% 100% / 0.008) 2px,
+    hsl(0 0% 100% / 0.008) 4px
+  );
+  opacity: 0.5;
+}
+
+/* ===== ENERGY KEYFRAMES ===== */
+
+@keyframes energy-drift-left {
+  0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); }
+  25% { transform: translate(20px, -15px) scale(1.05) rotate(1deg); }
+  50% { transform: translate(-10px, 20px) scale(0.97) rotate(-1deg); }
+  75% { transform: translate(15px, 10px) scale(1.03) rotate(0.5deg); }
+}
+
+@keyframes energy-drift-right {
+  0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); }
+  25% { transform: translate(-15px, 10px) scale(1.04) rotate(-1deg); }
+  50% { transform: translate(20px, -20px) scale(0.96) rotate(1.5deg); }
+  75% { transform: translate(-10px, -10px) scale(1.02) rotate(-0.5deg); }
+}
+
+@keyframes bloom-pulse {
+  0%, 100% { opacity: 0.6; transform: translate(-50%, -50%) scale(1); }
+  50% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+}
+
+@keyframes orb-float {
+  0%, 100% { transform: translateY(0) scale(1); opacity: 0.3; }
+  50% { transform: translateY(-30px) scale(1.3); opacity: 0.7; }
+}
+
 html {
   scroll-behavior: smooth;
 }
