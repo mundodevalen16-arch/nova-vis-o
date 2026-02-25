@@ -10,6 +10,7 @@ import TargetAudience from "@/components/TargetAudience";
 import Modules from "@/components/Modules";
 import Transformation from "@/components/Transformation";
 import WhoIsBehind from "@/components/WhoIsBehind";
+import LifestyleGallery from "@/components/LifestyleGallery";
 import Bonus from "@/components/Bonus";
 import Price from "@/components/Price";
 import FAQ from "@/components/FAQ";
@@ -29,6 +30,7 @@ const Index = () => (
     <BeforeAfterSlider />
     <Transformation />
     <WhoIsBehind />
+    <LifestyleGallery />
     <Bonus />
     <Price />
     <FAQ />
