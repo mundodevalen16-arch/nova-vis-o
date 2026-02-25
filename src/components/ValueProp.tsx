@@ -71,7 +71,7 @@ const ValueProp = () => {
                 key={i}
                 initial={{ x: scatter.x, y: scatter.y, rotate: scatter.rotate, scale: scatter.scale, opacity: 0 }}
                 whileInView={{ x: 0, y: 0, rotate: 0, scale: 1, opacity: 1 }}
-                viewport={{ margin: "-40px", amount: 0.2 }}
+                viewport={{ once: true, margin: "-40px", amount: 0.2 }}
                 transition={{ type: "spring", stiffness: 70, damping: 20, mass: 1.05, delay: i * 0.04 }}
               >
                 <SpotlightCard animateIn={false}>
@@ -90,7 +90,7 @@ const ValueProp = () => {
         <motion.div
           initial={{ opacity: 0, scale: 0.92 }}
           whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ margin: "-60px" }}
+          viewport={{ once: true, margin: "-60px" }}
           transition={{ type: "spring", stiffness: 50, damping: 18 }}
           className="max-w-2xl mx-auto text-center mb-10 premium-card border-gradient p-8"
         >
@@ -103,7 +103,7 @@ const ValueProp = () => {
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          viewport={{ margin: "-50px" }}
+          viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.6 }}
           className="text-center space-y-1 text-sm text-foreground/50 font-light"
         >

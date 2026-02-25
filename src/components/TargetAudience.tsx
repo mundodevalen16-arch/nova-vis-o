@@ -38,7 +38,7 @@ const TargetAudience = () => {
         <motion.h2
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ margin: "-80px" }}
+          viewport={{ once: true, margin: "-80px" }}
           transition={smooth}
           className="text-5xl md:text-7xl font-black text-center mb-20 tracking-tight"
         >
