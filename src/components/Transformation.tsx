@@ -35,7 +35,7 @@ const Transformation = () => {
   const shockwaveOpacity = useTransform(scrollYProgress, [0.35, 0.42, 0.55], [0, 0.6, 0]);
 
   return (
-    <section ref={ref} id="transformacao" className="py-32 px-6 relative overflow-hidden" style={{ perspective: "2000px" }}>
+    <section ref={ref} id="transformacao" className="py-16 md:py-20 px-6 relative overflow-hidden" style={{ perspective: "2000px" }}>
       {/* Shockwave */}
       <motion.div
         style={{ scale: shockwaveScale, opacity: shockwaveOpacity }}

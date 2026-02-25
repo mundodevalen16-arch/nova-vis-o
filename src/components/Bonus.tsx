@@ -24,7 +24,7 @@ const Bonus = () => {
   const titleOpacity = useTransform(scrollYProgress, [0.05, 0.2], [0, 1]);
 
   return (
-    <section ref={ref} id="bonus" className="py-32 px-6 overflow-hidden" style={{ perspective: "1500px" }}>
+    <section ref={ref} id="bonus" className="py-16 md:py-20 px-6 overflow-hidden" style={{ perspective: "1500px" }}>
       <div className="max-w-7xl mx-auto">
         <motion.div
           style={{ scale: titleScale, opacity: titleOpacity }}

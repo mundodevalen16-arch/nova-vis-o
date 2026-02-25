@@ -33,7 +33,7 @@ const TargetAudience = () => {
   const rightX = useTransform(scrollYProgress, [0.1, 0.4], [200, 0]);
 
   return (
-    <section ref={ref} className="py-32 px-6 overflow-hidden" style={{ perspective: "1800px" }}>
+    <section ref={ref} className="py-16 md:py-20 px-6 overflow-hidden" style={{ perspective: "1800px" }}>
       <div className="max-w-7xl mx-auto">
         <motion.h2
           initial={{ opacity: 0, y: 40 }}
