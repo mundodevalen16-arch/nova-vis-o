@@ -1,5 +1,6 @@
 import MouseGlow from "@/components/MouseGlow";
 import EnergyBackground from "@/components/EnergyBackground";
+import ConstellationBackground from "@/components/ConstellationBackground";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import WarpTunnel from "@/components/WarpTunnel";
@@ -19,6 +20,7 @@ import Footer from "@/components/Footer";
 const Index = () => (
   <main className="min-h-screen bg-background text-foreground overflow-x-hidden">
     <EnergyBackground />
+    <ConstellationBackground />
     <MouseGlow />
     <Navbar />
     <Hero />
