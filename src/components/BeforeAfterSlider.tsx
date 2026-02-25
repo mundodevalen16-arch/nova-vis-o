@@ -68,7 +68,7 @@ const BeforeAfterSlider = () => {
             y: flipY,
             transformOrigin: "center bottom",
           }}
-          className="max-w-4xl mx-auto"
+          className="max-w-lg md:max-w-2xl mx-auto"
         >
           <div
             ref={containerRef}
