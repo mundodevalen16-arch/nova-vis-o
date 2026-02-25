@@ -19,17 +19,6 @@ const Navbar = () => {
           <span className="text-gradient-pink">360</span>
           <span className="text-foreground ml-1">DIGITAL</span>
         </div>
-        <div className="hidden md:flex items-center gap-8 text-sm text-muted-foreground font-medium">
-          <a href="#modulos" className="hover:text-foreground transition-colors duration-300">Módulos</a>
-          <a href="#transformacao" className="hover:text-foreground transition-colors duration-300">Transformação</a>
-          <a href="#bonus" className="hover:text-foreground transition-colors duration-300">Bônus</a>
-          <a
-            href="#preco"
-            className="px-5 py-2 rounded-full bg-gradient-pink text-primary-foreground font-semibold text-sm hover:scale-105 transition-transform"
-          >
-            Garantir Vaga
-          </a>
-        </div>
       </div>
     </motion.nav>
   );
