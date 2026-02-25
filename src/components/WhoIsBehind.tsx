@@ -59,7 +59,7 @@ const WhoIsBehind = () => {
             whileInView={{ opacity: 1, scale: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ type: "spring", stiffness: 60, damping: 18 }}
-            className="w-48 h-48 md:w-56 md:h-56 mx-auto mb-10 rounded-full overflow-hidden ring-2 ring-primary/30 ring-offset-4 ring-offset-background"
+            className="w-64 md:w-80 mx-auto mb-10 rounded-3xl overflow-hidden ring-2 ring-primary/30 ring-offset-4 ring-offset-background"
             style={{
               boxShadow: "0 0 60px hsl(328 100% 48% / 0.2)",
             }}
