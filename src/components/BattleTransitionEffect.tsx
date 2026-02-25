@@ -13,6 +13,7 @@ interface Particle {
 }
 
 const BattleTransitionEffect = () => {
+  const isMobileDevice = typeof window !== "undefined" && window.innerWidth < 768;
   const sectionRef = useRef<HTMLElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const progressRef = useRef(0);
@@ -29,7 +30,7 @@ const BattleTransitionEffect = () => {
     if (!ctx) return;
 
     const isMobile = window.innerWidth < 768;
-    const MAX_PARTICLES = isMobile ? 80 : 200;
+    const MAX_PARTICLES = isMobile ? 60 : 250;
 
     const resize = () => {
       canvas.width = window.innerWidth;
@@ -59,11 +60,11 @@ const BattleTransitionEffect = () => {
           y: cy + (Math.random() - 0.5) * h * 0.6,
           vx: 2 + Math.random() * 4 * p,
           vy: (Math.random() - 0.5) * 2,
-          size: 1 + Math.random() * 3,
+          size: 2 + Math.random() * 4,
           life: 1,
           maxLife: 30 + Math.random() * 40,
           side,
-          color: `hsl(${350 + Math.random() * 20}, 100%, ${50 + Math.random() * 20}%)`,
+          color: `hsl(${340 + Math.random() * 30}, 100%, ${55 + Math.random() * 25}%)`,
         };
       } else if (side === "right") {
         return {
@@ -71,11 +72,11 @@ const BattleTransitionEffect = () => {
           y: cy + (Math.random() - 0.5) * h * 0.6,
           vx: -(2 + Math.random() * 4 * p),
           vy: (Math.random() - 0.5) * 2,
-          size: 1 + Math.random() * 3,
+          size: 2 + Math.random() * 4,
           life: 1,
           maxLife: 30 + Math.random() * 40,
           side,
-          color: `hsl(${210 + Math.random() * 30}, 100%, ${50 + Math.random() * 20}%)`,
+          color: `hsl(${200 + Math.random() * 40}, 100%, ${55 + Math.random() * 25}%)`,
         };
       } else {
         const angle = Math.random() * Math.PI * 2;
@@ -85,7 +86,7 @@ const BattleTransitionEffect = () => {
           y: cy + (Math.random() - 0.5) * 20,
           vx: Math.cos(angle) * speed,
           vy: Math.sin(angle) * speed,
-          size: 1 + Math.random() * 4,
+          size: 2 + Math.random() * 5,
           life: 1,
           maxLife: 20 + Math.random() * 30,
           side,
@@ -112,7 +113,7 @@ const BattleTransitionEffect = () => {
       ctx.strokeStyle = color;
       ctx.lineWidth = width;
       ctx.shadowColor = color;
-      ctx.shadowBlur = width * 4;
+      ctx.shadowBlur = width * 8;
       ctx.stroke();
       ctx.shadowBlur = 0;
     };
@@ -137,7 +138,7 @@ const BattleTransitionEffect = () => {
 
       // Shake at collision phases
       if (p > 0.5) {
-        const intensity = Math.min((p - 0.5) * 12, 6);
+        const intensity = Math.min((p - 0.5) * 20, 10);
         shakeRef.current.x = (Math.random() - 0.5) * intensity;
         shakeRef.current.y = (Math.random() - 0.5) * intensity;
       } else {
@@ -156,28 +157,28 @@ const BattleTransitionEffect = () => {
         const leftBeams = 3 + Math.floor(p * 4);
         for (let i = 0; i < leftBeams; i++) {
           const yOff = (i - leftBeams / 2) * 30;
-          const alpha = 0.3 + beamProgress * 0.5;
+          const alpha = 0.5 + beamProgress * 0.5;
           drawBeam(ctx, 0, cy + yOff, beamReach, cy + yOff * 0.3,
-            `hsla(350, 100%, 55%, ${alpha})`, 2 + beamProgress * 3, t + i);
+            `hsla(350, 100%, 60%, ${alpha})`, 3 + beamProgress * 5, t + i);
         }
 
         // Right blue beams
         for (let i = 0; i < leftBeams; i++) {
           const yOff = (i - leftBeams / 2) * 30;
-          const alpha = 0.3 + beamProgress * 0.5;
+          const alpha = 0.5 + beamProgress * 0.5;
           drawBeam(ctx, w, cy + yOff, w - beamReach, cy + yOff * 0.3,
-            `hsla(220, 100%, 60%, ${alpha})`, 2 + beamProgress * 3, t + i + 5);
+            `hsla(220, 100%, 65%, ${alpha})`, 3 + beamProgress * 5, t + i + 5);
         }
 
         // Side glow orbs
-        const leftGlow = ctx.createRadialGradient(beamReach * 0.3, cy, 0, beamReach * 0.3, cy, 100 + beamProgress * 100);
-        leftGlow.addColorStop(0, `hsla(350, 100%, 50%, ${0.15 * beamProgress})`);
+        const leftGlow = ctx.createRadialGradient(beamReach * 0.3, cy, 0, beamReach * 0.3, cy, 150 + beamProgress * 200);
+        leftGlow.addColorStop(0, `hsla(350, 100%, 55%, ${0.3 * beamProgress})`);
         leftGlow.addColorStop(1, "transparent");
         ctx.fillStyle = leftGlow;
         ctx.fillRect(0, 0, w, h);
 
-        const rightGlow = ctx.createRadialGradient(w - beamReach * 0.3, cy, 0, w - beamReach * 0.3, cy, 100 + beamProgress * 100);
-        rightGlow.addColorStop(0, `hsla(220, 100%, 55%, ${0.15 * beamProgress})`);
+        const rightGlow = ctx.createRadialGradient(w - beamReach * 0.3, cy, 0, w - beamReach * 0.3, cy, 150 + beamProgress * 200);
+        rightGlow.addColorStop(0, `hsla(220, 100%, 60%, ${0.3 * beamProgress})`);
         rightGlow.addColorStop(1, "transparent");
         ctx.fillStyle = rightGlow;
         ctx.fillRect(0, 0, w, h);
@@ -188,10 +189,10 @@ const BattleTransitionEffect = () => {
         const collisionP = Math.min((p - 0.4) / 0.3, 1);
 
         // Center clash glow
-        const clashRadius = 50 + collisionP * 200;
+        const clashRadius = 80 + collisionP * 300;
         const clashGlow = ctx.createRadialGradient(cx, cy, 0, cx, cy, clashRadius);
-        clashGlow.addColorStop(0, `hsla(290, 100%, 70%, ${0.4 * collisionP})`);
-        clashGlow.addColorStop(0.4, `hsla(320, 100%, 50%, ${0.2 * collisionP})`);
+        clashGlow.addColorStop(0, `hsla(290, 100%, 80%, ${0.7 * collisionP})`);
+        clashGlow.addColorStop(0.3, `hsla(320, 100%, 60%, ${0.4 * collisionP})`);
         clashGlow.addColorStop(1, "transparent");
         ctx.fillStyle = clashGlow;
         ctx.fillRect(0, 0, w, h);
@@ -206,10 +207,10 @@ const BattleTransitionEffect = () => {
         const ringWidth = 3 + explosionP * 8;
         ctx.beginPath();
         ctx.arc(cx, cy, ringRadius, 0, Math.PI * 2);
-        ctx.strokeStyle = `hsla(280, 100%, 80%, ${0.6 * (1 - explosionP)})`;
+        ctx.strokeStyle = `hsla(280, 100%, 85%, ${0.8 * (1 - explosionP)})`;
         ctx.lineWidth = ringWidth;
-        ctx.shadowColor = "hsl(280, 100%, 80%)";
-        ctx.shadowBlur = 30;
+        ctx.shadowColor = "hsl(280, 100%, 85%)";
+        ctx.shadowBlur = 50;
         ctx.stroke();
         ctx.shadowBlur = 0;
 
@@ -225,16 +226,16 @@ const BattleTransitionEffect = () => {
 
         // White flash
         if (explosionP < 0.3) {
-          const flashAlpha = (1 - explosionP / 0.3) * 0.5;
+          const flashAlpha = (1 - explosionP / 0.3) * 0.8;
           ctx.fillStyle = `hsla(0, 0%, 100%, ${flashAlpha})`;
           ctx.fillRect(0, 0, w, h);
         }
 
         // Explosion core glow
-        const coreRadius = 30 + explosionP * 150;
+        const coreRadius = 50 + explosionP * 250;
         const coreGlow = ctx.createRadialGradient(cx, cy, 0, cx, cy, coreRadius);
-        coreGlow.addColorStop(0, `hsla(320, 100%, 80%, ${0.6 * (1 - explosionP * 0.7)})`);
-        coreGlow.addColorStop(0.5, `hsla(280, 100%, 50%, ${0.3 * (1 - explosionP)})`);
+        coreGlow.addColorStop(0, `hsla(320, 100%, 90%, ${0.8 * (1 - explosionP * 0.6)})`);
+        coreGlow.addColorStop(0.4, `hsla(280, 100%, 60%, ${0.5 * (1 - explosionP)})`);
         coreGlow.addColorStop(1, "transparent");
         ctx.fillStyle = coreGlow;
         ctx.fillRect(0, 0, w, h);
@@ -277,7 +278,7 @@ const BattleTransitionEffect = () => {
         ctx.arc(pt.x, pt.y, pt.size, 0, Math.PI * 2);
         ctx.fillStyle = pt.color.replace(")", `, ${alpha})`).replace("hsl(", "hsla(");
         ctx.shadowColor = pt.color;
-        ctx.shadowBlur = pt.size * 4;
+        ctx.shadowBlur = pt.size * 8;
         ctx.fill();
         ctx.shadowBlur = 0;
       }
@@ -303,7 +304,7 @@ const BattleTransitionEffect = () => {
       ref={sectionRef}
       id="battle-transition"
       className="relative"
-      style={{ height: "200vh" }}
+      style={{ height: isMobileDevice ? "120vh" : "150vh" }}
     >
       <canvas
         ref={canvasRef}
