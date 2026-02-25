@@ -217,25 +217,25 @@ const BattleTransitionEffect = () => {
       let explosionRadius = 0;
       let flashOpacity = 0;
 
-      if (progress < 0.18) {
-        const p = progress / 0.18;
-        redX = width * 0.05 + width * 0.12 * p;
-        blueX = width * 0.95 - width * 0.12 * p;
-        beamIntensity = 0.35 + p * 0.4;
-      } else if (progress < 0.45) {
-        const p = (progress - 0.18) / 0.27;
-        redX = width * 0.17 + (centerX - width * 0.17) * p;
-        blueX = width * 0.83 - (width * 0.83 - centerX) * p;
+      if (progress < 0.12) {
+        const p = progress / 0.12;
+        redX = width * 0.05 + width * 0.15 * p;
+        blueX = width * 0.95 - width * 0.15 * p;
+        beamIntensity = 0.4 + p * 0.35;
+      } else if (progress < 0.5) {
+        const p = (progress - 0.12) / 0.38;
+        redX = width * 0.2 + (centerX - width * 0.2) * p;
+        blueX = width * 0.8 - (width * 0.8 - centerX) * p;
         beamIntensity = 0.75 + p * 0.55;
-      } else if (progress < 0.74) {
-        const p = (progress - 0.45) / 0.29;
+      } else if (progress < 0.75) {
+        const p = (progress - 0.5) / 0.25;
         redX = centerX;
         blueX = centerX;
         beamIntensity = 1.3 + p * 0.45;
         collisionIntensity = p;
         explosionRadius = p * (isMobile ? 140 : 220);
       } else {
-        const p = (progress - 0.74) / 0.26;
+        const p = (progress - 0.75) / 0.25;
         redX = centerX;
         blueX = centerX;
         beamIntensity = 1.6 * (1 - p);
@@ -243,7 +243,7 @@ const BattleTransitionEffect = () => {
         explosionRadius = (isMobile ? 140 : 220) + p * Math.max(width, height) * 0.55;
 
         if (progress < 0.88) {
-          const fp = (progress - 0.74) / 0.14;
+          const fp = (progress - 0.75) / 0.13;
           flashOpacity = Math.sin(fp * Math.PI) * 0.62;
         } else {
           const fp = Math.min((progress - 0.88) / 0.12, 1);
@@ -367,7 +367,7 @@ const BattleTransitionEffect = () => {
     <section
       id="battle-transition"
       ref={sectionRef}
-      className="relative h-[130vh] md:h-[160vh] overflow-hidden"
+      className="relative h-[120vh] md:h-[140vh] overflow-hidden"
       aria-hidden="true"
     >
       <div className="sticky top-0 h-screen w-full pointer-events-none">
