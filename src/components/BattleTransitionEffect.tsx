@@ -367,7 +367,7 @@ const BattleTransitionEffect = () => {
     <section
       id="battle-transition"
       ref={sectionRef}
-      className="relative h-[100vh] md:h-[115vh] overflow-hidden"
+      className="relative h-[130vh] md:h-[160vh] overflow-hidden"
       aria-hidden="true"
     >
       <div className="sticky top-0 h-screen w-full pointer-events-none">
