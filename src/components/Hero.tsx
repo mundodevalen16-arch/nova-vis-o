@@ -67,19 +67,13 @@ const Hero = () => {
 
           {/* Inner content */}
           <div className="relative z-10 px-8 md:px-16 pt-8 pb-10 min-h-[75vh] flex flex-col justify-between">
-            {/* Nav inside card */}
-            <nav className="flex items-center justify-between mb-12">
+            {/* Logo */}
+            <div className="mb-12">
               <div className="text-2xl md:text-3xl font-black tracking-tight">
                 <span className="text-gradient-pink">360</span>
                 <span className="text-foreground ml-1">DIGITAL</span>
               </div>
-              <div className="hidden md:flex items-center gap-8 text-sm text-foreground/60 font-medium">
-                <a href="#modulos" className="hover:text-foreground transition-colors duration-300">Módulos</a>
-                <a href="#transformacao" className="hover:text-foreground transition-colors duration-300">Transformação</a>
-                <a href="#bonus" className="hover:text-foreground transition-colors duration-300">Bônus</a>
-                <a href="#preco" className="font-semibold text-foreground hover:text-primary transition-colors duration-300">Garantir Vaga</a>
-              </div>
-            </nav>
+            </div>
 
             {/* Hero body — two columns */}
             <div className="flex-1 flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
