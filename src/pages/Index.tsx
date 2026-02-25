@@ -22,7 +22,7 @@ const Index = () => (
     <EnergyBackground />
     <ConstellationBackground />
     <MouseGlow />
-    <Navbar />
+    
     <Hero />
     <BattleTransitionEffect />
     <SocialProof />

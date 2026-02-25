@@ -25,7 +25,7 @@ const Hero = () => {
   const cardOpacity = useTransform(scrollYProgress, [0.3, 0.7], [1, 0]);
 
   return (
-    <section ref={ref} className="relative min-h-[150vh] px-4 py-12 md:py-20 pt-24" style={{ perspective: "1500px" }}>
+    <section ref={ref} className="relative min-h-[150vh] px-4 py-8 md:py-12 pt-8" style={{ perspective: "1500px" }}>
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[600px] rounded-full bg-primary/10 blur-[180px] animate-ambient" />
         <div className="absolute bottom-0 left-1/4 w-[400px] h-[400px] rounded-full bg-accent/8 blur-[120px] animate-ambient" style={{ animationDelay: "3s" }} />
