@@ -41,7 +41,7 @@ const LifestyleGallery = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ type: "spring", stiffness: 80, damping: 20 }}
-          className="text-4xl md:text-6xl font-black text-center mb-4 tracking-tight"
+          className="text-3xl sm:text-4xl md:text-6xl font-black text-center mb-4 tracking-tight leading-tight"
         >
           O <span className="text-gradient-pink">lifestyle</span> que o digital proporciona
         </motion.h2>
