@@ -1,5 +1,6 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
+import bielImg from "@/assets/biel-lifestyle-1.jpeg";
 
 const smooth = { type: "spring" as const, stiffness: 50, damping: 20, mass: 1 };
 
@@ -52,6 +53,20 @@ const WhoIsBehind = () => {
         </motion.h2>
 
         <div className="max-w-3xl mx-auto text-center">
+          {/* Photo */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8, y: 40 }}
+            whileInView={{ opacity: 1, scale: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ type: "spring", stiffness: 60, damping: 18 }}
+            className="w-48 h-48 md:w-56 md:h-56 mx-auto mb-10 rounded-full overflow-hidden ring-2 ring-primary/30 ring-offset-4 ring-offset-background"
+            style={{
+              boxShadow: "0 0 60px hsl(328 100% 48% / 0.2)",
+            }}
+          >
+            <img src={bielImg} alt="iBielZz" className="w-full h-full object-cover object-top" />
+          </motion.div>
+
           {/* Name zooms in dramatically */}
           <motion.h3
             style={{ 
