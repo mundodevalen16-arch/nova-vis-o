@@ -67,15 +67,49 @@ const Bonus = () => {
           ))}
         </div>
 
+        {/* Community Preview */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.7 }}
+          className="mt-20"
+        >
+          <div className="max-w-3xl mx-auto text-center mb-8 space-y-3">
+            <p className="text-xs text-primary font-bold uppercase tracking-[0.3em]">👀 POR DENTRO DA COMUNIDADE</p>
+            <h3 className="text-3xl md:text-4xl font-black tracking-tight">
+              Isso aqui <span className="text-gradient-pink">não é slide bonito.</span>
+            </h3>
+            <p className="text-sm text-muted-foreground font-light leading-relaxed max-w-xl mx-auto">
+              É movimento real. Assista um trecho de uma pré-call exclusiva com membros do Networking 360.
+              Aqui não tem guru vendendo sonho — tem gente executando, trocando ideia e escalando resultado de verdade.
+            </p>
+          </div>
+
+          <div className="max-w-2xl mx-auto">
+            <div className="relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl shadow-primary/10">
+              <video
+                controls
+                preload="metadata"
+                className="w-full aspect-video bg-black"
+                poster=""
+              >
+                <source src="/videos/community-call.mp4" type="video/mp4" />
+                Seu navegador não suporta vídeo.
+              </video>
+            </div>
+          </div>
+        </motion.div>
+
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.6 }}
-          className="text-center space-y-1 text-sm text-foreground/50 font-light"
+          className="text-center space-y-1 text-sm text-foreground/50 font-light mt-14"
         >
           <p>Você não compra algo estático.</p>
-          <p className="text-foreground/80 font-semibold">Você entra num ecossistema atualizado.</p>
+          <p className="text-foreground/80 font-semibold">Você entra num ecossistema que respira resultado.</p>
         </motion.div>
       </div>
     </section>
