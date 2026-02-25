@@ -72,7 +72,7 @@ const BeforeAfterSlider = () => {
         >
           <div
             ref={containerRef}
-            className="relative w-full aspect-[3/4] md:aspect-[16/10] rounded-3xl overflow-hidden cursor-ew-resize select-none touch-none"
+            className="relative w-full aspect-[3/4] md:aspect-[4/5] rounded-3xl overflow-hidden cursor-ew-resize select-none touch-none"
             style={{
               border: "1px solid hsl(0 0% 100% / 0.08)",
               boxShadow: "0 30px 80px hsl(0 0% 0% / 0.5), 0 0 60px hsl(328 100% 48% / 0.1)",
@@ -83,39 +83,39 @@ const BeforeAfterSlider = () => {
             onPointerLeave={handlePointerUp}
           >
             {/* AFTER (full background) */}
-            <div className="absolute inset-0 flex items-end p-8 md:p-12">
+            <div className="absolute inset-0">
               <img src={depoisImg} alt="Depois do digital" className="absolute inset-0 w-full h-full object-cover" />
-              <div className="absolute inset-0" style={{ background: "linear-gradient(to top, hsl(270 50% 10% / 0.85), transparent 60%)" }} />
-              <div className="relative z-10">
+              <div className="absolute inset-0" style={{ background: "linear-gradient(to top, hsl(270 50% 10% / 0.9), transparent 50%)" }} />
+              <div className="absolute bottom-0 right-0 p-6 md:p-10 z-10 text-right max-w-[50%] ml-auto">
                 <span className="inline-block px-3 py-1 rounded-full text-[10px] font-bold bg-primary/20 border border-primary/30 text-primary uppercase tracking-wider mb-3">
                   Depois
                 </span>
-                <h3 className="text-2xl md:text-4xl font-black text-foreground">
+                <h3 className="text-xl md:text-3xl font-black text-foreground">
                   Método. Clareza. R$10k/mês.
                 </h3>
-                <p className="text-sm text-foreground/60 mt-2 font-light max-w-md">
-                  Campanhas rodando, resultados aparecendo, confiança total no que faz.
+                <p className="text-xs md:text-sm text-foreground/60 mt-2 font-light">
+                  Campanhas rodando, resultados aparecendo, confiança total.
                 </p>
               </div>
             </div>
 
             {/* BEFORE (clipped) */}
             <div
-              className="absolute inset-0 flex items-end p-8 md:p-12"
+              className="absolute inset-0"
               style={{
                 clipPath: `inset(0 ${100 - position}% 0 0)`,
               }}
             >
               <img src={antesImg} alt="Antes do digital" className="absolute inset-0 w-full h-full object-cover" />
-              <div className="absolute inset-0" style={{ background: "linear-gradient(to top, hsl(0 0% 5% / 0.85), transparent 60%)" }} />
-              <div className="relative z-10">
+              <div className="absolute inset-0" style={{ background: "linear-gradient(to top, hsl(0 0% 5% / 0.9), transparent 50%)" }} />
+              <div className="absolute bottom-0 left-0 p-6 md:p-10 z-10 max-w-[50%]">
                 <span className="inline-block px-3 py-1 rounded-full text-[10px] font-bold bg-muted border border-muted-foreground/20 text-muted-foreground uppercase tracking-wider mb-3">
                   Antes
                 </span>
-                <h3 className="text-2xl md:text-4xl font-black text-foreground/40">
+                <h3 className="text-xl md:text-3xl font-black text-foreground/40">
                   Sem direção. Sem resultado.
                 </h3>
-                <p className="text-sm text-foreground/25 mt-2 font-light max-w-md">
+                <p className="text-xs md:text-sm text-foreground/25 mt-2 font-light">
                   Dinheiro jogado fora em anúncios, sem saber o que está errado.
                 </p>
               </div>
