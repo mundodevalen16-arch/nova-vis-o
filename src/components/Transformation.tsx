@@ -51,7 +51,7 @@ const Transformation = () => {
         <motion.h2
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ margin: "-80px" }}
+          viewport={{ once: true, margin: "-80px" }}
           transition={smooth}
           className="text-5xl md:text-7xl font-black text-center mb-20 tracking-tight"
         >
@@ -99,7 +99,7 @@ const Transformation = () => {
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          viewport={{ margin: "-50px" }}
+          viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.6 }}
           className="text-center mt-10 space-y-1 text-sm text-foreground/50 font-light"
         >

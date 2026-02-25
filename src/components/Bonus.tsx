@@ -49,7 +49,7 @@ const Bonus = () => {
                 opacity: 0,
               }}
               whileInView={{ x: 0, y: 0, rotate: 0, scale: 1, opacity: 1 }}
-              viewport={{ margin: "-80px" }}
+              viewport={{ once: true, margin: "-80px" }}
               transition={{ type: "spring", stiffness: 45, damping: 14, mass: 1.3, delay: i * 0.08 }}
             >
               <SpotlightCard>
@@ -70,7 +70,7 @@ const Bonus = () => {
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          viewport={{ margin: "-50px" }}
+          viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.6 }}
           className="text-center space-y-1 text-sm text-foreground/50 font-light"
         >

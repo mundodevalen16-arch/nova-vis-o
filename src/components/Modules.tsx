@@ -93,7 +93,7 @@ const Modules = () => {
                   <motion.article
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ margin: "-80px" }}
+                    viewport={{ once: true, margin: "-80px" }}
                     transition={{ ...spring, delay: i * 0.04 }}
                     whileHover={{ scale: 1.03, y: -6 }}
                     className="premium-card border-gradient h-full cursor-pointer group"

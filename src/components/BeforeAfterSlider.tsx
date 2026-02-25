@@ -83,10 +83,10 @@ const BeforeAfterSlider = () => {
             onPointerLeave={handlePointerUp}
           >
             {/* AFTER (full background) */}
-            <div className="absolute inset-0">
+            <div className="absolute inset-0 z-0">
               <img src={depoisImg} alt="Depois do digital" className="absolute inset-0 w-full h-full object-cover" />
               <div className="absolute inset-0" style={{ background: "linear-gradient(to top, hsl(270 50% 10% / 0.9), transparent 50%)" }} />
-              <div className="absolute bottom-0 right-0 p-6 md:p-10 z-10 text-right max-w-[50%] ml-auto">
+              <div className="absolute bottom-0 right-0 p-6 md:p-10 text-right max-w-[50%] ml-auto">
                 <span className="inline-block px-3 py-1 rounded-full text-[10px] font-bold bg-primary/20 border border-primary/30 text-primary uppercase tracking-wider mb-3">
                   Depois
                 </span>
@@ -101,14 +101,14 @@ const BeforeAfterSlider = () => {
 
             {/* BEFORE (clipped) */}
             <div
-              className="absolute inset-0"
+              className="absolute inset-0 z-10"
               style={{
                 clipPath: `inset(0 ${100 - position}% 0 0)`,
               }}
             >
               <img src={antesImg} alt="Antes do digital" className="absolute inset-0 w-full h-full object-cover" />
               <div className="absolute inset-0" style={{ background: "linear-gradient(to top, hsl(0 0% 5% / 0.9), transparent 50%)" }} />
-              <div className="absolute bottom-0 left-0 p-6 md:p-10 z-10 max-w-[50%]">
+              <div className="absolute bottom-0 left-0 p-6 md:p-10 max-w-[50%]">
                 <span className="inline-block px-3 py-1 rounded-full text-[10px] font-bold bg-muted border border-muted-foreground/20 text-muted-foreground uppercase tracking-wider mb-3">
                   Antes
                 </span>
@@ -123,7 +123,7 @@ const BeforeAfterSlider = () => {
 
             {/* Drag handle */}
             <div
-              className="absolute top-0 bottom-0 w-[2px] z-20 pointer-events-none"
+              className="absolute top-0 bottom-0 w-[2px] z-30 pointer-events-none"
               style={{
                 left: `${position}%`,
                 background: "hsl(0 0% 100% / 0.5)",
