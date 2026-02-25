@@ -1,5 +1,7 @@
 import { useState, useRef, useCallback } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
+import antesImg from "@/assets/antes_digital.jpg";
+import depoisImg from "@/assets/depois_do_digital.jpg";
 
 const spring = { type: "spring" as const, stiffness: 100, damping: 20 };
 
@@ -81,10 +83,10 @@ const BeforeAfterSlider = () => {
             onPointerLeave={handlePointerUp}
           >
             {/* AFTER (full background) */}
-            <div className="absolute inset-0 flex items-end p-8 md:p-12" style={{
-              background: "linear-gradient(135deg, hsl(270 50% 18%), hsl(328 60% 25%) 60%, hsl(340 70% 30%))",
-            }}>
-              <div>
+            <div className="absolute inset-0 flex items-end p-8 md:p-12">
+              <img src={depoisImg} alt="Depois do digital" className="absolute inset-0 w-full h-full object-cover" />
+              <div className="absolute inset-0" style={{ background: "linear-gradient(to top, hsl(270 50% 10% / 0.85), transparent 60%)" }} />
+              <div className="relative z-10">
                 <span className="inline-block px-3 py-1 rounded-full text-[10px] font-bold bg-primary/20 border border-primary/30 text-primary uppercase tracking-wider mb-3">
                   Depois
                 </span>
@@ -102,14 +104,10 @@ const BeforeAfterSlider = () => {
               className="absolute inset-0 flex items-end p-8 md:p-12"
               style={{
                 clipPath: `inset(0 ${100 - position}% 0 0)`,
-                background: "linear-gradient(135deg, hsl(0 0% 10%), hsl(0 0% 6%))",
               }}
             >
-              <div className="absolute inset-0 opacity-30" style={{
-                backgroundImage: `radial-gradient(1px 1px at 20% 30%, hsl(0 0% 40%) 0.5px, transparent 0),
-                  radial-gradient(1px 1px at 60% 60%, hsl(0 0% 30%) 0.3px, transparent 0),
-                  radial-gradient(1px 1px at 80% 20%, hsl(0 0% 35%) 0.4px, transparent 0)`,
-              }} />
+              <img src={antesImg} alt="Antes do digital" className="absolute inset-0 w-full h-full object-cover" />
+              <div className="absolute inset-0" style={{ background: "linear-gradient(to top, hsl(0 0% 5% / 0.85), transparent 60%)" }} />
               <div className="relative z-10">
                 <span className="inline-block px-3 py-1 rounded-full text-[10px] font-bold bg-muted border border-muted-foreground/20 text-muted-foreground uppercase tracking-wider mb-3">
                   Antes
