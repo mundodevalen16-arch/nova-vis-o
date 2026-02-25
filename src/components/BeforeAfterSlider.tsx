@@ -68,11 +68,11 @@ const BeforeAfterSlider = () => {
             y: flipY,
             transformOrigin: "center bottom",
           }}
-          className="max-w-3xl mx-auto"
+          className="max-w-4xl mx-auto"
         >
           <div
             ref={containerRef}
-            className="relative w-full aspect-[3/4] md:aspect-[3/4] md:max-h-[70vh] rounded-3xl overflow-hidden cursor-ew-resize select-none touch-none"
+            className="relative w-full aspect-[3/4] md:aspect-[3/4] rounded-3xl overflow-hidden cursor-ew-resize select-none touch-none"
             style={{
               border: "1px solid hsl(0 0% 100% / 0.08)",
               boxShadow: "0 30px 80px hsl(0 0% 0% / 0.5), 0 0 60px hsl(328 100% 48% / 0.1)",
