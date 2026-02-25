@@ -38,7 +38,7 @@ const Hero = () => {
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
           style={{ scale: cardScale, y: cardY, opacity: cardOpacity }}
-          className="w-full max-w-6xl mx-auto relative rounded-[2.5rem] overflow-hidden"
+          className="w-full max-w-7xl mx-auto relative rounded-[2.5rem] overflow-hidden"
         >
           {/* Card border glow */}
           <div className="absolute inset-0 rounded-[2.5rem] border border-foreground/[0.06]" style={{
@@ -66,7 +66,7 @@ const Hero = () => {
 
 
           {/* Inner content */}
-          <div className="relative z-10 px-8 md:px-16 pt-8 pb-10 min-h-[75vh] flex flex-col justify-between">
+          <div className="relative z-10 px-8 md:px-16 pt-8 pb-10 min-h-[60vh] flex flex-col justify-between">
             {/* Logo */}
             <div className="mb-12">
               <div className="text-2xl md:text-3xl font-black tracking-tight">
