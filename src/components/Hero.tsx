@@ -19,32 +19,15 @@ const Hero = () => {
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
   
-  // Dramatic exit: card tears apart as you scroll
-  const cardScale = useTransform(scrollYProgress, [0, 0.6], [1, 0.7]);
-  const cardRotateX = useTransform(scrollYProgress, [0, 0.6], [0, 25]);
-  const cardY = useTransform(scrollYProgress, [0, 0.6], [0, -100]);
+  // Smooth exit on scroll
+  const cardScale = useTransform(scrollYProgress, [0, 0.6], [1, 0.85]);
+  const cardY = useTransform(scrollYProgress, [0, 0.6], [0, -80]);
   const cardOpacity = useTransform(scrollYProgress, [0.3, 0.7], [1, 0]);
-  
-  // Left half tears left
-  const leftX = useTransform(scrollYProgress, [0.2, 0.7], [0, -300]);
-  const leftRotateZ = useTransform(scrollYProgress, [0.2, 0.7], [0, -15]);
-  
-  // Right half tears right
-  const rightX = useTransform(scrollYProgress, [0.2, 0.7], [0, 300]);
-  const rightRotateZ = useTransform(scrollYProgress, [0.2, 0.7], [0, 15]);
-
-  // Glow intensifies on scroll
-  const glowScale = useTransform(scrollYProgress, [0, 0.5], [1, 2.5]);
-  const glowOpacity = useTransform(scrollYProgress, [0, 0.3, 0.7], [0.3, 0.8, 0]);
 
   return (
     <section ref={ref} className="relative min-h-[150vh] px-4 py-12 md:py-20 pt-24" style={{ perspective: "1500px" }}>
-      {/* Ambient background glow that explodes on scroll */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <motion.div 
-          style={{ scale: glowScale, opacity: glowOpacity }}
-          className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[600px] rounded-full bg-primary/12 blur-[180px]" 
-        />
+        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[600px] rounded-full bg-primary/10 blur-[180px] animate-ambient" />
         <div className="absolute bottom-0 left-1/4 w-[400px] h-[400px] rounded-full bg-accent/8 blur-[120px] animate-ambient" style={{ animationDelay: "3s" }} />
       </div>
 
@@ -54,17 +37,17 @@ const Hero = () => {
           initial={{ opacity: 0, y: 50, scale: 0.94 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-          style={{ scale: cardScale, rotateX: cardRotateX, y: cardY, opacity: cardOpacity }}
+          style={{ scale: cardScale, y: cardY, opacity: cardOpacity }}
           className="w-full max-w-6xl mx-auto relative rounded-[2.5rem] overflow-hidden"
         >
           {/* Card border glow */}
           <div className="absolute inset-0 rounded-[2.5rem] border border-foreground/[0.06]" style={{
-            boxShadow: "0 30px 100px hsl(270 80% 40% / 0.3), 0 10px 40px hsl(0 0% 0% / 0.5), inset 0 1px 0 hsl(0 0% 100% / 0.05)",
+            boxShadow: "0 30px 100px hsl(260 70% 35% / 0.4), 0 10px 40px hsl(0 0% 0% / 0.5), inset 0 1px 0 hsl(0 0% 100% / 0.05)",
           }} />
 
           {/* Card background gradient */}
           <div className="absolute inset-0" style={{
-            background: "linear-gradient(160deg, hsl(270 60% 20% / 0.9), hsl(280 50% 15% / 0.8) 40%, hsl(328 70% 35% / 0.6) 80%, hsl(340 80% 45% / 0.4))",
+            background: "linear-gradient(160deg, hsl(250 50% 15% / 0.95), hsl(260 45% 12% / 0.9) 40%, hsl(270 60% 25% / 0.7) 80%, hsl(265 70% 35% / 0.5))",
           }} />
 
           {/* Starfield overlay */}
@@ -81,38 +64,6 @@ const Hero = () => {
               radial-gradient(1px 1px at 95% 70%, white 0.4px, transparent 0)`,
           }} />
 
-          {/* LEFT TEAR HALF */}
-          <motion.div 
-            style={{ x: leftX, rotateZ: leftRotateZ }} 
-            className="absolute inset-0 z-20 pointer-events-none"
-          >
-            <div className="absolute inset-0" style={{ 
-              clipPath: "polygon(0 0, 52% 0, 48% 100%, 0 100%)",
-              background: "linear-gradient(90deg, transparent, hsl(328 100% 48% / 0.15))",
-            }} />
-          </motion.div>
-
-          {/* RIGHT TEAR HALF */}
-          <motion.div 
-            style={{ x: rightX, rotateZ: rightRotateZ }}
-            className="absolute inset-0 z-20 pointer-events-none"
-          >
-            <div className="absolute inset-0" style={{
-              clipPath: "polygon(52% 0, 100% 0, 100% 100%, 48% 100%)",
-              background: "linear-gradient(-90deg, transparent, hsl(270 80% 55% / 0.15))",
-            }} />
-          </motion.div>
-
-          {/* Tear line glow */}
-          <motion.div 
-            style={{ opacity: useTransform(scrollYProgress, [0.15, 0.4, 0.7], [0, 1, 0]) }}
-            className="absolute inset-0 z-30 pointer-events-none flex items-center justify-center"
-          >
-            <div className="w-[3px] h-full" style={{
-              background: "linear-gradient(180deg, transparent, hsl(328 100% 48%), hsl(270 80% 55%), transparent)",
-              boxShadow: "0 0 40px 10px hsl(328 100% 48% / 0.6), 0 0 100px 20px hsl(270 80% 55% / 0.3)",
-            }} />
-          </motion.div>
 
           {/* Inner content */}
           <div className="relative z-10 px-8 md:px-16 pt-8 pb-10 min-h-[75vh] flex flex-col justify-between">
