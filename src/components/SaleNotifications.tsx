@@ -30,6 +30,7 @@ const PhoneNotifications = () => {
   const [now, setNow] = useState(new Date());
   const counterRef = useRef(0);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const bgMusicRef = useRef<HTMLAudioElement | null>(null);
   const startTimeRef = useRef(Date.now());
 
   // Update clock every minute
@@ -59,6 +60,15 @@ const PhoneNotifications = () => {
     audioRef.current.volume = 0.3;
     audioRef.current.preload = "auto";
 
+    // Background music starts after notification sounds end (10s)
+    bgMusicRef.current = new Audio("/sounds/audio_site.mp3");
+    bgMusicRef.current.volume = 0.15;
+    bgMusicRef.current.loop = true;
+    bgMusicRef.current.preload = "auto";
+    const bgMusicTimer = setTimeout(() => {
+      bgMusicRef.current?.play().catch(() => {});
+    }, 10000);
+
     const delays = [800, 2000, 3500, 5000, 8000, 12000, 16000];
     const timers = delays.map((d) => setTimeout(addNotification, d));
     const interval = setInterval(addNotification, 6000);
@@ -66,6 +76,11 @@ const PhoneNotifications = () => {
     return () => {
       timers.forEach(clearTimeout);
       clearInterval(interval);
+      clearTimeout(bgMusicTimer);
+      if (bgMusicRef.current) {
+        bgMusicRef.current.pause();
+        bgMusicRef.current = null;
+      }
     };
   }, [addNotification]);
 
