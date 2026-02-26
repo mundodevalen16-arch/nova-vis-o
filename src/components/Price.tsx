@@ -141,7 +141,7 @@ const Price = () => {
         </p>
         <div className="flex items-center justify-center gap-5">
           <a
-            href="#"
+            href="https://www.instagram.com/gab_rochazz/"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-2 px-6 py-3 rounded-full border border-foreground/10 bg-foreground/5 hover:bg-foreground/10 transition-colors text-sm font-medium"
@@ -149,7 +149,7 @@ const Price = () => {
             📸 Instagram
           </a>
           <a
-            href="#"
+            href="https://www.youtube.com/@ibielZz"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-2 px-6 py-3 rounded-full border border-foreground/10 bg-foreground/5 hover:bg-foreground/10 transition-colors text-sm font-medium"
