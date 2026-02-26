@@ -35,7 +35,7 @@ const Transformation = () => {
   const shockwaveOpacity = useTransform(scrollYProgress, [0.35, 0.42, 0.55], [0, 0.6, 0]);
 
   return (
-    <section ref={ref} id="transformacao" className="py-16 md:py-20 px-6 relative overflow-hidden" style={{ perspective: "2000px" }}>
+    <section ref={ref} id="transformacao" className="pt-2 pb-16 md:pt-4 md:pb-20 px-6 relative overflow-hidden" style={{ perspective: "2000px" }}>
       {/* Shockwave */}
       <motion.div
         style={{ scale: shockwaveScale, opacity: shockwaveOpacity }}
@@ -48,16 +48,6 @@ const Transformation = () => {
       </motion.div>
 
       <div className="max-w-7xl mx-auto relative z-10">
-        <motion.h2
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={smooth}
-          className="text-5xl md:text-7xl font-black text-center mb-20 tracking-tight"
-        >
-          🔄 A <span className="text-gradient-pink">transformação</span>
-        </motion.h2>
-
         <div className="grid md:grid-cols-2 gap-6">
           <motion.div style={{ x: leftX, rotateY: leftRotateY, rotateZ: leftRotateZ, opacity: leftOpacity, transformOrigin: "right center" }}>
             <SpotlightCard>
