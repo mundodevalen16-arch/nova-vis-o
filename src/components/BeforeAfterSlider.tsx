@@ -48,7 +48,7 @@ const BeforeAfterSlider = () => {
           transition={{ ...spring, delay: 0.05 }}
           className="text-center text-sm md:text-base text-muted-foreground font-light tracking-wide mb-4"
         >
-          Casa própria. Moto. Carro dos sonhos. Tudo conquistado com o digital.
+          Casa própria, moto, carro dos sonhos — tudo conquistado com o digital.
         </motion.p>
         <motion.h2
           initial={{ opacity: 0, y: 40 }}
