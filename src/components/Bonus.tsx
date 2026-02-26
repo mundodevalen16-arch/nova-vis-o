@@ -11,9 +11,9 @@ const bonuses = [
 ];
 
 const bonusScatter = [
-  { x: -300, y: 200, rotate: -35 },
-  { x: 0, y: -400, rotate: 20 },
-  { x: 350, y: 250, rotate: 40 },
+  { x: -120, y: 80, rotate: -20 },
+  { x: 0, y: -150, rotate: 12 },
+  { x: 130, y: 100, rotate: 18 },
 ];
 
 const Bonus = () => {
@@ -49,7 +49,7 @@ const Bonus = () => {
                 opacity: 0,
               }}
               whileInView={{ x: 0, y: 0, rotate: 0, scale: 1, opacity: 1 }}
-              viewport={{ once: true, margin: "-80px" }}
+              viewport={{ once: true, margin: "-30px" }}
               transition={{ type: "spring", stiffness: 45, damping: 14, mass: 1.3, delay: i * 0.08 }}
             >
               <SpotlightCard>
