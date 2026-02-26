@@ -7,7 +7,7 @@ const spring = { type: "spring" as const, stiffness: 100, damping: 20 };
 const Hero = () => {
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-  
+
   // Smooth exit on scroll
   const cardScale = useTransform(scrollYProgress, [0, 0.6], [1, 0.85]);
   const cardY = useTransform(scrollYProgress, [0, 0.6], [0, -80]);
@@ -27,16 +27,16 @@ const Hero = () => {
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
           style={{ scale: cardScale, y: cardY, opacity: cardOpacity }}
-          className="w-full max-w-[90rem] mx-auto relative rounded-[2.5rem] overflow-hidden"
-        >
+          className="w-full max-w-[90rem] mx-auto relative rounded-[2.5rem] overflow-hidden">
+
           {/* Card border glow */}
           <div className="absolute inset-0 rounded-[2.5rem] border border-foreground/[0.06]" style={{
-            boxShadow: "0 30px 100px hsl(260 70% 35% / 0.4), 0 10px 40px hsl(0 0% 0% / 0.5), inset 0 1px 0 hsl(0 0% 100% / 0.05)",
+            boxShadow: "0 30px 100px hsl(260 70% 35% / 0.4), 0 10px 40px hsl(0 0% 0% / 0.5), inset 0 1px 0 hsl(0 0% 100% / 0.05)"
           }} />
 
           {/* Card background gradient */}
           <div className="absolute inset-0" style={{
-            background: "linear-gradient(160deg, hsl(250 50% 15% / 0.95), hsl(260 45% 12% / 0.9) 40%, hsl(270 60% 25% / 0.7) 80%, hsl(265 70% 35% / 0.5))",
+            background: "linear-gradient(160deg, hsl(250 50% 15% / 0.95), hsl(260 45% 12% / 0.9) 40%, hsl(270 60% 25% / 0.7) 80%, hsl(265 70% 35% / 0.5))"
           }} />
 
           {/* Starfield overlay */}
@@ -50,7 +50,7 @@ const Hero = () => {
               radial-gradient(1px 1px at 25% 55%, white 0.4px, transparent 0),
               radial-gradient(1px 1px at 85% 10%, white 0.3px, transparent 0),
               radial-gradient(1px 1px at 45% 95%, white 0.2px, transparent 0),
-              radial-gradient(1px 1px at 95% 70%, white 0.4px, transparent 0)`,
+              radial-gradient(1px 1px at 95% 70%, white 0.4px, transparent 0)`
           }} />
 
 
@@ -72,8 +72,8 @@ const Hero = () => {
                   initial={{ opacity: 0, y: 15 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ ...spring, delay: 0.3 }}
-                  className="mb-3"
-                >
+                  className="mb-3">
+
                   <span className="text-xs md:text-sm text-primary uppercase tracking-[0.3em] font-bold">
                     🚨 PARE DE TESTAR NO ESCURO.
                   </span>
@@ -84,19 +84,19 @@ const Hero = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ ...spring, delay: 0.4 }}
                   className="text-[3.5rem] sm:text-[5rem] md:text-[6rem] lg:text-[7rem] font-black leading-[0.85] tracking-tight mb-6"
-                  style={{ textShadow: "0 4px 30px hsl(328 100% 48% / 0.3)" }}
-                >
+                  style={{ textShadow: "0 4px 30px hsl(328 100% 48% / 0.3)" }}>
+
                   DO ZERO
                   <br />
-                  <span className="text-gradient-pink">AOS R$100K/MÊS</span>
+                  <span className="text-gradient-pink">AOS R$10K/MÊS</span>
                 </motion.h1>
 
                 <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.6, duration: 0.5 }}
-                  className="text-sm md:text-base text-foreground/50 max-w-md leading-relaxed mb-8 font-light space-y-3"
-                >
+                  className="text-sm md:text-base text-foreground/50 max-w-md leading-relaxed mb-8 font-light space-y-3">
+
                   <p>Você não precisa de mais vídeos soltos.<br />Você precisa de um <span className="text-foreground font-medium">método</span>.</p>
                   <p>O 360 Digital foi criado para transformar completo iniciantes em pessoas capazes de gerar resultado real com Meta Ads — mesmo começando do absoluto zero.</p>
                   <p className="text-foreground/40">Sem achismo. Sem fórmula mágica. Sem promessas vazias.</p>
@@ -107,13 +107,13 @@ const Hero = () => {
                   initial={{ opacity: 0, y: 15 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ ...spring, delay: 0.75 }}
-                  className="flex flex-col items-start gap-3"
-                >
+                  className="flex flex-col items-start gap-3">
+
                   <span className="text-xs text-primary font-bold uppercase tracking-[0.2em]">🔥 Turma 2026 aberta</span>
                   <a
                     href="#preco"
-                    className="flex items-center gap-2 px-8 py-4 rounded-full bg-gradient-pink text-primary-foreground font-bold text-sm animate-glow-pulse hover:scale-105 transition-transform cursor-pointer"
-                  >
+                    className="flex items-center gap-2 px-8 py-4 rounded-full bg-gradient-pink text-primary-foreground font-bold text-sm animate-glow-pulse hover:scale-105 transition-transform cursor-pointer">
+
                     QUERO ENTRAR AGORA
                   </a>
                 </motion.div>
@@ -125,24 +125,24 @@ const Hero = () => {
                 animate={{ opacity: 1, x: 0, rotateY: 0 }}
                 transition={{ ...spring, delay: 0.5 }}
                 className="flex-shrink-0"
-                style={{ perspective: "1200px" }}
-              >
+                style={{ perspective: "1200px" }}>
+
                 <div
                   className="relative animate-float"
                   style={{
                     transform: "rotateY(-8deg) rotateX(5deg)",
-                    transformStyle: "preserve-3d",
-                  }}
-                >
+                    transformStyle: "preserve-3d"
+                  }}>
+
                   {/* Phone shell */}
                   <div
                     className="w-[220px] md:w-[260px] h-[440px] md:h-[520px] rounded-[2.5rem] overflow-hidden relative"
                     style={{
                       background: "linear-gradient(160deg, hsl(0 0% 12%), hsl(0 0% 6%))",
                       border: "3px solid hsl(0 0% 20%)",
-                      boxShadow: "0 30px 80px hsl(0 0% 0% / 0.6), 0 0 60px hsl(328 100% 48% / 0.15), inset 0 1px 0 hsl(0 0% 30%)",
-                    }}
-                  >
+                      boxShadow: "0 30px 80px hsl(0 0% 0% / 0.6), 0 0 60px hsl(328 100% 48% / 0.15), inset 0 1px 0 hsl(0 0% 30%)"
+                    }}>
+
                     {/* Notch */}
                     <div className="absolute top-3 left-1/2 -translate-x-1/2 w-20 h-5 bg-black rounded-full z-20" />
 
@@ -152,7 +152,7 @@ const Hero = () => {
 
                   {/* Reflection glow underneath */}
                   <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 w-3/4 h-8 rounded-full blur-xl" style={{
-                    background: "hsl(328 100% 48% / 0.2)",
+                    background: "hsl(328 100% 48% / 0.2)"
                   }} />
                 </div>
               </motion.div>
@@ -161,8 +161,8 @@ const Hero = () => {
           </div>
         </motion.div>
       </div>
-    </section>
-  );
+    </section>);
+
 };
 
 export default Hero;
