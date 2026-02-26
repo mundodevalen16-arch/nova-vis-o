@@ -125,7 +125,7 @@ const BeforeAfterSlider = () => {
                   Mais um jovem sonhador.
                 </h3>
                 <p className="text-xs md:text-sm text-foreground/25 mt-2 font-light">
-                  Ajudante de padeiro, fazendo bicos, sem direção.
+                  CLT, fazendo bicos, sem direção.
                 </p>
               </div>
             </div>

@@ -15,7 +15,7 @@ import resulImg from "@/assets/lifestyle-resul.jpg";
 
 const images = [
   { src: setupImg, alt: "Setup de trabalho", caption: "Do sonho ao setup dos sonhos 🎮" },
-  { src: keysImg, alt: "Casa própria", caption: "De ajudante de padeiro → casa própria 🏠" },
+  { src: keysImg, alt: "Casa própria", caption: "De CLT → casa própria 🏠" },
   { src: plaquesImg, alt: "Placas de vendas", caption: "R$500mil+ em vendas comprovadas 🏆" },
   { src: salesImg, alt: "Notificações de vendas", caption: "Vendas caindo no automático 💰" },
   { src: casalImg, alt: "Casal empreendedor", caption: "Construindo juntos no digital 💍" },
@@ -61,7 +61,7 @@ const LifestyleGallery = () => {
           viewport={{ once: true }}
           className="text-center text-muted-foreground text-sm font-light mb-14 max-w-md mx-auto"
         >
-          De jovem sonhador e ajudante de padeiro — a isso aqui.
+          De jovem sonhador e CLT — a isso aqui.
         </motion.p>
 
         {/* Carousel */}
