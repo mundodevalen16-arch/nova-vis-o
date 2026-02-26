@@ -15,7 +15,7 @@ import resulImg from "@/assets/lifestyle-resul.jpg";
 
 const images = [
   { src: setupImg, alt: "Setup de trabalho", caption: "Do sonho ao setup dos sonhos 🎮" },
-  { src: keysImg, alt: "Casa própria", caption: "De CLT → casa própria 🏠" },
+  { src: keysImg, alt: "Casa própria", caption: "Da CLT à casa própria aos 20 🏠" },
   { src: plaquesImg, alt: "Placas de vendas", caption: "R$500mil+ em vendas comprovadas 🏆" },
   { src: salesImg, alt: "Notificações de vendas", caption: "Vendas caindo no automático 💰" },
   { src: casalImg, alt: "Casal empreendedor", caption: "Construindo juntos no digital 💍" },
