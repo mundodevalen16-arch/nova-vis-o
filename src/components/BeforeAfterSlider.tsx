@@ -100,7 +100,7 @@ const BeforeAfterSlider = () => {
                   Depois
                 </span>
                 <h3 className="text-xl md:text-3xl font-black text-foreground">
-                  Do 0 aos 10k. Casa própria. Moto.
+                  Do 0 aos 10k, casa própria, moto, carro dos sonhos.
                 </h3>
                 <p className="text-xs md:text-sm text-foreground/60 mt-2 font-light">
                   Do sonho à realidade — o digital mudou tudo.
