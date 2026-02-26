@@ -6,7 +6,7 @@ const smooth = { type: "spring" as const, stiffness: 50, damping: 20, mass: 1 };
 
 const before = [
   "Mais um jovem sonhador",
-  "Trabalhador, ajudante de padeiro e fazendo bicos",
+  "Trabalhador, CLT e fazendo bicos",
   "Sem direção e sem previsibilidade de renda",
   "Tentando sozinho e travando nos resultados",
 ];
