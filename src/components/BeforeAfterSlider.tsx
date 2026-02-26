@@ -91,10 +91,10 @@ const BeforeAfterSlider = () => {
                   Depois
                 </span>
                 <h3 className="text-xl md:text-3xl font-black text-foreground">
-                  Método. Clareza. R$100k/mês.
+                  Casa própria. Moto. R$100k/mês.
                 </h3>
                 <p className="text-xs md:text-sm text-foreground/60 mt-2 font-light">
-                  Campanhas rodando, resultados aparecendo, confiança total.
+                  Do sonho à realidade — o digital mudou tudo.
                 </p>
               </div>
             </div>
@@ -113,10 +113,10 @@ const BeforeAfterSlider = () => {
                   Antes
                 </span>
                 <h3 className="text-xl md:text-3xl font-black text-foreground/40">
-                  Sem direção. Sem resultado.
+                  Mais um jovem sonhador.
                 </h3>
                 <p className="text-xs md:text-sm text-foreground/25 mt-2 font-light">
-                  Dinheiro jogado fora em anúncios, sem saber o que está errado.
+                  Ajudante de padeiro, fazendo bicos, sem direção.
                 </p>
               </div>
             </div>
