@@ -207,7 +207,7 @@ const BattleTransitionEffect = () => {
     };
 
     const render = () => {
-      time += 1;
+      time += 0.55;
       const progress = progressRef.current;
       const width = window.innerWidth;
       const height = window.innerHeight;
@@ -242,44 +242,44 @@ const BattleTransitionEffect = () => {
         introFlash = Math.sin(ip * Math.PI) * 0.5;
       }
 
-      if (progress < 0.18) {
-        const p = progress / 0.18;
-        redX = width * 0.05 + width * 0.13 * p;
-        blueX = width * 0.95 - width * 0.13 * p;
-        beamIntensity = 0.34 + p * 0.28;
+      if (progress < 0.22) {
+        const p = progress / 0.22;
+        redX = width * 0.05 + width * 0.12 * p;
+        blueX = width * 0.95 - width * 0.12 * p;
+        beamIntensity = 0.3 + p * 0.25;
       } else if (progress < 0.72) {
-        const p = (progress - 0.18) / 0.54;
-        redX = width * 0.18 + (centerX - width * 0.18) * p;
-        blueX = width * 0.82 - (width * 0.82 - centerX) * p;
-        beamIntensity = 0.62 + p * 0.62;
-      } else if (progress < 0.88) {
-        const p = (progress - 0.72) / 0.16;
+        const p = (progress - 0.22) / 0.5;
+        redX = width * 0.17 + (centerX - width * 0.17) * p;
+        blueX = width * 0.83 - (width * 0.83 - centerX) * p;
+        beamIntensity = 0.55 + p * 0.68;
+      } else if (progress < 0.9) {
+        const p = (progress - 0.72) / 0.18;
         redX = centerX;
         blueX = centerX;
-        beamIntensity = 1.24 + p * 0.5;
+        beamIntensity = 1.23 + p * 0.54;
         collisionIntensity = p;
-        explosionRadius = p * (isMobile ? 150 : 238);
-        flashOpacity = Math.max(flashOpacity, Math.sin(p * Math.PI) * 0.66);
-      } else if (progress < 0.98) {
-        const p = (progress - 0.88) / 0.10;
+        explosionRadius = p * (isMobile ? 160 : 250);
+        flashOpacity = Math.max(flashOpacity, Math.sin(p * Math.PI) * 0.75);
+      } else if (progress < 0.99) {
+        const p = (progress - 0.9) / 0.09;
         redX = centerX;
         blueX = centerX;
-        beamIntensity = 1.74 * (1 - p);
-        collisionIntensity = 1 - p * 0.84;
-        explosionRadius = (isMobile ? 150 : 238) + p * Math.max(width, height) * 0.62;
+        beamIntensity = 1.77 * (1 - p);
+        collisionIntensity = 1 - p * 0.8;
+        explosionRadius = (isMobile ? 160 : 250) + p * Math.max(width, height) * 0.66;
 
-        if (progress < 0.93) {
-          const fp = (progress - 0.88) / 0.05;
-          flashOpacity = Math.max(flashOpacity, Math.sin(fp * Math.PI) * 0.92);
+        if (progress < 0.95) {
+          const fp = (progress - 0.9) / 0.05;
+          flashOpacity = Math.max(flashOpacity, Math.sin(fp * Math.PI) * 0.96);
         } else {
-          const fp = Math.min((progress - 0.93) / 0.05, 1);
-          flashOpacity = Math.max(flashOpacity, (1 - fp) * 0.26);
+          const fp = Math.min((progress - 0.95) / 0.04, 1);
+          flashOpacity = Math.max(flashOpacity, (1 - fp) * 0.34);
         }
       } else {
         // Buffer zone — spawn trailing embers that fade out
         beamIntensity = 0;
         collisionIntensity = 0;
-        const fadeOut = Math.max(0, 1 - (progress - 0.98) / 0.02);
+        const fadeOut = Math.max(0, 1 - (progress - 0.99) / 0.01);
         if (particles.length < (isMobile ? 25 : 50) && Math.random() > 0.7 && fadeOut > 0.15) {
           const rx = centerX + (Math.random() - 0.5) * width * 0.6;
           const ry = centerY + (Math.random() - 0.5) * height * 0.4;
@@ -292,7 +292,7 @@ const BattleTransitionEffect = () => {
 
       let shakeX = 0;
       let shakeY = 0;
-      if (progress > 0.38 && progress < 0.97) {
+      if (progress > 0.4 && progress < 0.985) {
         const shakeStrength = collisionIntensity * (isMobile ? 7 : 12);
         shakeX = (Math.random() - 0.5) * shakeStrength;
         shakeY = (Math.random() - 0.5) * shakeStrength;
@@ -418,7 +418,7 @@ const BattleTransitionEffect = () => {
     <section
       id="battle-transition"
       ref={sectionRef}
-      className="relative h-[90vh] md:h-[110vh] overflow-hidden"
+      className="relative h-[120vh] md:h-[170vh] overflow-hidden"
       aria-hidden="true"
     >
       <div className="sticky top-0 h-screen w-full pointer-events-none">
