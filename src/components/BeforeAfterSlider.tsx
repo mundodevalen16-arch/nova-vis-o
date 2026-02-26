@@ -91,7 +91,7 @@ const BeforeAfterSlider = () => {
                   Depois
                 </span>
                 <h3 className="text-xl md:text-3xl font-black text-foreground">
-                  Casa própria. Moto. R$100k/mês.
+                  Do 0 aos 10k. Casa própria. Moto.
                 </h3>
                 <p className="text-xs md:text-sm text-foreground/60 mt-2 font-light">
                   Do sonho à realidade — o digital mudou tudo.

@@ -11,10 +11,10 @@ const before = [
   "Tentando sozinho e travando nos resultados",
 ];
 const after = [
-  "Estratégia clara e rotina de execução",
-  "Campanhas organizadas com foco em resultado",
-  "Primeiros clientes e vendas consistentes",
-  "Crescimento real rumo aos R$100k/mês",
+  "Casa própria conquistada com o digital",
+  "Moto dos sonhos na garagem",
+  "Faturamento consistente e previsível",
+  "Liberdade financeira e estilo de vida real",
 ];
 
 const Transformation = () => {
