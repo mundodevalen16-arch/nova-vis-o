@@ -1,17 +1,10 @@
 import { useScroll, useTransform, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
-/**
- * Fake-WebGL energy background using pure CSS.
- * Left: blue spatial distortion. Right: pink/red turbulent energy.
- * Bloom, noise overlay, scroll-reactive parallax.
- * ~85% visual parity with WebGL at 200% better performance.
- */
 const EnergyBackground = () => {
   const { scrollYProgress } = useScroll();
   const [mousePos, setMousePos] = useState({ x: 0.5, y: 0.5 });
 
-  // Parallax shifts on scroll
   const leftY = useTransform(scrollYProgress, [0, 1], [0, -120]);
   const rightY = useTransform(scrollYProgress, [0, 1], [0, -80]);
   const noiseOpacity = useTransform(scrollYProgress, [0, 0.5, 1], [0.04, 0.07, 0.04]);
@@ -33,72 +26,107 @@ const EnergyBackground = () => {
 
   return (
     <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
-      {/* === LEFT ENERGY: Blue spatial distortion === */}
+      {/* === LEFT ENERGY: Deep blue/purple spatial distortion === */}
       <motion.div
         className="absolute energy-blob-left"
         style={{
           y: leftY,
-          left: `calc(-15% + ${mouseOffsetX * 0.3}px)`,
-          top: `calc(10% + ${mouseOffsetY * 0.4}px)`,
-          width: "55vw",
-          height: "80vh",
+          left: `calc(-10% + ${mouseOffsetX * 0.3}px)`,
+          top: `calc(5% + ${mouseOffsetY * 0.4}px)`,
+          width: "60vw",
+          height: "90vh",
         }}
       />
 
-      {/* === RIGHT ENERGY: Pink/red turbulent fracture === */}
+      {/* === RIGHT ENERGY: Intense magenta/purple fracture === */}
       <motion.div
         className="absolute energy-blob-right"
         style={{
           y: rightY,
-          right: `calc(-15% + ${-mouseOffsetX * 0.3}px)`,
-          top: `calc(5% + ${mouseOffsetY * 0.3}px)`,
-          width: "50vw",
-          height: "85vh",
+          right: `calc(-10% + ${-mouseOffsetX * 0.3}px)`,
+          top: `calc(0% + ${mouseOffsetY * 0.3}px)`,
+          width: "55vw",
+          height: "90vh",
         }}
       />
 
-      {/* === CENTER BLOOM: Neon glow core === */}
+      {/* === CENTRAL VORTEX: Intense purple core === */}
       <motion.div
         className="absolute bloom-core"
         style={{
           scale: bloomScale,
-          left: `calc(50% + ${mouseOffsetX * 0.5}px)`,
-          top: `calc(35% + ${mouseOffsetY * 0.5}px)`,
+          left: `calc(45% + ${mouseOffsetX * 0.5}px)`,
+          top: `calc(30% + ${mouseOffsetY * 0.5}px)`,
         }}
       />
 
-      {/* === SECONDARY BLOOM: Purple accent === */}
+      {/* === SECONDARY BLOOM === */}
       <div
         className="absolute bloom-accent"
         style={{
-          left: `calc(30% + ${mouseOffsetX * 0.2}px)`,
-          top: `calc(60% + ${mouseOffsetY * 0.2}px)`,
+          left: `calc(25% + ${mouseOffsetX * 0.2}px)`,
+          top: `calc(55% + ${mouseOffsetY * 0.2}px)`,
         }}
       />
 
-      {/* === FLOATING ORBS: depth particles === */}
-      {[...Array(6)].map((_, i) => (
+      {/* === LIGHTNING STREAKS === */}
+      <div className="absolute inset-0 lightning-container">
+        {[...Array(5)].map((_, i) => (
+          <div
+            key={`lightning-${i}`}
+            className="absolute lightning-bolt"
+            style={{
+              left: `${10 + i * 18}%`,
+              top: `${5 + (i % 3) * 20}%`,
+              width: `${120 + i * 40}px`,
+              height: '2px',
+              transform: `rotate(${-30 + i * 15}deg)`,
+              animationDelay: `${i * 1.8}s`,
+              animationDuration: `${3 + i * 0.5}s`,
+            }}
+          />
+        ))}
+      </div>
+
+      {/* === FRACTURE SHARDS / DEBRIS === */}
+      {[...Array(12)].map((_, i) => (
         <div
-          key={i}
-          className="absolute rounded-full energy-orb"
+          key={`shard-${i}`}
+          className="absolute energy-shard"
           style={{
-            width: `${3 + i * 2}px`,
-            height: `${3 + i * 2}px`,
-            left: `${15 + i * 14}%`,
-            top: `${20 + (i % 3) * 25}%`,
-            animationDelay: `${i * 1.2}s`,
-            animationDuration: `${6 + i * 2}s`,
+            width: `${2 + Math.random() * 4}px`,
+            height: `${2 + Math.random() * 4}px`,
+            left: `${Math.random() * 100}%`,
+            top: `${Math.random() * 100}%`,
+            animationDelay: `${i * 0.7}s`,
+            animationDuration: `${4 + Math.random() * 4}s`,
           }}
         />
       ))}
 
-      {/* === NOISE TEXTURE OVERLAY === */}
+      {/* === FLOATING ORBS === */}
+      {[...Array(8)].map((_, i) => (
+        <div
+          key={i}
+          className="absolute rounded-full energy-orb"
+          style={{
+            width: `${2 + i * 1.5}px`,
+            height: `${2 + i * 1.5}px`,
+            left: `${10 + i * 11}%`,
+            top: `${15 + (i % 4) * 20}%`,
+            animationDelay: `${i * 1.2}s`,
+            animationDuration: `${5 + i * 1.5}s`,
+          }}
+        />
+      ))}
+
+      {/* === NOISE TEXTURE === */}
       <motion.div
         className="absolute inset-0 noise-overlay"
         style={{ opacity: noiseOpacity }}
       />
 
-      {/* === SCAN LINE subtle === */}
+      {/* === SCAN LINES === */}
       <div className="absolute inset-0 scan-lines" />
     </div>
   );
