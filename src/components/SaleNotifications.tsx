@@ -30,6 +30,7 @@ const PhoneNotifications = () => {
   const [now, setNow] = useState(new Date());
   const counterRef = useRef(0);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const audioUnlockedRef = useRef(false);
   
   const startTimeRef = useRef(Date.now());
 
@@ -37,6 +38,24 @@ const PhoneNotifications = () => {
   useEffect(() => {
     const iv = setInterval(() => setNow(new Date()), 60000);
     return () => clearInterval(iv);
+  }, []);
+
+  // Unlock audio on first user interaction (required by browsers)
+  useEffect(() => {
+    const unlock = () => {
+      if (!audioUnlockedRef.current && audioRef.current) {
+        audioRef.current.play().then(() => {
+          audioRef.current!.pause();
+          audioRef.current!.currentTime = 0;
+          audioUnlockedRef.current = true;
+        }).catch(() => {});
+      }
+    };
+    const events = ["click", "touchstart", "scroll", "keydown"] as const;
+    events.forEach(e => document.addEventListener(e, unlock, { once: false, passive: true }));
+    return () => {
+      events.forEach(e => document.removeEventListener(e, unlock));
+    };
   }, []);
 
   const addNotification = useCallback(() => {
@@ -49,7 +68,7 @@ const PhoneNotifications = () => {
 
     // Play sound only within first 10 seconds
     const elapsed = Date.now() - startTimeRef.current;
-    if (elapsed < 10000 && audioRef.current) {
+    if (elapsed < 10000 && audioRef.current && audioUnlockedRef.current) {
       audioRef.current.currentTime = 0;
       audioRef.current.play().catch(() => {});
     }
@@ -59,7 +78,6 @@ const PhoneNotifications = () => {
     audioRef.current = new Audio("/sounds/shopify-notification.mp3");
     audioRef.current.volume = 0.3;
     audioRef.current.preload = "auto";
-
 
     const delays = [800, 2000, 3500, 5000, 8000, 12000, 16000];
     const timers = delays.map((d) => setTimeout(addNotification, d));
