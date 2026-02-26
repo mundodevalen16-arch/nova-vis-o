@@ -5,16 +5,16 @@ import SpotlightCard from "./SpotlightCard";
 const smooth = { type: "spring" as const, stiffness: 50, damping: 20, mass: 1 };
 
 const before = [
-  "Perdido",
-  "Testando campanha aleatória",
-  "Gastando dinheiro sem retorno",
-  "Dependendo de tutorial no YouTube",
+  "Mais um jovem sonhador",
+  "Trabalhador, ajudante de padeiro e fazendo bicos",
+  "Sem direção e sem previsibilidade de renda",
+  "Tentando sozinho e travando nos resultados",
 ];
 const after = [
-  "Campanhas organizadas",
-  "Estratégia clara",
-  "Primeiro cliente ou venda validada",
-  "Caminho estruturado rumo aos R$100k/mês",
+  "Estratégia clara e rotina de execução",
+  "Campanhas organizadas com foco em resultado",
+  "Primeiros clientes e vendas consistentes",
+  "Crescimento real rumo aos R$100k/mês",
 ];
 
 const Transformation = () => {
