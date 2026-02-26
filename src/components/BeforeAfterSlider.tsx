@@ -91,7 +91,7 @@ const BeforeAfterSlider = () => {
                   Depois
                 </span>
                 <h3 className="text-xl md:text-3xl font-black text-foreground">
-                  Método. Clareza. R$10k/mês.
+                  Método. Clareza. R$100k/mês.
                 </h3>
                 <p className="text-xs md:text-sm text-foreground/60 mt-2 font-light">
                   Campanhas rodando, resultados aparecendo, confiança total.
