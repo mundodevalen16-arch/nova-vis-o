@@ -21,7 +21,7 @@ const images = [
   { src: casalImg, alt: "Casal empreendedor", caption: "Construindo juntos no digital 💍" },
   { src: condomiImg, alt: "Conquista de carro", caption: "O carro que parecia impossível 🚗" },
   { src: dinheiroImg, alt: "Resultados financeiros", caption: "O digital mudou tudo 💸" },
-  { src: motoImg, alt: "Moto esportiva", caption: "Das bicos à moto dos sonhos 🏍️" },
+  { src: motoImg, alt: "Moto esportiva", caption: "Da CLT à moto dos sonhos 🏍️" },
   { src: resulImg, alt: "Resultados comprovados", caption: "Resultados reais, não promessas 📈" },
 ];
 
