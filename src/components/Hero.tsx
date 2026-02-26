@@ -88,7 +88,7 @@ const Hero = () => {
                 >
                   DO ZERO
                   <br />
-                  <span className="text-gradient-pink">AOS R$10K/MÊS</span>
+                  <span className="text-gradient-pink">AOS R$100K/MÊS</span>
                 </motion.h1>
 
                 <motion.div

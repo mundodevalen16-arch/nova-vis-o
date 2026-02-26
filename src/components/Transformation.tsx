@@ -14,7 +14,7 @@ const after = [
   "Campanhas organizadas",
   "Estratégia clara",
   "Primeiro cliente ou venda validada",
-  "Caminho estruturado rumo aos R$10k/mês",
+  "Caminho estruturado rumo aos R$100k/mês",
 ];
 
 const Transformation = () => {
@@ -96,16 +96,6 @@ const Transformation = () => {
           </motion.div>
         </div>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.6 }}
-          className="text-center mt-10 space-y-1 text-sm text-foreground/50 font-light"
-        >
-          <p>Isso não é exagero.</p>
-          <p className="text-foreground/80 font-semibold">É método aplicado.</p>
-        </motion.div>
       </div>
     </section>
   );

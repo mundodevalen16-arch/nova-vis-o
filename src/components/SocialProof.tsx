@@ -2,7 +2,7 @@ const items = [
   "⚡ +200 mentorados ativos",
   "📈 Resultados reais desde o dia 1",
   "🎯 Estratégias 2026",
-  "💰 Do zero a R$10k/mês",
+  "💰 Do zero a R$100k/mês",
   "🔥 Conteúdo atualizado",
 ];
 

@@ -7,12 +7,22 @@ import setupImg from "@/assets/lifestyle-setup.png";
 import keysImg from "@/assets/lifestyle-keys.jpeg";
 import plaquesImg from "@/assets/lifestyle-plaques.jpg";
 import salesImg from "@/assets/lifestyle-sales.jpg";
+import casalImg from "@/assets/lifestyle-casal.jpg";
+import condomiImg from "@/assets/lifestyle-condomi.jpg";
+import dinheiroImg from "@/assets/lifestyle-dinheiro.jpg";
+import motoImg from "@/assets/lifestyle-moto.jpg";
+import resulImg from "@/assets/lifestyle-resul.jpg";
 
 const images = [
   { src: setupImg, alt: "Setup de trabalho", caption: "Onde a mágica acontece 🎮" },
   { src: keysImg, alt: "Casa própria", caption: "Casa própria antes dos 25 🏠" },
   { src: plaquesImg, alt: "Placas de vendas", caption: "R$500mil+ em vendas na Cakto 🏆" },
   { src: salesImg, alt: "Notificações de vendas", caption: "Vendas no automático 💰" },
+  { src: casalImg, alt: "Casal empreendedor", caption: "Juntos no digital 💍" },
+  { src: condomiImg, alt: "Carro conversível", caption: "Liberdade financeira real 🚗" },
+  { src: dinheiroImg, alt: "Resultados financeiros", caption: "O digital paga bem 💸" },
+  { src: motoImg, alt: "Moto esportiva", caption: "Conquistas que motivam 🏍️" },
+  { src: resulImg, alt: "Setup com lucro", caption: "Quartou com lucro 🤓" },
 ];
 
 const LifestyleGallery = () => {
