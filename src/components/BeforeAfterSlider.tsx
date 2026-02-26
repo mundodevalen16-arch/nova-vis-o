@@ -41,6 +41,15 @@ const BeforeAfterSlider = () => {
   return (
     <section ref={sectionRef} className="py-20 md:py-32 px-6" style={{ perspective: "2000px" }}>
       <div className="max-w-7xl mx-auto">
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ ...spring, delay: 0.05 }}
+          className="text-center text-sm md:text-base text-muted-foreground font-light tracking-wide mb-4"
+        >
+          Casa própria. Moto. Carro dos sonhos. Tudo conquistado com o digital.
+        </motion.p>
         <motion.h2
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
