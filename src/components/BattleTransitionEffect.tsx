@@ -242,44 +242,46 @@ const BattleTransitionEffect = () => {
         introFlash = Math.sin(ip * Math.PI) * 0.5;
       }
 
-      if (progress < 0.22) {
-        const p = progress / 0.22;
+      if (progress < 0.15) {
+        const p = progress / 0.15;
         redX = width * 0.05 + width * 0.12 * p;
         blueX = width * 0.95 - width * 0.12 * p;
         beamIntensity = 0.3 + p * 0.25;
-      } else if (progress < 0.72) {
-        const p = (progress - 0.22) / 0.5;
+      } else if (progress < 0.55) {
+        const p = (progress - 0.15) / 0.4;
         redX = width * 0.17 + (centerX - width * 0.17) * p;
         blueX = width * 0.83 - (width * 0.83 - centerX) * p;
         beamIntensity = 0.55 + p * 0.68;
-      } else if (progress < 0.9) {
-        const p = (progress - 0.72) / 0.18;
+      } else if (progress < 0.78) {
+        // COLLISION + EXPLOSION — main impact zone, longer duration
+        const p = (progress - 0.55) / 0.23;
         redX = centerX;
         blueX = centerX;
         beamIntensity = 1.23 + p * 0.54;
         collisionIntensity = p;
-        explosionRadius = p * (isMobile ? 160 : 250);
-        flashOpacity = Math.max(flashOpacity, Math.sin(p * Math.PI) * 0.75);
-      } else if (progress < 0.99) {
-        const p = (progress - 0.9) / 0.09;
+        explosionRadius = p * (isMobile ? 170 : 260);
+        flashOpacity = Math.max(flashOpacity, Math.sin(p * Math.PI) * 0.8);
+      } else if (progress < 0.95) {
+        // POST-EXPLOSION — big white flash + dissipation
+        const p = (progress - 0.78) / 0.17;
         redX = centerX;
         blueX = centerX;
         beamIntensity = 1.77 * (1 - p);
-        collisionIntensity = 1 - p * 0.8;
-        explosionRadius = (isMobile ? 160 : 250) + p * Math.max(width, height) * 0.66;
+        collisionIntensity = 1 - p * 0.75;
+        explosionRadius = (isMobile ? 170 : 260) + p * Math.max(width, height) * 0.7;
 
-        if (progress < 0.95) {
-          const fp = (progress - 0.9) / 0.05;
-          flashOpacity = Math.max(flashOpacity, Math.sin(fp * Math.PI) * 0.96);
+        if (progress < 0.87) {
+          const fp = (progress - 0.78) / 0.09;
+          flashOpacity = Math.max(flashOpacity, Math.sin(fp * Math.PI) * 0.98);
         } else {
-          const fp = Math.min((progress - 0.95) / 0.04, 1);
-          flashOpacity = Math.max(flashOpacity, (1 - fp) * 0.34);
+          const fp = Math.min((progress - 0.87) / 0.08, 1);
+          flashOpacity = Math.max(flashOpacity, (1 - fp) * 0.4);
         }
       } else {
-        // Buffer zone — spawn trailing embers that fade out
+        // Buffer zone — trailing embers
         beamIntensity = 0;
         collisionIntensity = 0;
-        const fadeOut = Math.max(0, 1 - (progress - 0.99) / 0.01);
+        const fadeOut = Math.max(0, 1 - (progress - 0.95) / 0.05);
         if (particles.length < (isMobile ? 25 : 50) && Math.random() > 0.7 && fadeOut > 0.15) {
           const rx = centerX + (Math.random() - 0.5) * width * 0.6;
           const ry = centerY + (Math.random() - 0.5) * height * 0.4;
@@ -292,7 +294,7 @@ const BattleTransitionEffect = () => {
 
       let shakeX = 0;
       let shakeY = 0;
-      if (progress > 0.4 && progress < 0.985) {
+      if (progress > 0.35 && progress < 0.96) {
         const shakeStrength = collisionIntensity * (isMobile ? 7 : 12);
         shakeX = (Math.random() - 0.5) * shakeStrength;
         shakeY = (Math.random() - 0.5) * shakeStrength;
