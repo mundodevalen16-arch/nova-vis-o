@@ -40,7 +40,7 @@ const WhoIsBehind = () => {
   const bioOpacity = useTransform(scrollYProgress, [0.2, 0.35], [0, 1]);
 
   return (
-    <section ref={ref} className="py-16 md:py-20 px-6 relative overflow-hidden" style={{ perspective: "1500px" }}>
+    <section ref={ref} className="py-10 md:py-20 px-6 relative overflow-hidden" style={{ perspective: "1500px" }}>
       <div className="max-w-7xl mx-auto">
         <motion.h2
           initial={{ opacity: 0, y: 40 }}
