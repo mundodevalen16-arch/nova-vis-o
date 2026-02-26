@@ -1,5 +1,7 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
+import instagramIcon from "@/assets/instagram.ico";
+import youtubeIcon from "@/assets/youtube.ico";
 
 const spring = { type: "spring" as const, stiffness: 100, damping: 20 };
 
@@ -146,7 +148,7 @@ const Price = () => {
             rel="noopener noreferrer"
             className="flex items-center gap-2 px-6 py-3 rounded-full border border-foreground/10 bg-foreground/5 hover:bg-foreground/10 transition-colors text-sm font-medium"
           >
-            📸 Instagram
+            <img src={instagramIcon} alt="Instagram" className="w-5 h-5" /> Instagram
           </a>
           <a
             href="https://www.youtube.com/@ibielZz"
@@ -154,7 +156,7 @@ const Price = () => {
             rel="noopener noreferrer"
             className="flex items-center gap-2 px-6 py-3 rounded-full border border-foreground/10 bg-foreground/5 hover:bg-foreground/10 transition-colors text-sm font-medium"
           >
-            ▶️ YouTube
+            <img src={youtubeIcon} alt="YouTube" className="w-5 h-5" /> YouTube
           </a>
         </div>
       </motion.div>
