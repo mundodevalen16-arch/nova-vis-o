@@ -39,7 +39,7 @@ const BeforeAfterSlider = () => {
   };
 
   return (
-    <section ref={sectionRef} className="py-20 md:py-32 px-6" style={{ perspective: "2000px" }}>
+    <section ref={sectionRef} className="py-12 md:py-32 px-6" style={{ perspective: "2000px" }}>
       <div className="max-w-7xl mx-auto">
         <motion.p
           initial={{ opacity: 0, y: 20 }}

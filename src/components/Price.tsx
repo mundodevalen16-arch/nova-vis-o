@@ -29,7 +29,7 @@ const Price = () => {
   const ringOpacity = useTransform(scrollYProgress, [0, 0.15, 0.4], [0, 0.8, 0]);
 
   return (
-    <section ref={ref} id="preco" className="py-16 md:py-20 px-6 relative overflow-hidden" style={{ perspective: "2000px" }}>
+    <section ref={ref} id="preco" className="py-10 md:py-20 px-6 relative overflow-hidden" style={{ perspective: "2000px" }}>
       {/* Portal ring effect */}
       <motion.div
         style={{ scale: ringScale, opacity: ringOpacity }}

@@ -44,7 +44,7 @@ const LifestyleGallery = () => {
   }, [emblaApi]);
 
   return (
-    <section className="py-20 md:py-28 px-6 overflow-hidden">
+    <section className="py-12 md:py-28 px-6 overflow-hidden">
       <div className="max-w-7xl mx-auto">
         <motion.h2
           initial={{ opacity: 0, y: 30 }}

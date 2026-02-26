@@ -18,7 +18,7 @@ const faqs = [
 ];
 
 const FAQ = () => (
-  <section className="py-16 md:py-20 px-6">
+  <section className="py-10 md:py-20 px-6">
     <div className="max-w-2xl mx-auto">
       <motion.h2
         initial={{ opacity: 0, y: 40 }}
