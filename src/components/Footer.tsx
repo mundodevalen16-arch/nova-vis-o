@@ -11,9 +11,8 @@ const Footer = () => (
           <a href="#" className="hover:text-foreground transition-colors">Termos de Uso</a>
         </div>
         <div className="flex items-center gap-4 text-muted-foreground text-lg">
-          <a href="#" className="hover:text-primary transition-colors" aria-label="Instagram">📸</a>
-          <a href="#" className="hover:text-primary transition-colors" aria-label="YouTube">▶️</a>
-          <a href="#" className="hover:text-primary transition-colors" aria-label="TikTok">🎵</a>
+          <a href="https://www.instagram.com/gab_rochazz/" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors" aria-label="Instagram">📸</a>
+          <a href="https://www.youtube.com/@ibielZz" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors" aria-label="YouTube">▶️</a>
         </div>
       </div>
       <p className="text-center text-xs text-muted-foreground/40 mb-6">
