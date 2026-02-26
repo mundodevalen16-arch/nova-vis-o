@@ -14,15 +14,15 @@ import motoImg from "@/assets/lifestyle-moto.jpg";
 import resulImg from "@/assets/lifestyle-resul.jpg";
 
 const images = [
-  { src: setupImg, alt: "Setup de trabalho", caption: "Onde a mágica acontece 🎮" },
-  { src: keysImg, alt: "Casa própria", caption: "Casa própria antes dos 25 🏠" },
-  { src: plaquesImg, alt: "Placas de vendas", caption: "R$500mil+ em vendas na Cakto 🏆" },
-  { src: salesImg, alt: "Notificações de vendas", caption: "Vendas no automático 💰" },
-  { src: casalImg, alt: "Casal empreendedor", caption: "Juntos no digital 💍" },
-  { src: condomiImg, alt: "Carro conversível", caption: "Liberdade financeira real 🚗" },
-  { src: dinheiroImg, alt: "Resultados financeiros", caption: "O digital paga bem 💸" },
-  { src: motoImg, alt: "Moto esportiva", caption: "Conquistas que motivam 🏍️" },
-  { src: resulImg, alt: "Setup com lucro", caption: "Quartou com lucro 🤓" },
+  { src: setupImg, alt: "Setup de trabalho", caption: "Do sonho ao setup dos sonhos 🎮" },
+  { src: keysImg, alt: "Casa própria", caption: "De ajudante de padeiro → casa própria 🏠" },
+  { src: plaquesImg, alt: "Placas de vendas", caption: "R$500mil+ em vendas comprovadas 🏆" },
+  { src: salesImg, alt: "Notificações de vendas", caption: "Vendas caindo no automático 💰" },
+  { src: casalImg, alt: "Casal empreendedor", caption: "Construindo juntos no digital 💍" },
+  { src: condomiImg, alt: "Conquista de carro", caption: "O carro que parecia impossível 🚗" },
+  { src: dinheiroImg, alt: "Resultados financeiros", caption: "O digital mudou tudo 💸" },
+  { src: motoImg, alt: "Moto esportiva", caption: "Das bicos à moto dos sonhos 🏍️" },
+  { src: resulImg, alt: "Resultados comprovados", caption: "Resultados reais, não promessas 📈" },
 ];
 
 const LifestyleGallery = () => {
@@ -53,7 +53,7 @@ const LifestyleGallery = () => {
           transition={{ type: "spring", stiffness: 80, damping: 20 }}
           className="text-3xl sm:text-4xl md:text-6xl font-black text-center mb-4 tracking-tight leading-tight"
         >
-          O <span className="text-gradient-pink">lifestyle</span> que o digital proporciona
+          O <span className="text-gradient-pink">lifestyle</span> que ele conquistou
         </motion.h2>
         <motion.p
           initial={{ opacity: 0 }}
@@ -61,7 +61,7 @@ const LifestyleGallery = () => {
           viewport={{ once: true }}
           className="text-center text-muted-foreground text-sm font-light mb-14 max-w-md mx-auto"
         >
-          Isso não é ostentação — é prova de que o método funciona.
+          De jovem sonhador e ajudante de padeiro — a isso aqui.
         </motion.p>
 
         {/* Carousel */}
