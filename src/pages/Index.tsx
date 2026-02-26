@@ -16,7 +16,7 @@ import Bonus from "@/components/Bonus";
 import Price from "@/components/Price";
 import FAQ from "@/components/FAQ";
 import Footer from "@/components/Footer";
-import BackgroundMusic from "@/components/BackgroundMusic";
+
 
 const Index = () => (
   <main className="min-h-screen bg-background text-foreground overflow-x-hidden">
@@ -38,7 +38,7 @@ const Index = () => (
     <Price />
     <FAQ />
     <Footer />
-    <BackgroundMusic />
+    
   </main>
 );
 
