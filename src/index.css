@@ -222,52 +222,74 @@
 
 /* ===== ENERGY BACKGROUND SYSTEM ===== */
 
-/* Left energy: deep blue/indigo spatial distortion */
+/* Left energy: deep blue/indigo spatial distortion - intense */
 .energy-blob-left {
   background:
-    radial-gradient(ellipse at 30% 40%, hsl(230 80% 50% / 0.18) 0%, transparent 60%),
-    radial-gradient(ellipse at 60% 70%, hsl(260 70% 45% / 0.12) 0%, transparent 50%),
-    radial-gradient(ellipse at 20% 80%, hsl(240 60% 35% / 0.08) 0%, transparent 70%);
-  filter: blur(80px);
-  animation: energy-drift-left 12s ease-in-out infinite;
+    radial-gradient(ellipse at 25% 35%, hsl(250 90% 45% / 0.3) 0%, transparent 55%),
+    radial-gradient(ellipse at 55% 65%, hsl(270 85% 50% / 0.2) 0%, transparent 50%),
+    radial-gradient(ellipse at 15% 75%, hsl(230 70% 30% / 0.15) 0%, transparent 65%),
+    radial-gradient(ellipse at 40% 20%, hsl(280 80% 55% / 0.12) 0%, transparent 45%);
+  filter: blur(60px);
+  animation: energy-drift-left 10s ease-in-out infinite;
   mix-blend-mode: screen;
 }
 
-/* Right energy: purple/violet turbulent fracture */
+/* Right energy: intense magenta/purple fracture */
 .energy-blob-right {
   background:
-    radial-gradient(ellipse at 70% 30%, hsl(270 80% 50% / 0.2) 0%, transparent 55%),
-    radial-gradient(ellipse at 40% 60%, hsl(280 70% 40% / 0.12) 0%, transparent 50%),
-    radial-gradient(ellipse at 80% 80%, hsl(250 70% 45% / 0.1) 0%, transparent 60%);
-  filter: blur(80px);
-  animation: energy-drift-right 14s ease-in-out infinite;
+    radial-gradient(ellipse at 65% 25%, hsl(280 90% 55% / 0.3) 0%, transparent 50%),
+    radial-gradient(ellipse at 35% 55%, hsl(290 80% 45% / 0.2) 0%, transparent 45%),
+    radial-gradient(ellipse at 75% 75%, hsl(260 80% 50% / 0.18) 0%, transparent 55%),
+    radial-gradient(ellipse at 50% 40%, hsl(270 95% 60% / 0.15) 0%, transparent 40%);
+  filter: blur(60px);
+  animation: energy-drift-right 12s ease-in-out infinite;
   mix-blend-mode: screen;
 }
 
-/* Central bloom glow */
+/* Central bloom glow - intense purple vortex */
 .bloom-core {
-  width: 40vw;
-  height: 40vh;
+  width: 50vw;
+  height: 50vh;
   transform: translate(-50%, -50%);
-  background: radial-gradient(circle, hsl(265 85% 55% / 0.08) 0%, hsl(250 70% 45% / 0.04) 40%, transparent 70%);
-  filter: blur(60px);
-  animation: bloom-pulse 8s ease-in-out infinite;
+  background: 
+    radial-gradient(circle, hsl(275 90% 60% / 0.15) 0%, hsl(260 80% 50% / 0.08) 35%, transparent 65%),
+    radial-gradient(circle at 40% 60%, hsl(290 85% 55% / 0.1) 0%, transparent 50%);
+  filter: blur(50px);
+  animation: bloom-pulse 7s ease-in-out infinite;
 }
 
 .bloom-accent {
-  width: 30vw;
-  height: 30vh;
+  width: 35vw;
+  height: 35vh;
   transform: translate(-50%, -50%);
-  background: radial-gradient(circle, hsl(250 70% 50% / 0.06) 0%, transparent 60%);
-  filter: blur(80px);
-  animation: bloom-pulse 10s ease-in-out infinite reverse;
+  background: 
+    radial-gradient(circle, hsl(260 80% 55% / 0.1) 0%, transparent 55%),
+    radial-gradient(circle at 60% 40%, hsl(280 90% 50% / 0.08) 0%, transparent 45%);
+  filter: blur(70px);
+  animation: bloom-pulse 9s ease-in-out infinite reverse;
 }
 
-/* Floating orbs */
+/* Floating orbs - brighter purple */
 .energy-orb {
-  background: hsl(265 85% 55% / 0.4);
-  box-shadow: 0 0 12px hsl(265 85% 55% / 0.3), 0 0 30px hsl(250 70% 50% / 0.15);
+  background: hsl(275 90% 60% / 0.5);
+  box-shadow: 0 0 15px hsl(270 90% 60% / 0.4), 0 0 40px hsl(260 80% 55% / 0.2);
   animation: orb-float 6s ease-in-out infinite;
+}
+
+/* Lightning bolt streaks */
+.lightning-bolt {
+  background: linear-gradient(90deg, transparent 0%, hsl(270 90% 65% / 0.6) 20%, hsl(280 95% 75% / 0.8) 50%, hsl(270 90% 65% / 0.6) 80%, transparent 100%);
+  box-shadow: 0 0 8px hsl(270 90% 65% / 0.5), 0 0 20px hsl(275 85% 55% / 0.3);
+  animation: lightning-flash ease-in-out infinite;
+  opacity: 0;
+}
+
+/* Energy shards / debris */
+.energy-shard {
+  background: hsl(270 80% 70% / 0.6);
+  box-shadow: 0 0 6px hsl(270 80% 60% / 0.4);
+  animation: shard-float ease-in-out infinite;
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
 }
 
 /* Noise overlay via SVG data URI */
@@ -313,6 +335,20 @@
 @keyframes orb-float {
   0%, 100% { transform: translateY(0) scale(1); opacity: 0.3; }
   50% { transform: translateY(-30px) scale(1.3); opacity: 0.7; }
+}
+
+@keyframes lightning-flash {
+  0%, 100% { opacity: 0; transform: scaleX(0.3); }
+  5% { opacity: 1; transform: scaleX(1); }
+  15% { opacity: 0.6; transform: scaleX(0.8); }
+  20% { opacity: 0; transform: scaleX(0.2); }
+}
+
+@keyframes shard-float {
+  0% { transform: translate(0, 0) rotate(0deg) scale(1); opacity: 0; }
+  10% { opacity: 0.7; }
+  50% { transform: translate(30px, -40px) rotate(180deg) scale(0.6); opacity: 0.4; }
+  100% { transform: translate(-20px, -80px) rotate(360deg) scale(0.2); opacity: 0; }
 }
 
 html {
