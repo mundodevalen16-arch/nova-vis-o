@@ -405,6 +405,72 @@ const BattleTransitionEffect = () => {
         ctx.fillRect(0, 0, width, height);
       }
 
+      // Graffiti signature "iBielZz" after explosion
+      if (progress > 0.82) {
+        const sigAlpha = Math.min((progress - 0.82) / 0.12, 1);
+        const fontSize = isMobile ? 42 : 72;
+        
+        ctx.save();
+        ctx.globalCompositeOperation = "source-over";
+        ctx.globalAlpha = sigAlpha;
+        
+        // Graffiti style text
+        ctx.font = `900 italic ${fontSize}px "Segoe UI", "Arial Black", Impact, sans-serif`;
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        
+        const sigX = centerX;
+        const sigY = centerY + (isMobile ? 8 : 14);
+        const skew = -0.15;
+        
+        ctx.translate(sigX, sigY);
+        ctx.transform(1, 0, skew, 1, 0, 0);
+        
+        // Outer spray/drip glow
+        ctx.shadowColor = "hsl(280, 100%, 65%)";
+        ctx.shadowBlur = 28;
+        ctx.strokeStyle = `hsla(280, 100%, 70%, ${sigAlpha * 0.6})`;
+        ctx.lineWidth = isMobile ? 6 : 10;
+        ctx.lineJoin = "round";
+        ctx.strokeText("iBielZz", 0, 0);
+        
+        // Main fill with gradient
+        const grd = ctx.createLinearGradient(-fontSize * 2, 0, fontSize * 2, 0);
+        grd.addColorStop(0, "hsl(320, 100%, 65%)");
+        grd.addColorStop(0.5, "hsl(280, 100%, 80%)");
+        grd.addColorStop(1, "hsl(240, 100%, 70%)");
+        ctx.fillStyle = grd;
+        ctx.shadowColor = "hsl(300, 100%, 50%)";
+        ctx.shadowBlur = 16;
+        ctx.fillText("iBielZz", 0, 0);
+        
+        // White highlight core
+        ctx.shadowBlur = 0;
+        ctx.fillStyle = `hsla(0, 0%, 100%, ${sigAlpha * 0.5})`;
+        ctx.fillText("iBielZz", 0, -2);
+        
+        // Paint drip effect
+        if (sigAlpha > 0.5) {
+          const drips = [
+            { dx: -fontSize * 0.9, len: 18 + sigAlpha * 14 },
+            { dx: fontSize * 0.4, len: 12 + sigAlpha * 10 },
+            { dx: fontSize * 1.1, len: 22 + sigAlpha * 16 },
+          ];
+          for (const drip of drips) {
+            ctx.beginPath();
+            ctx.moveTo(drip.dx, fontSize * 0.35);
+            ctx.lineTo(drip.dx - 1, fontSize * 0.35 + drip.len);
+            ctx.strokeStyle = `hsla(300, 100%, 65%, ${sigAlpha * 0.5})`;
+            ctx.lineWidth = isMobile ? 2 : 3;
+            ctx.shadowBlur = 6;
+            ctx.shadowColor = "hsl(300, 100%, 60%)";
+            ctx.stroke();
+          }
+        }
+        
+        ctx.restore();
+      }
+
       animationFrame = requestAnimationFrame(render);
     };
 
