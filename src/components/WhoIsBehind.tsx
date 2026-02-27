@@ -67,24 +67,98 @@ const WhoIsBehind = () => {
             <img src={bielImg} alt="iBielZz" className="w-full h-full object-cover object-top" />
           </motion.div>
 
-          {/* Name zooms in dramatically */}
-          <motion.h3
-            style={{ 
-              scale: nameScale, 
-              opacity: nameOpacity,
-              filter: useTransform(nameBlur, v => `blur(${v}px) drop-shadow(0 0 30px hsl(300 100% 50% / 0.7)) drop-shadow(0 0 60px hsl(280 100% 55% / 0.4)) drop-shadow(3px 3px 0px hsl(260 100% 20% / 0.8))`),
-              fontFamily: "'Impact', 'Arial Black', sans-serif",
-              fontStyle: "italic",
-              letterSpacing: "-0.02em",
-              transform: "skewX(-12deg)",
-              background: "linear-gradient(135deg, hsl(320 100% 60%), hsl(290 100% 75%), hsl(260 100% 80%), hsl(220 100% 65%))",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-            }}
-            className="text-6xl md:text-8xl font-black mb-2"
-          >
-            iBielZz
-          </motion.h3>
+          {/* Name zooms in dramatically — graffiti style with paint drips */}
+          <div className="relative inline-block mb-2">
+            <motion.h3
+              style={{ 
+                scale: nameScale, 
+                opacity: nameOpacity,
+                filter: useTransform(nameBlur, v => `blur(${v}px) drop-shadow(0 0 30px hsl(300 100% 50% / 0.7)) drop-shadow(0 0 60px hsl(280 100% 55% / 0.4)) drop-shadow(3px 3px 0px hsl(260 100% 20% / 0.8))`),
+                fontFamily: "'Impact', 'Arial Black', sans-serif",
+                fontStyle: "italic",
+                letterSpacing: "-0.02em",
+                transform: "skewX(-12deg)",
+                background: "linear-gradient(135deg, hsl(320 100% 60%), hsl(290 100% 75%), hsl(260 100% 80%), hsl(220 100% 65%))",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+              }}
+              className="text-6xl md:text-8xl font-black relative"
+            >
+              iBielZz
+            </motion.h3>
+
+            {/* Paint drips */}
+            <motion.div
+              style={{ opacity: nameOpacity }}
+              className="absolute bottom-0 left-0 right-0 pointer-events-none"
+            >
+              {/* Drip 1 — left */}
+              <div
+                className="absolute"
+                style={{
+                  left: "18%",
+                  top: "-2px",
+                  width: "4px",
+                  height: "32px",
+                  borderRadius: "0 0 4px 4px",
+                  background: "linear-gradient(180deg, hsl(320 100% 60%), hsl(320 100% 50% / 0.3))",
+                  animation: "drip-grow 2s ease-out 0.5s both",
+                }}
+              />
+              {/* Drip 2 — center-left */}
+              <div
+                className="absolute"
+                style={{
+                  left: "35%",
+                  top: "-4px",
+                  width: "3px",
+                  height: "48px",
+                  borderRadius: "0 0 3px 3px",
+                  background: "linear-gradient(180deg, hsl(290 100% 75%), hsl(290 100% 60% / 0.2))",
+                  animation: "drip-grow 2.5s ease-out 0.8s both",
+                }}
+              />
+              {/* Drip 3 — center */}
+              <div
+                className="absolute"
+                style={{
+                  left: "52%",
+                  top: "-1px",
+                  width: "5px",
+                  height: "40px",
+                  borderRadius: "0 0 5px 5px",
+                  background: "linear-gradient(180deg, hsl(260 100% 80%), hsl(260 100% 65% / 0.25))",
+                  animation: "drip-grow 2.2s ease-out 0.3s both",
+                }}
+              />
+              {/* Drip 4 — right */}
+              <div
+                className="absolute"
+                style={{
+                  left: "72%",
+                  top: "-3px",
+                  width: "3px",
+                  height: "55px",
+                  borderRadius: "0 0 4px 4px",
+                  background: "linear-gradient(180deg, hsl(320 100% 60%), hsl(300 100% 50% / 0.15))",
+                  animation: "drip-grow 3s ease-out 1s both",
+                }}
+              />
+              {/* Drip 5 — far right, small */}
+              <div
+                className="absolute"
+                style={{
+                  left: "85%",
+                  top: "0px",
+                  width: "3px",
+                  height: "22px",
+                  borderRadius: "0 0 3px 3px",
+                  background: "linear-gradient(180deg, hsl(220 100% 65%), hsl(220 100% 55% / 0.2))",
+                  animation: "drip-grow 1.8s ease-out 1.2s both",
+                }}
+              />
+            </motion.div>
+          </div>
 
           <motion.div style={{ y: bioY, opacity: bioOpacity }}>
             <p className="text-xs font-medium text-muted-foreground uppercase tracking-[0.3em] mb-8">
