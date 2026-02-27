@@ -42,7 +42,7 @@ const PhoneNotifications = () => {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const audioUnlockedRef = useRef(false);
   
-  const startTimeRef = useRef(Date.now());
+  
 
   // Update clock every minute
   useEffect(() => {
@@ -78,16 +78,14 @@ const PhoneNotifications = () => {
   }, []);
 
   const addNotification = useCallback(() => {
-    const idx = counterRef.current % saleTypes.length;
-    const sale = saleTypes[idx];
+    const sale = saleTypes[Math.floor(Math.random() * saleTypes.length)];
     const id = Date.now() + counterRef.current;
     counterRef.current += 1;
 
     setItems((prev) => [{ id, ...sale }, ...prev].slice(0, 6));
 
-    // Play sound only within first 10 seconds
-    const elapsed = Date.now() - startTimeRef.current;
-    if (elapsed < 10000 && audioRef.current && audioUnlockedRef.current) {
+    // Play sound for all notifications
+    if (audioRef.current && audioUnlockedRef.current) {
       audioRef.current.currentTime = 0;
       audioRef.current.play().catch(() => {});
     }
@@ -96,9 +94,9 @@ const PhoneNotifications = () => {
   useEffect(() => {
     // Audio is now created in the unlock handler above
     // Just set up notification timers
-    const delays = [800, 2000, 3500, 5000, 8000, 12000, 16000];
+    const delays = [800, 3000, 6000, 9000, 13000, 17000, 21000];
     const timers = delays.map((d) => setTimeout(addNotification, d));
-    const interval = setInterval(addNotification, 6000);
+    const interval = setInterval(addNotification, 10000);
 
     return () => {
       timers.forEach(clearTimeout);
