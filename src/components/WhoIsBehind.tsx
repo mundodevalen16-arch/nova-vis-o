@@ -72,14 +72,16 @@ const WhoIsBehind = () => {
             style={{ 
               scale: nameScale, 
               opacity: nameOpacity,
-              filter: useTransform(nameBlur, v => `blur(${v}px)`),
+              filter: useTransform(nameBlur, v => `blur(${v}px) drop-shadow(0 0 30px hsl(300 100% 50% / 0.7)) drop-shadow(0 0 60px hsl(280 100% 55% / 0.4)) drop-shadow(3px 3px 0px hsl(260 100% 20% / 0.8))`),
               fontFamily: "'Impact', 'Arial Black', sans-serif",
               fontStyle: "italic",
               letterSpacing: "-0.02em",
               transform: "skewX(-12deg)",
-              textShadow: "0 0 20px hsl(280 80% 55% / 0.6), 0 0 40px hsl(265 85% 60% / 0.3), 3px 3px 0px hsl(230 80% 55% / 0.5)",
+              background: "linear-gradient(135deg, hsl(320 100% 60%), hsl(290 100% 75%), hsl(260 100% 80%), hsl(220 100% 65%))",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
             }}
-            className="text-6xl md:text-8xl font-black text-gradient-pink mb-2"
+            className="text-6xl md:text-8xl font-black mb-2"
           >
             iBielZz
           </motion.h3>
