@@ -411,20 +411,20 @@ const BattleTransitionEffect = () => {
         
         const t = Math.max(0, Math.min(1, (progress - 0.75) / 0.25));
         
-        // Fade in fast (0-40%), hold, then fade out smoothly (70-100%)
+        // Fade in slow (0-50%), hold (50-80%), fade out (80-100%)
         let sigAlpha: number;
-        if (t < 0.4) {
-          sigAlpha = t / 0.4; // fade in
-        } else if (t < 0.7) {
-          sigAlpha = 1; // hold
+        if (t < 0.5) {
+          sigAlpha = t / 0.5; // slow fade in
+        } else if (t < 0.8) {
+          sigAlpha = 1; // hold visible
         } else {
-          sigAlpha = 1 - ((t - 0.7) / 0.3); // fade out
+          sigAlpha = 1 - ((t - 0.8) / 0.2); // fade out
         }
         sigAlpha = Math.max(0, Math.min(1, sigAlpha));
         
-        // Smooth quintic ease-out for buttery slide
-        const slideEased = 1 - Math.pow(1 - t, 5);
-        const slideDown = slideEased * (isMobile ? 220 : 340);
+        // Gentle cubic ease-out for slower slide
+        const slideEased = 1 - Math.pow(1 - t, 3);
+        const slideDown = slideEased * (isMobile ? 160 : 240);
         
         ctx.save();
         ctx.globalCompositeOperation = "source-over";
