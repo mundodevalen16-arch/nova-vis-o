@@ -409,23 +409,22 @@ const BattleTransitionEffect = () => {
       if (progress > 0.68) {
         const fontSize = isMobile ? 56 : 100;
         
-        // Longer range: 0.68 → 1.0 = 32% of scroll (was 25%)
         const t = Math.max(0, Math.min(1, (progress - 0.68) / 0.32));
         
-        // Slow fade in (0-40%), long hold (40-75%), gentle fade out (75-100%)
+        // Slow fade in (0-50%), long hold (50-80%), gentle fade out (80-100%)
         let sigAlpha: number;
-        if (t < 0.4) {
-          sigAlpha = t / 0.4;
-        } else if (t < 0.75) {
+        if (t < 0.5) {
+          sigAlpha = t / 0.5;
+        } else if (t < 0.8) {
           sigAlpha = 1;
         } else {
-          sigAlpha = 1 - ((t - 0.75) / 0.25);
+          sigAlpha = 1 - ((t - 0.8) / 0.2);
         }
         sigAlpha = Math.max(0, Math.min(1, sigAlpha));
         
-        // Gentle quadratic ease-out for slow, smooth slide — longer distance
-        const slideEased = 1 - Math.pow(1 - t, 2);
-        const slideDown = slideEased * (isMobile ? 220 : 340);
+        // Very gentle cubic ease-out for slow, smooth slide
+        const slideEased = 1 - Math.pow(1 - t, 3);
+        const slideDown = slideEased * (isMobile ? 80 : 120);
         
         ctx.save();
         ctx.globalCompositeOperation = "source-over";
