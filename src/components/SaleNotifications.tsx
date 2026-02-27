@@ -53,15 +53,24 @@ const PhoneNotifications = () => {
   // Unlock audio on first user interaction (required by browsers)
   useEffect(() => {
     const unlock = () => {
-      if (!audioUnlockedRef.current && audioRef.current) {
-        audioRef.current.play().then(() => {
-          audioRef.current!.pause();
-          audioRef.current!.currentTime = 0;
+      if (!audioUnlockedRef.current) {
+        // Create and init audio on first interaction to ensure browser allows it
+        if (!audioRef.current) {
+          audioRef.current = new Audio("/sounds/shopify-notification.mp3");
+          audioRef.current.volume = 0.3;
+          audioRef.current.preload = "auto";
+        }
+        const a = audioRef.current;
+        a.muted = true;
+        a.play().then(() => {
+          a.pause();
+          a.currentTime = 0;
+          a.muted = false;
           audioUnlockedRef.current = true;
         }).catch(() => {});
       }
     };
-    const events = ["click", "touchstart", "scroll", "keydown"] as const;
+    const events = ["click", "touchstart", "scroll", "keydown", "mousemove", "pointerdown"] as const;
     events.forEach(e => document.addEventListener(e, unlock, { once: false, passive: true }));
     return () => {
       events.forEach(e => document.removeEventListener(e, unlock));
@@ -85,10 +94,8 @@ const PhoneNotifications = () => {
   }, []);
 
   useEffect(() => {
-    audioRef.current = new Audio("/sounds/shopify-notification.mp3");
-    audioRef.current.volume = 0.3;
-    audioRef.current.preload = "auto";
-
+    // Audio is now created in the unlock handler above
+    // Just set up notification timers
     const delays = [800, 2000, 3500, 5000, 8000, 12000, 16000];
     const timers = delays.map((d) => setTimeout(addNotification, d));
     const interval = setInterval(addNotification, 6000);

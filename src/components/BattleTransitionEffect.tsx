@@ -423,9 +423,9 @@ const BattleTransitionEffect = () => {
         }
         sigAlpha = Math.max(0, Math.min(1, sigAlpha));
         
-        // Gentle quadratic ease-out for slow, smooth slide
+        // Gentle quadratic ease-out for slow, smooth slide — longer distance
         const slideEased = 1 - Math.pow(1 - t, 2);
-        const slideDown = slideEased * (isMobile ? 140 : 200);
+        const slideDown = slideEased * (isMobile ? 220 : 340);
         
         ctx.save();
         ctx.globalCompositeOperation = "source-over";
