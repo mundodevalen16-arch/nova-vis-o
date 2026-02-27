@@ -406,65 +406,84 @@ const BattleTransitionEffect = () => {
       }
 
       // Graffiti signature "iBielZz" after explosion
-      if (progress > 0.82) {
-        const sigAlpha = Math.min((progress - 0.82) / 0.12, 1);
-        const fontSize = isMobile ? 42 : 72;
+      if (progress > 0.75) {
+        const sigAlpha = Math.min((progress - 0.75) / 0.1, 1);
+        const fontSize = isMobile ? 56 : 100;
+        
+        // Signature slides down as user scrolls further
+        const slideDown = Math.max(0, (progress - 0.75) / 0.25) * (isMobile ? 120 : 180);
         
         ctx.save();
         ctx.globalCompositeOperation = "source-over";
         ctx.globalAlpha = sigAlpha;
         
-        // Graffiti style text
-        ctx.font = `900 italic ${fontSize}px "Segoe UI", "Arial Black", Impact, sans-serif`;
+        // Bold street graffiti style
+        ctx.font = `900 italic ${fontSize}px Impact, "Arial Black", sans-serif`;
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
         
         const sigX = centerX;
-        const sigY = centerY + (isMobile ? 8 : 14);
-        const skew = -0.15;
+        const sigY = centerY * 0.7 + slideDown;
+        const skew = -0.22;
         
         ctx.translate(sigX, sigY);
         ctx.transform(1, 0, skew, 1, 0, 0);
         
-        // Outer spray/drip glow
-        ctx.shadowColor = "hsl(280, 100%, 65%)";
-        ctx.shadowBlur = 28;
-        ctx.strokeStyle = `hsla(280, 100%, 70%, ${sigAlpha * 0.6})`;
-        ctx.lineWidth = isMobile ? 6 : 10;
+        // Thick outline — street tag style
+        ctx.shadowColor = "hsl(280, 100%, 50%)";
+        ctx.shadowBlur = 40;
+        ctx.strokeStyle = `hsla(260, 100%, 20%, ${sigAlpha * 0.9})`;
+        ctx.lineWidth = isMobile ? 12 : 18;
         ctx.lineJoin = "round";
+        ctx.miterLimit = 2;
+        ctx.strokeText("iBielZz", 0, 0);
+        
+        // Secondary colored outline
+        ctx.strokeStyle = `hsla(300, 100%, 55%, ${sigAlpha * 0.8})`;
+        ctx.lineWidth = isMobile ? 7 : 11;
+        ctx.shadowBlur = 20;
         ctx.strokeText("iBielZz", 0, 0);
         
         // Main fill with gradient
-        const grd = ctx.createLinearGradient(-fontSize * 2, 0, fontSize * 2, 0);
-        grd.addColorStop(0, "hsl(320, 100%, 65%)");
-        grd.addColorStop(0.5, "hsl(280, 100%, 80%)");
-        grd.addColorStop(1, "hsl(240, 100%, 70%)");
+        const grd = ctx.createLinearGradient(-fontSize * 2.5, -fontSize * 0.5, fontSize * 2.5, fontSize * 0.5);
+        grd.addColorStop(0, "hsl(320, 100%, 60%)");
+        grd.addColorStop(0.35, "hsl(290, 100%, 75%)");
+        grd.addColorStop(0.65, "hsl(260, 100%, 80%)");
+        grd.addColorStop(1, "hsl(220, 100%, 65%)");
         ctx.fillStyle = grd;
         ctx.shadowColor = "hsl(300, 100%, 50%)";
-        ctx.shadowBlur = 16;
+        ctx.shadowBlur = 24;
         ctx.fillText("iBielZz", 0, 0);
         
-        // White highlight core
+        // Inner white highlight
         ctx.shadowBlur = 0;
-        ctx.fillStyle = `hsla(0, 0%, 100%, ${sigAlpha * 0.5})`;
-        ctx.fillText("iBielZz", 0, -2);
+        ctx.fillStyle = `hsla(0, 0%, 100%, ${sigAlpha * 0.45})`;
+        ctx.fillText("iBielZz", 1, -3);
         
-        // Paint drip effect
-        if (sigAlpha > 0.5) {
+        // Paint drips — longer, more dramatic
+        if (sigAlpha > 0.3) {
           const drips = [
-            { dx: -fontSize * 0.9, len: 18 + sigAlpha * 14 },
-            { dx: fontSize * 0.4, len: 12 + sigAlpha * 10 },
-            { dx: fontSize * 1.1, len: 22 + sigAlpha * 16 },
+            { dx: -fontSize * 1.2, len: 30 + sigAlpha * 40, w: 3.5 },
+            { dx: -fontSize * 0.4, len: 20 + sigAlpha * 25, w: 2.5 },
+            { dx: fontSize * 0.2, len: 35 + sigAlpha * 45, w: 4 },
+            { dx: fontSize * 0.8, len: 15 + sigAlpha * 20, w: 2 },
+            { dx: fontSize * 1.3, len: 40 + sigAlpha * 50, w: 3 },
           ];
           for (const drip of drips) {
             ctx.beginPath();
-            ctx.moveTo(drip.dx, fontSize * 0.35);
-            ctx.lineTo(drip.dx - 1, fontSize * 0.35 + drip.len);
-            ctx.strokeStyle = `hsla(300, 100%, 65%, ${sigAlpha * 0.5})`;
-            ctx.lineWidth = isMobile ? 2 : 3;
-            ctx.shadowBlur = 6;
-            ctx.shadowColor = "hsl(300, 100%, 60%)";
+            ctx.moveTo(drip.dx, fontSize * 0.4);
+            ctx.quadraticCurveTo(drip.dx - 2, fontSize * 0.4 + drip.len * 0.6, drip.dx - 1, fontSize * 0.4 + drip.len);
+            ctx.strokeStyle = `hsla(300, 100%, 60%, ${sigAlpha * 0.6})`;
+            ctx.lineWidth = isMobile ? drip.w * 0.7 : drip.w;
+            ctx.lineCap = "round";
+            ctx.shadowBlur = 8;
+            ctx.shadowColor = "hsl(300, 100%, 55%)";
             ctx.stroke();
+            // Drip blob at end
+            ctx.beginPath();
+            ctx.arc(drip.dx - 1, fontSize * 0.4 + drip.len, (isMobile ? drip.w : drip.w * 1.3), 0, Math.PI * 2);
+            ctx.fillStyle = `hsla(300, 100%, 60%, ${sigAlpha * 0.5})`;
+            ctx.fill();
           }
         }
         
