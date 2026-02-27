@@ -407,13 +407,24 @@ const BattleTransitionEffect = () => {
 
       // Graffiti signature "iBielZz" after explosion
       if (progress > 0.75) {
-        const sigAlpha = Math.min((progress - 0.75) / 0.1, 1);
         const fontSize = isMobile ? 56 : 100;
         
-        // Smooth eased slide down — cubic ease-out for fluid motion
-        const slideRaw = Math.max(0, (progress - 0.75) / 0.25);
-        const slideEased = 1 - Math.pow(1 - slideRaw, 3); // ease-out cubic
-        const slideDown = slideEased * (isMobile ? 140 : 200);
+        const t = Math.max(0, Math.min(1, (progress - 0.75) / 0.25));
+        
+        // Fade in fast (0-40%), hold, then fade out smoothly (70-100%)
+        let sigAlpha: number;
+        if (t < 0.4) {
+          sigAlpha = t / 0.4; // fade in
+        } else if (t < 0.7) {
+          sigAlpha = 1; // hold
+        } else {
+          sigAlpha = 1 - ((t - 0.7) / 0.3); // fade out
+        }
+        sigAlpha = Math.max(0, Math.min(1, sigAlpha));
+        
+        // Smooth quintic ease-out for buttery slide
+        const slideEased = 1 - Math.pow(1 - t, 5);
+        const slideDown = slideEased * (isMobile ? 220 : 340);
         
         ctx.save();
         ctx.globalCompositeOperation = "source-over";
