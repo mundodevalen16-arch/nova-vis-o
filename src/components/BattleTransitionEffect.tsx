@@ -410,8 +410,10 @@ const BattleTransitionEffect = () => {
         const sigAlpha = Math.min((progress - 0.75) / 0.1, 1);
         const fontSize = isMobile ? 56 : 100;
         
-        // Signature slides down as user scrolls further
-        const slideDown = Math.max(0, (progress - 0.75) / 0.25) * (isMobile ? 120 : 180);
+        // Smooth eased slide down — cubic ease-out for fluid motion
+        const slideRaw = Math.max(0, (progress - 0.75) / 0.25);
+        const slideEased = 1 - Math.pow(1 - slideRaw, 3); // ease-out cubic
+        const slideDown = slideEased * (isMobile ? 140 : 200);
         
         ctx.save();
         ctx.globalCompositeOperation = "source-over";
