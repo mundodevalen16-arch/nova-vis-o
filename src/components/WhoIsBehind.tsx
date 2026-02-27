@@ -73,8 +73,13 @@ const WhoIsBehind = () => {
               scale: nameScale, 
               opacity: nameOpacity,
               filter: useTransform(nameBlur, v => `blur(${v}px)`),
+              fontFamily: "'Impact', 'Arial Black', sans-serif",
+              fontStyle: "italic",
+              letterSpacing: "-0.02em",
+              transform: "skewX(-12deg)",
+              textShadow: "0 0 20px hsl(280 80% 55% / 0.6), 0 0 40px hsl(265 85% 60% / 0.3), 3px 3px 0px hsl(230 80% 55% / 0.5)",
             }}
-            className="text-5xl md:text-6xl font-black text-gradient-pink mb-2"
+            className="text-6xl md:text-8xl font-black text-gradient-pink mb-2"
           >
             iBielZz
           </motion.h3>
