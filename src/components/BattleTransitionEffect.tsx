@@ -406,25 +406,26 @@ const BattleTransitionEffect = () => {
       }
 
       // Graffiti signature "iBielZz" after explosion
-      if (progress > 0.75) {
+      if (progress > 0.68) {
         const fontSize = isMobile ? 56 : 100;
         
-        const t = Math.max(0, Math.min(1, (progress - 0.75) / 0.25));
+        // Longer range: 0.68 → 1.0 = 32% of scroll (was 25%)
+        const t = Math.max(0, Math.min(1, (progress - 0.68) / 0.32));
         
-        // Fade in slow (0-50%), hold (50-80%), fade out (80-100%)
+        // Slow fade in (0-40%), long hold (40-75%), gentle fade out (75-100%)
         let sigAlpha: number;
-        if (t < 0.5) {
-          sigAlpha = t / 0.5; // slow fade in
-        } else if (t < 0.8) {
-          sigAlpha = 1; // hold visible
+        if (t < 0.4) {
+          sigAlpha = t / 0.4;
+        } else if (t < 0.75) {
+          sigAlpha = 1;
         } else {
-          sigAlpha = 1 - ((t - 0.8) / 0.2); // fade out
+          sigAlpha = 1 - ((t - 0.75) / 0.25);
         }
         sigAlpha = Math.max(0, Math.min(1, sigAlpha));
         
-        // Gentle cubic ease-out for slower slide
-        const slideEased = 1 - Math.pow(1 - t, 3);
-        const slideDown = slideEased * (isMobile ? 160 : 240);
+        // Gentle quadratic ease-out for slow, smooth slide
+        const slideEased = 1 - Math.pow(1 - t, 2);
+        const slideDown = slideEased * (isMobile ? 140 : 200);
         
         ctx.save();
         ctx.globalCompositeOperation = "source-over";
