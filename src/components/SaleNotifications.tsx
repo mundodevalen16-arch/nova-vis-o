@@ -94,13 +94,12 @@ const PhoneNotifications = () => {
   useEffect(() => {
     // Audio is now created in the unlock handler above
     // Just set up notification timers
+    // Only show notifications in the first 10 seconds, then stop
     const delays = [800, 2000, 3500, 5000, 6500, 8000, 9500];
     const timers = delays.map((d) => setTimeout(addNotification, d));
-    const interval = setInterval(addNotification, 6000);
 
     return () => {
       timers.forEach(clearTimeout);
-      clearInterval(interval);
     };
   }, [addNotification]);
 
