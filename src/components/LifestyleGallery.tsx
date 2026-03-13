@@ -25,22 +25,22 @@ const galleryItems: GalleryItem[] = [
 const LifestyleGallery = () => {
   return (
     <section className="relative w-full" style={{ height: '150vh' }}>
-      <div className="w-full h-screen sticky top-0 flex flex-col items-center justify-center overflow-hidden">
+      <div className="w-full h-screen sticky top-0 flex flex-col items-center overflow-hidden">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ type: "spring", stiffness: 80, damping: 20 }}
-          className="text-center mb-4 absolute top-12 z-10 px-6"
+          className="text-center z-10 px-6 pt-8 md:pt-12 shrink-0"
         >
           <h2 className="text-3xl sm:text-4xl md:text-6xl font-black tracking-tight leading-tight">
             O <span className="text-gradient-pink">lifestyle</span> que ele conquistou
           </h2>
-          <p className="text-muted-foreground text-sm font-light mt-4 max-w-md mx-auto">
+          <p className="text-muted-foreground text-sm font-light mt-3 max-w-md mx-auto">
             De jovem sonhador e CLT — a isso aqui.
           </p>
         </motion.div>
-        <div className="w-full h-full mt-32 md:mt-40">
+        <div className="w-full flex-1 mt-4 md:mt-8">
           <CircularGallery items={galleryItems} radius={500} autoRotateSpeed={0.03} />
         </div>
       </div>
