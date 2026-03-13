@@ -24,7 +24,7 @@ const galleryItems: GalleryItem[] = [
 
 const LifestyleGallery = () => {
   return (
-    <section className="relative w-full" style={{ height: '300vh' }}>
+    <section className="relative w-full" style={{ height: '200vh' }}>
       <div className="w-full h-screen sticky top-0 flex flex-col items-center justify-center overflow-hidden">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
