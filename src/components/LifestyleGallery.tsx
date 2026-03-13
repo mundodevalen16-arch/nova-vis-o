@@ -24,7 +24,7 @@ const galleryItems: GalleryItem[] = [
 
 const LifestyleGallery = () => {
   return (
-    <section className="relative w-full" style={{ height: '300vh' }}>
+    <section className="relative w-full" style={{ height: '200vh' }}>
       <div className="w-full h-screen sticky top-0 flex flex-col items-center justify-center overflow-hidden">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -40,7 +40,7 @@ const LifestyleGallery = () => {
             De jovem sonhador e CLT — a isso aqui.
           </p>
         </motion.div>
-        <div className="w-full h-full mt-28 md:mt-36">
+        <div className="w-full h-full mt-32 md:mt-40">
           <CircularGallery items={galleryItems} radius={500} autoRotateSpeed={0.03} />
         </div>
       </div>
