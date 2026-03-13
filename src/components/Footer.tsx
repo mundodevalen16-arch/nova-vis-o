@@ -21,7 +21,7 @@ const Footer = () => (
       <div className="border-t border-border/20 pt-4">
         <p className="text-center text-[11px] text-muted-foreground/30">
           Desenvolvido por{" "}
-          <a href="https://wa.me/5511967176281" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">
+          <a href="https://wa.me/5511967176281?text=Ol%C3%A1%2C%20vim%20pelo%20site%20360%20Digital%20e%20gostaria%20de%20saber%20mais%20sobre%20os%20servi%C3%A7os%20da%20Valentor%20Solutions!" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">
             Valentor Solutions
           </a>
         </p>

@@ -40,7 +40,7 @@ const LifestyleGallery = () => {
             De jovem sonhador e CLT — a isso aqui.
           </p>
         </motion.div>
-        <div className="w-full h-full">
+        <div className="w-full h-full mt-28 md:mt-36">
           <CircularGallery items={galleryItems} radius={500} autoRotateSpeed={0.03} />
         </div>
       </div>
