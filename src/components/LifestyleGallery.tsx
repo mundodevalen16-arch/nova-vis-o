@@ -31,7 +31,7 @@ const LifestyleGallery = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ type: "spring", stiffness: 80, damping: 20 }}
-          className="text-center mb-4 absolute top-16 z-10 px-6"
+          className="text-center mb-4 absolute top-12 z-10 px-6"
         >
           <h2 className="text-3xl sm:text-4xl md:text-6xl font-black tracking-tight leading-tight">
             O <span className="text-gradient-pink">lifestyle</span> que ele conquistou
