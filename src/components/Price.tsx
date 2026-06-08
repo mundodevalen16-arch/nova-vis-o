@@ -76,11 +76,11 @@ const Price = () => {
             <p className="text-xs text-primary uppercase tracking-[0.3em] font-medium mb-3">Por apenas:</p>
 
             <div className="mb-2">
-              <span className="text-7xl md:text-8xl font-black text-gradient-pink">R$399</span>
+              <span className="text-7xl md:text-8xl font-black text-gradient-pink">R$697,00</span>
               <span className="text-xl text-muted-foreground font-light"> / ano</span>
             </div>
-            <p className="text-sm text-foreground/70 font-medium mb-1">ou 12x de R$33,32</p>
-            <p className="text-xs text-muted-foreground mb-3 font-light">Menos de R$1,10 por dia.</p>
+            <p className="text-sm text-foreground/70 font-medium mb-1">ou 12x de R$69,70</p>
+            <p className="text-xs text-muted-foreground mb-3 font-light">Menos de R$2,30 por dia.</p>
             <p className="text-sm text-foreground/50 font-light mb-10">
               Você gasta isso com coisa que não muda sua vida.<br />
               <span className="text-foreground/80 font-medium">Isso pode mudar.</span>
