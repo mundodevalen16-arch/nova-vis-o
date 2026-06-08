@@ -5,21 +5,42 @@ import { Button } from './ui/button';
 export default function BackgroundAudio() {
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const hasInteracted = useRef(false);
 
   useEffect(() => {
-    // Attempt auto-play
-    if (audioRef.current) {
-      audioRef.current.volume = 0.3;
-      const playPromise = audioRef.current.play();
-      if (playPromise !== undefined) {
-        playPromise.then(() => {
-          setIsPlaying(true);
-        }).catch(error => {
-          console.log("Autoplay prevented by browser policy", error);
-          setIsPlaying(false);
-        });
+    const startAudio = () => {
+      if (hasInteracted.current) return;
+      
+      if (audioRef.current) {
+        audioRef.current.volume = 0.3;
+        const playPromise = audioRef.current.play();
+        if (playPromise !== undefined) {
+          playPromise.then(() => {
+            setIsPlaying(true);
+            hasInteracted.current = true;
+            ['click', 'scroll', 'touchstart', 'keydown'].forEach(event => {
+              document.removeEventListener(event, startAudio);
+            });
+          }).catch(error => {
+            console.log("Autoplay prevented", error);
+          });
+        }
       }
-    }
+    };
+
+    // Attempt auto-play immediately (some browsers allow it)
+    startAudio();
+
+    // Listen for any user interaction to unlock audio
+    ['click', 'scroll', 'touchstart', 'keydown'].forEach(event => {
+      document.addEventListener(event, startAudio, { passive: true });
+    });
+
+    return () => {
+      ['click', 'scroll', 'touchstart', 'keydown'].forEach(event => {
+        document.removeEventListener(event, startAudio);
+      });
+    };
   }, []);
 
   const toggleAudio = () => {
