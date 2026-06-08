@@ -16,6 +16,7 @@ import Bonus from "@/components/Bonus";
 import Price from "@/components/Price";
 import FAQ from "@/components/FAQ";
 import Footer from "@/components/Footer";
+import BackgroundAudio from "@/components/BackgroundAudio";
 
 
 const Index = () => (
@@ -38,7 +39,7 @@ const Index = () => (
     <Price />
     <FAQ />
     <Footer />
-    
+    <BackgroundAudio />
   </main>
 );
 
