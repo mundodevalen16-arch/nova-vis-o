@@ -2,9 +2,7 @@ import MouseGlow from "@/components/MouseGlow";
 import EnergyBackground from "@/components/EnergyBackground";
 import ConstellationBackground from "@/components/ConstellationBackground";
 import Navbar from "@/components/Navbar";
-import Hero from "@/components/Hero";
 import FrameAnimation from "@/components/FrameAnimation";
-import BattleTransitionEffect from "@/components/BattleTransitionEffect";
 import SocialProof from "@/components/SocialProof";
 import ValueProp from "@/components/ValueProp";
 import BeforeAfterSlider from "@/components/BeforeAfterSlider";
@@ -26,9 +24,7 @@ const Index = () => (
     <ConstellationBackground />
     <MouseGlow />
     
-    <Hero />
     <FrameAnimation />
-    <BattleTransitionEffect />
     <SocialProof />
     <ValueProp />
     <TargetAudience />

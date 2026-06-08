@@ -51,7 +51,7 @@ export default function FrameAnimation() {
           <img 
             src={`/frame/ezgif-frame-${imageNumber}.jpg`}
             alt={`Frame animation`}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover contrast-[1.15] saturate-[1.3] brightness-[1.1]"
           />
           {/* Gradients to blend smoothly with sections above and below */}
           <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-background opacity-90" />
@@ -67,7 +67,7 @@ export default function FrameAnimation() {
             A Nova Visão
           </h2>
           <p className="mt-6 text-xl md:text-2xl text-zinc-200 drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] font-medium">
-            Acompanhe a transformação em cada detalhe.
+            A maioria tenta. Poucos dominam.
           </p>
         </motion.div>
       </div>
