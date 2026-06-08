@@ -2,6 +2,7 @@ import MouseGlow from "@/components/MouseGlow";
 import EnergyBackground from "@/components/EnergyBackground";
 import ConstellationBackground from "@/components/ConstellationBackground";
 import Navbar from "@/components/Navbar";
+import Hero from "@/components/Hero";
 import FrameAnimation from "@/components/FrameAnimation";
 import SocialProof from "@/components/SocialProof";
 import ValueProp from "@/components/ValueProp";
@@ -25,6 +26,7 @@ const Index = () => (
     <MouseGlow />
     
     <FrameAnimation />
+    <Hero />
     <SocialProof />
     <ValueProp />
     <TargetAudience />
