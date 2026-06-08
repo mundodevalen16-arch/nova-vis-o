@@ -17,20 +17,29 @@ export default function FrameAnimation() {
   const frameIndex = useTransform(scrollYProgress, [0, 0.85], [1, TOTAL_FRAMES]);
   const [currentFrame, setCurrentFrame] = useState(1);
 
-  useMotionValueEvent(frameIndex, "change", (latest) => {
-    // Evitar passar do limite
-    const index = Math.min(TOTAL_FRAMES, Math.max(1, Math.round(latest)));
-    setCurrentFrame(index);
+  // Progresso do scroll para a frase
+  const phrase = "A maioria tenta. Poucos dominam.";
+  const [visibleChars, setVisibleChars] = useState(0);
+
+  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    // Calculando frames
+    const fIndex = Math.min(TOTAL_FRAMES, Math.max(1, Math.round(latest * (TOTAL_FRAMES / 0.85))));
+    setCurrentFrame(fIndex);
+
+    // Calculando letras (surgindo entre 60% e 90% do scroll)
+    if (latest < 0.6) {
+      setVisibleChars(0);
+    } else if (latest > 0.9) {
+      setVisibleChars(phrase.length);
+    } else {
+      const progress = (latest - 0.6) / 0.3;
+      setVisibleChars(Math.round(progress * phrase.length));
+    }
   });
 
-  // Animar o texto puramente com base no scroll para surgir do meio para o fim
-  const textOpacity = useTransform(scrollYProgress, [0.6, 0.95], [0, 1]);
   const textY = useTransform(scrollYProgress, [0.6, 0.95], [40, 0]);
-  
-  // Um pequeno efeito de zoom na imagem inteira ao longo do scroll
   const imageScale = useTransform(scrollYProgress, [0, 1], [0.95, 1.05]);
 
-  // Preload images to prevent flickering
   useEffect(() => {
     for (let i = 1; i <= TOTAL_FRAMES; i++) {
       const img = new Image();
@@ -51,7 +60,7 @@ export default function FrameAnimation() {
           <img 
             src={`/frame/ezgif-frame-${imageNumber}.jpg`}
             alt={`Frame animation`}
-            className="w-full h-full object-contain md:object-cover contrast-[1.15] saturate-[1.3] brightness-[1.1]"
+            className="w-full h-full object-cover contrast-[1.15] saturate-[1.3] brightness-[1.1]"
           />
           {/* Gradients to blend smoothly with sections above and below */}
           <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-background opacity-90" />
@@ -60,14 +69,21 @@ export default function FrameAnimation() {
         
         {/* Texto sobreposto amarrado 100% ao scroll */}
         <motion.div 
-          style={{ opacity: textOpacity, y: textY }}
+          style={{ y: textY }}
           className="relative z-20 text-center px-4 max-w-4xl mx-auto pointer-events-none"
         >
-          <h2 className="text-4xl md:text-7xl font-bold text-white drop-shadow-[0_5px_15px_rgba(0,0,0,0.8)]">
-            A Nova Visão
-          </h2>
-          <p className="mt-6 text-xl md:text-2xl text-zinc-200 drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] font-medium">
-            A maioria tenta. Poucos dominam.
+          <p className="text-2xl md:text-4xl text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] font-bold tracking-wide">
+            {phrase.split("").map((char, index) => (
+              <span 
+                key={index} 
+                style={{ 
+                  opacity: index < visibleChars ? 1 : 0,
+                  transition: "opacity 0.1s ease-in-out"
+                }}
+              >
+                {char}
+              </span>
+            ))}
           </p>
         </motion.div>
       </div>
