@@ -21,7 +21,7 @@ import BackgroundAudio from "@/components/BackgroundAudio";
 
 
 const Index = () => (
-  <main className="min-h-screen bg-background text-foreground overflow-x-hidden">
+  <main className="min-h-screen bg-background text-foreground overflow-x-clip">
     <EnergyBackground />
     <ConstellationBackground />
     <MouseGlow />
