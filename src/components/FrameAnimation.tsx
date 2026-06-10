@@ -1,90 +1,123 @@
-import { useEffect, useRef, useState, useCallback } from "react";
-import { useScroll, useTransform, useMotionValueEvent, motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import {
+  useScroll,
+  useTransform,
+  useMotionValueEvent,
+  motion,
+} from "framer-motion";
 
 const TOTAL_FRAMES = 60;
 
-// Pré-gera os paths para evitar recalcular a cada render
-const framePaths = Array.from({ length: TOTAL_FRAMES }, (_, i) => {
-  const num = (i + 1).toString().padStart(3, "0");
-  return `/frame/ezgif-frame-${num}.jpg`;
-});
-
 export default function FrameAnimation() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [currentFrame, setCurrentFrame] = useState(1);
-  const [loadedFrames, setLoadedFrames] = useState<Set<number>>(new Set([1]));
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  // Cache de imagens já carregadas
+  const imagesRef = useRef<Array<HTMLImageElement | null>>(
+    Array(TOTAL_FRAMES).fill(null)
+  );
+  const currentFrameRef = useRef(1);
+
+  const [visibleChars, setVisibleChars] = useState(0);
+  const phrase = "A maioria tenta. Poucos dominam.";
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"],
   });
 
-  const phrase = "A maioria tenta. Poucos dominam.";
-  const [visibleChars, setVisibleChars] = useState(0);
-
   const textY = useTransform(scrollYProgress, [0.6, 0.95], [40, 0]);
   const imageScale = useTransform(scrollYProgress, [0, 1], [0.95, 1.05]);
 
-  // Preload inteligente: carrega apenas o frame necessário + 3 à frente
-  // Evita baixar 60 imagens de uma vez ao abrir a página
-  const preloadNear = useCallback((frame: number) => {
-    for (let i = frame; i <= Math.min(TOTAL_FRAMES, frame + 3); i++) {
-      if (!loadedFrames.has(i)) {
-        const img = new Image();
-        img.src = framePaths[i - 1];
-        img.onload = () => {
-          setLoadedFrames((prev) => new Set(prev).add(i));
-        };
-      }
+  // Desenha o frame no canvas — nunca pisca pois é uma operação atômica
+  const drawFrame = (frameIndex: number) => {
+    const canvas = canvasRef.current;
+    const img = imagesRef.current[frameIndex - 1];
+    if (!canvas || !img || !img.complete || img.naturalWidth === 0) return;
+
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    // Aplica filtros visuais
+    ctx.filter = "contrast(1.15) saturate(1.3) brightness(1.1)";
+
+    // Comportamento "object-cover": escala e centraliza para preencher o canvas
+    const imgRatio = img.naturalWidth / img.naturalHeight;
+    const canvasRatio = canvas.width / canvas.height;
+
+    let sx = 0,
+      sy = 0,
+      sw = img.naturalWidth,
+      sh = img.naturalHeight;
+
+    if (imgRatio > canvasRatio) {
+      sw = img.naturalHeight * canvasRatio;
+      sx = (img.naturalWidth - sw) / 2;
+    } else {
+      sh = img.naturalWidth / canvasRatio;
+      sy = (img.naturalHeight - sh) / 2;
     }
-  }, [loadedFrames]);
+
+    ctx.drawImage(img, sx, sy, sw, sh, 0, 0, canvas.width, canvas.height);
+  };
+
+  // Ajusta o canvas ao container e redesenha quando a janela é redimensionada
+  const resizeCanvas = () => {
+    const canvas = canvasRef.current;
+    const container = canvas?.parentElement;
+    if (!canvas || !container) return;
+    canvas.width = container.clientWidth;
+    canvas.height = container.clientHeight;
+    drawFrame(currentFrameRef.current);
+  };
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
     const fIndex = Math.min(
       TOTAL_FRAMES,
       Math.max(1, Math.round(latest * (TOTAL_FRAMES / 0.85)))
     );
-    setCurrentFrame(fIndex);
-    preloadNear(fIndex);
 
-    // Letras surgindo entre 60% e 90% do scroll
+    if (fIndex !== currentFrameRef.current) {
+      currentFrameRef.current = fIndex;
+      drawFrame(fIndex);
+    }
+
+    // Máquina de escrever: letras entre 60% e 90% do scroll
     if (latest < 0.6) {
       setVisibleChars(0);
     } else if (latest > 0.9) {
       setVisibleChars(phrase.length);
     } else {
-      const progress = (latest - 0.6) / 0.3;
-      setVisibleChars(Math.round(progress * phrase.length));
+      setVisibleChars(
+        Math.round(((latest - 0.6) / 0.3) * phrase.length)
+      );
     }
   });
 
-  // Preload leve: após 2 segundos, carrega os frames em pequenos grupos de 5
-  // para não competir com o carregamento inicial da página
   useEffect(() => {
-    // Carrega o frame 1 imediatamente
-    const first = new Image();
-    first.src = framePaths[0];
+    resizeCanvas();
+    window.addEventListener("resize", resizeCanvas);
 
-    const timer = setTimeout(() => {
-      let batch = 0;
-      const loadBatch = () => {
-        const start = batch * 5 + 1;
-        const end = Math.min(TOTAL_FRAMES, start + 4);
-        if (start > TOTAL_FRAMES) return;
-        for (let i = start; i <= end; i++) {
-          const img = new Image();
-          img.src = framePaths[i - 1];
+    // Carrega todas as imagens em background, com prioridade para as primeiras
+    // Uma vez carregada, redesnha o canvas se for o frame atual
+    for (let i = 1; i <= TOTAL_FRAMES; i++) {
+      const img = new Image();
+      const num = i.toString().padStart(3, "0");
+      img.src = `/frame/ezgif-frame-${num}.jpg`;
+      const frameIndex = i;
+      img.onload = () => {
+        imagesRef.current[frameIndex - 1] = img;
+        // Se este é o frame atual ou o frame 1, desenha imediatamente
+        if (frameIndex === currentFrameRef.current || frameIndex === 1) {
+          drawFrame(currentFrameRef.current);
         }
-        batch++;
-        setTimeout(loadBatch, 300); // aguarda 300ms entre cada grupo de 5
       };
-      loadBatch();
-    }, 2000); // começa só após 2s da abertura da página
+    }
 
-    return () => clearTimeout(timer);
+    return () => {
+      window.removeEventListener("resize", resizeCanvas);
+    };
   }, []);
-
-  const imageNumber = currentFrame.toString().padStart(3, "0");
 
   return (
     <section
@@ -96,18 +129,15 @@ export default function FrameAnimation() {
           className="absolute inset-0 w-full h-full"
           style={{ scale: imageScale }}
         >
-          <img
-            src={`/frame/ezgif-frame-${imageNumber}.jpg`}
-            alt="Frame animation"
-            className="w-full h-full object-cover contrast-[1.15] saturate-[1.3] brightness-[1.1]"
-            loading="eager"
-            decoding="async"
-          />
+          {/* Canvas: sem piscadas, renderização atômica por frame */}
+          <canvas ref={canvasRef} className="w-full h-full" />
+
+          {/* Gradientes para fundir com o fundo do site */}
           <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-background opacity-90" />
           <div className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-transparent opacity-90" />
         </motion.div>
 
-        {/* Texto com máquina de escrever amarrada ao scroll */}
+        {/* Texto com máquina de escrever */}
         <motion.div
           style={{ y: textY }}
           className="relative z-20 text-center px-4 max-w-4xl mx-auto pointer-events-none"
