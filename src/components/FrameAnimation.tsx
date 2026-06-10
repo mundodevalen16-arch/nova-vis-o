@@ -51,19 +51,20 @@ export default function FrameAnimation() {
   const imageNumber = currentFrame.toString().padStart(3, '0');
 
   return (
-    <section ref={containerRef} className="h-[400vh] bg-background relative z-10 w-full">
-      <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col items-center justify-center">
+    // Mobile: 200vh para a seção, container com altura proporcional ao aspecto 16:9 da imagem (56vw)
+    // Desktop: 400vh para a seção, h-screen para efeito cinematográfico
+    <section ref={containerRef} className="h-[200vh] md:h-[400vh] bg-background relative z-10 w-full">
+      <div className="sticky top-0 h-[56vw] md:h-screen w-full overflow-hidden flex flex-col items-center justify-center">
         <motion.div
-          className="absolute inset-0 w-full h-full bg-black"
+          className="absolute inset-0 w-full h-full"
           style={{ scale: imageScale }}
         >
-          {/* Mobile: object-contain para mostrar a imagem toda sem cortar.
-              O fundo preto (bg-black) funde com o tema escuro, tornando as "barras" invisíveis.
-              Desktop: object-cover para o efeito cinematográfico de tela cheia. */}
+          {/* Container tem exatamente o aspecto 16:9 no mobile, então object-cover
+              preenche perfeitamente sem barras pretas e sem cortar o conteúdo importante */}
           <img 
             src={`/frame/ezgif-frame-${imageNumber}.jpg`}
             alt={`Frame animation`}
-            className="w-full h-full md:object-cover object-contain contrast-[1.15] saturate-[1.3] brightness-[1.1]"
+            className="w-full h-full object-cover contrast-[1.15] saturate-[1.3] brightness-[1.1]"
           />
           {/* Gradients to blend smoothly with sections above and below */}
           <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-background opacity-90" />
