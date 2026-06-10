@@ -60,7 +60,8 @@ export default function FrameAnimation() {
           <img 
             src={`/frame/ezgif-frame-${imageNumber}.jpg`}
             alt={`Frame animation`}
-            className="w-full h-full object-cover contrast-[1.15] saturate-[1.3] brightness-[1.1]"
+            className="w-full h-full object-cover object-center contrast-[1.15] saturate-[1.3] brightness-[1.1]"
+            style={{ objectPosition: "center 30%" }}
           />
           {/* Gradients to blend smoothly with sections above and below */}
           <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-background opacity-90" />
