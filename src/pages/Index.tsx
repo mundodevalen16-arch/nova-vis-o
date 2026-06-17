@@ -1,3 +1,4 @@
+import { useState } from "react";
 import MouseGlow from "@/components/MouseGlow";
 import EnergyBackground from "@/components/EnergyBackground";
 import ConstellationBackground from "@/components/ConstellationBackground";
@@ -17,31 +18,48 @@ import FAQ from "@/components/FAQ";
 import Footer from "@/components/Footer";
 import BackgroundAudio from "@/components/BackgroundAudio";
 import Navbar from "@/components/Navbar";
+import SplashScreen from "@/components/SplashScreen";
 
-const Index = () => (
-  <main className="min-h-screen bg-background text-foreground overflow-x-clip">
-    <EnergyBackground />
-    <ConstellationBackground />
-    <MouseGlow />
-    
-    <Hero />
-    
-    <Navbar />
-    <FrameAnimation />
-    <SocialProof />
-    <ValueProp />
-    <TargetAudience />
-    <Modules />
-    <BeforeAfterSlider />
-    <Transformation />
-    <WhoIsBehind />
-    <LifestyleGallery />
-    <Bonus />
-    <Price />
-    <FAQ />
-    <Footer />
-    <BackgroundAudio />
-  </main>
-);
+const Index = () => {
+  const [splashDone, setSplashDone] = useState(false);
+
+  return (
+    <>
+      {/* Tela de abertura com animação de partículas */}
+      <SplashScreen onDone={() => setSplashDone(true)} />
+
+      {/* Conteúdo principal — sempre renderiza em background para não atrasar o load */}
+      <main
+        className="min-h-screen bg-background text-foreground overflow-x-clip"
+        style={{
+          // Bloqueia interação enquanto o splash está visível, mas o conteúdo já está carregado
+          pointerEvents: splashDone ? "auto" : "none",
+        }}
+      >
+        <EnergyBackground />
+        <ConstellationBackground />
+        <MouseGlow />
+
+        <Hero />
+
+        <Navbar />
+        <FrameAnimation />
+        <SocialProof />
+        <ValueProp />
+        <TargetAudience />
+        <Modules />
+        <BeforeAfterSlider />
+        <Transformation />
+        <WhoIsBehind />
+        <LifestyleGallery />
+        <Bonus />
+        <Price />
+        <FAQ />
+        <Footer />
+        <BackgroundAudio />
+      </main>
+    </>
+  );
+};
 
 export default Index;
