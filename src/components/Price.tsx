@@ -75,9 +75,9 @@ const Price = () => {
             <p className="text-muted-foreground line-through text-lg mb-1">De R$997</p>
             <p className="text-xs text-primary uppercase tracking-[0.3em] font-medium mb-3">Por apenas:</p>
 
-            <div className="mb-2">
-              <span className="text-7xl md:text-8xl font-black text-gradient-pink">R$697,00</span>
-              <span className="text-xl text-muted-foreground font-light"> / ano</span>
+            <div className="mb-2 flex flex-col sm:flex-row items-center justify-center sm:items-baseline gap-1 sm:gap-2">
+              <span className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-gradient-pink tracking-tighter">R$697,00</span>
+              <span className="text-lg md:text-xl text-muted-foreground font-light">/ ano</span>
             </div>
             <p className="text-sm text-foreground/70 font-medium mb-1">ou 12x de R$69,70</p>
             <p className="text-xs text-muted-foreground mb-3 font-light">Menos de R$2,30 por dia.</p>
