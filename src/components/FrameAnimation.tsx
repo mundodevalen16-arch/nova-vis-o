@@ -210,9 +210,9 @@ export default function FrameAnimation() {
 
         <motion.div
           style={{ y: textY }}
-          className="relative z-20 text-center px-4 max-w-4xl mx-auto pointer-events-none"
+          className="absolute z-20 right-[5%] lg:right-[15%] bottom-[15%] text-right px-4 max-w-2xl pointer-events-none"
         >
-          <p className="text-2xl md:text-4xl text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] font-bold tracking-wide">
+          <p className="text-2xl md:text-3xl text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] font-bold tracking-wide">
             {phrase.split("").map((char, index) => (
               <span
                 key={index}
