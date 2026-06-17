@@ -157,8 +157,8 @@ export default function SplashScreen({ onComplete }: IntroPreloaderProps) {
 
     // No mobile a fonte precisa ser menor para caber. A fonte mais fina melhora a leitura das partículas
     const isMobile = canvas.width < 768;
-    // Aumentado drasticamente no mobile (divisão por 5.5 em vez de 8, e limite subiu para 75)
-    const fontSize = isMobile ? Math.min(canvas.width / 5.5, 75) : Math.min(canvas.width / 12, 90);
+    // Reduzido para 6.5 e limite para 60 para não estourar a tela nas laterais
+    const fontSize = isMobile ? Math.min(canvas.width / 6.5, 60) : Math.min(canvas.width / 12, 90);
     offscreenCtx.fillStyle = "white";
     offscreenCtx.font = `bold ${fontSize}px 'Montserrat', 'Inter', sans-serif`;
     offscreenCtx.textAlign = "center";
