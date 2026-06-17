@@ -135,7 +135,7 @@ const BRAND_COLORS = [
 ];
 
 // Dividido em 2 para ser rápido (carregamento não ficar lento) e legível
-const WORDS = ["NÃO EXISTE VITÓRIA", "SEM SACRIFÍCIO"];
+const WORDS = ["NÃO EXISTE\nVITÓRIA", "SEM\nSACRIFÍCIO"];
 
 export default function SplashScreen({ onComplete }: IntroPreloaderProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -145,7 +145,8 @@ export default function SplashScreen({ onComplete }: IntroPreloaderProps) {
   const wordIndexRef = useRef(0);
   const [complete, setComplete] = useState(false);
 
-  const pixelSteps = 6;
+  // Reduzido para 4 para deixar as letras bem mais densas e preenchidas (fáceis de ler)
+  const pixelSteps = 4;
   const drawAsPoints = true;
 
   const nextWord = (word: string, canvas: HTMLCanvasElement) => {
@@ -154,14 +155,22 @@ export default function SplashScreen({ onComplete }: IntroPreloaderProps) {
     offscreenCanvas.height = canvas.height;
     const offscreenCtx = offscreenCanvas.getContext("2d")!;
 
-    // No mobile a fonte precisa ser bem menor para caber palavras longas como "SACRIFÍCIO"
+    // No mobile a fonte precisa ser menor para caber. A fonte mais fina melhora a leitura das partículas
     const isMobile = canvas.width < 768;
-    const fontSize = isMobile ? Math.min(canvas.width / 8, 40) : Math.min(canvas.width / 12, 90);
+    const fontSize = isMobile ? Math.min(canvas.width / 8, 45) : Math.min(canvas.width / 12, 90);
     offscreenCtx.fillStyle = "white";
-    offscreenCtx.font = `900 ${fontSize}px 'Impact', 'Arial Black', sans-serif`;
+    offscreenCtx.font = `bold ${fontSize}px 'Montserrat', 'Inter', sans-serif`;
     offscreenCtx.textAlign = "center";
     offscreenCtx.textBaseline = "middle";
-    offscreenCtx.fillText(word, canvas.width / 2, canvas.height / 2);
+    
+    // Desenha o texto suportando quebra de linha (\n)
+    const lines = word.split('\n');
+    const lineHeight = fontSize * 1.2;
+    const startY = (canvas.height / 2) - ((lines.length - 1) * lineHeight) / 2;
+    
+    lines.forEach((line, i) => {
+      offscreenCtx.fillText(line, canvas.width / 2, startY + (i * lineHeight));
+    });
 
     const imageData = offscreenCtx.getImageData(0, 0, canvas.width, canvas.height);
     const pixels = imageData.data;
