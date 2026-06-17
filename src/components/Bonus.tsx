@@ -49,7 +49,7 @@ const Bonus = () => {
                 opacity: 0,
               }}
               whileInView={{ x: 0, y: 0, rotate: 0, scale: 1, opacity: 1 }}
-              viewport={{ once: true, margin: "-30px" }}
+              viewport={{ once: true, margin: "0px" }}
               transition={{ type: "spring", stiffness: 45, damping: 14, mass: 1.3, delay: i * 0.08 }}
             >
               <SpotlightCard>
@@ -71,7 +71,7 @@ const Bonus = () => {
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
+          viewport={{ once: true, margin: "0px" }}
           transition={{ duration: 0.7 }}
           className="mt-20"
         >
@@ -90,7 +90,7 @@ const Bonus = () => {
             <div className="relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl shadow-primary/10">
               <video
                 controls
-                preload="metadata"
+                preload="none"
                 className="w-full aspect-[9/16] bg-black object-cover"
                 poster=""
               >
@@ -104,7 +104,7 @@ const Bonus = () => {
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          viewport={{ once: true, margin: "-50px" }}
+          viewport={{ once: true, margin: "0px" }}
           transition={{ duration: 0.6 }}
           className="text-center space-y-1 text-sm text-foreground/50 font-light mt-14"
         >

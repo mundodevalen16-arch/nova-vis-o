@@ -45,7 +45,7 @@ const WhoIsBehind = () => {
         <motion.h2
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
+          viewport={{ once: true, margin: "0px" }}
           transition={smooth}
           className="text-5xl md:text-7xl font-black text-center mb-20 tracking-tight"
         >
@@ -57,7 +57,7 @@ const WhoIsBehind = () => {
           <motion.div
             initial={{ opacity: 0, scale: 0.8, y: 40 }}
             whileInView={{ opacity: 1, scale: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
+            viewport={{ once: true, margin: "0px" }}
             transition={{ type: "spring", stiffness: 60, damping: 18 }}
             className="w-64 md:w-80 mx-auto mb-10 rounded-3xl overflow-hidden ring-2 ring-primary/30 ring-offset-4 ring-offset-background"
             style={{
@@ -150,7 +150,7 @@ const WhoIsBehind = () => {
                   opacity: 0 
                 }}
                 whileInView={{ x: 0, y: 0, rotate: 0, scale: 1, opacity: 1 }}
-                viewport={{ once: true, margin: "-50px" }}
+                viewport={{ once: true, margin: "0px" }}
                 transition={{ type: "spring", stiffness: 50, damping: 15, mass: 1.2, delay: i * 0.08 }}
                 className="glass rounded-2xl p-5"
               >

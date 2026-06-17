@@ -4,6 +4,9 @@ import PhoneNotifications from "@/components/SaleNotifications";
 
 const spring = { type: "spring" as const, stiffness: 100, damping: 20 };
 
+// Detecta mobile uma vez, fora do componente, sem re-render
+const isMobile = typeof window !== "undefined" && window.matchMedia("(max-width: 767px)").matches;
+
 const Hero = () => {
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
@@ -23,8 +26,10 @@ const Hero = () => {
       {/* Sticky card that tears apart */}
       <div className="sticky top-0 min-h-screen flex items-center justify-center">
         <motion.div
-          initial={{ opacity: 0, y: 50, scale: 0.94 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
+          // No mobile: sem animação de entrada (first paint instantâneo)
+          // No desktop: mantém o efeito visual de entrada
+          initial={isMobile ? false : { opacity: 0, y: 50, scale: 0.94 }}
+          animate={isMobile ? undefined : { opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
           style={{ scale: cardScale, y: cardY, opacity: cardOpacity }}
           className="w-full max-w-[90rem] mx-auto relative rounded-[2.5rem] overflow-hidden">
@@ -69,8 +74,8 @@ const Hero = () => {
               {/* Left: text */}
               <div className="flex-1">
                 <motion.div
-                  initial={{ opacity: 0, y: 15 }}
-                  animate={{ opacity: 1, y: 0 }}
+                  initial={isMobile ? false : { opacity: 0, y: 15 }}
+                  animate={isMobile ? undefined : { opacity: 1, y: 0 }}
                   transition={{ ...spring, delay: 0.3 }}
                   className="mb-3">
 
@@ -80,8 +85,8 @@ const Hero = () => {
                 </motion.div>
 
                 <motion.h1
-                  initial={{ opacity: 0, y: 40 }}
-                  animate={{ opacity: 1, y: 0 }}
+                  initial={isMobile ? false : { opacity: 0, y: 40 }}
+                  animate={isMobile ? undefined : { opacity: 1, y: 0 }}
                   transition={{ ...spring, delay: 0.4 }}
                   className="text-[3.5rem] sm:text-[5rem] md:text-[6rem] lg:text-[7rem] font-black leading-[0.85] tracking-tight mb-6"
                   style={{ textShadow: "0 4px 30px hsl(328 100% 48% / 0.3)" }}>
@@ -92,8 +97,8 @@ const Hero = () => {
                 </motion.h1>
 
                 <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
+                  initial={isMobile ? false : { opacity: 0 }}
+                  animate={isMobile ? undefined : { opacity: 1 }}
                   transition={{ delay: 0.6, duration: 0.5 }}
                   className="text-sm md:text-base text-foreground/50 max-w-md leading-relaxed mb-8 font-light space-y-3">
 
@@ -104,8 +109,8 @@ const Hero = () => {
                 </motion.div>
 
                 <motion.div
-                  initial={{ opacity: 0, y: 15 }}
-                  animate={{ opacity: 1, y: 0 }}
+                  initial={isMobile ? false : { opacity: 0, y: 15 }}
+                  animate={isMobile ? undefined : { opacity: 1, y: 0 }}
                   transition={{ ...spring, delay: 0.75 }}
                   className="flex flex-col items-start gap-3">
 
@@ -121,8 +126,8 @@ const Hero = () => {
 
               {/* Right: 3D phone mockup */}
               <motion.div
-                initial={{ opacity: 0, x: 60, rotateY: -15 }}
-                animate={{ opacity: 1, x: 0, rotateY: 0 }}
+                initial={isMobile ? false : { opacity: 0, x: 60, rotateY: -15 }}
+                animate={isMobile ? undefined : { opacity: 1, x: 0, rotateY: 0 }}
                 transition={{ ...spring, delay: 0.5 }}
                 className="flex-shrink-0"
                 style={{ perspective: "1200px" }}>

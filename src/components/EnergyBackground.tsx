@@ -2,13 +2,16 @@ import { useScroll, useTransform, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
 const EnergyBackground = () => {
+  const isMobileDevice = typeof window !== "undefined" && window.matchMedia("(max-width: 767px)").matches;
+
   const { scrollYProgress } = useScroll();
   const [mousePos, setMousePos] = useState({ x: 0.5, y: 0.5 });
 
-  const leftY = useTransform(scrollYProgress, [0, 1], [0, -120]);
-  const rightY = useTransform(scrollYProgress, [0, 1], [0, -80]);
+  // No mobile: valores estáticos (sem recalcular a cada pixel de scroll)
+  const leftY = useTransform(scrollYProgress, [0, 1], isMobileDevice ? [0, 0] : [0, -120]);
+  const rightY = useTransform(scrollYProgress, [0, 1], isMobileDevice ? [0, 0] : [0, -80]);
   const noiseOpacity = useTransform(scrollYProgress, [0, 0.5, 1], [0.04, 0.07, 0.04]);
-  const bloomScale = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [1, 1.15, 1.05, 0.95]);
+  const bloomScale = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], isMobileDevice ? [1, 1, 1, 1] : [1, 1.15, 1.05, 0.95]);
 
   useEffect(() => {
     // No mobile não há mouse — manter posição central fixa
