@@ -3,20 +3,29 @@ import { motion, useSpring } from "framer-motion";
 
 const MouseGlow = () => {
   const [mounted, setMounted] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const mouseX = useSpring(0, { stiffness: 60, damping: 30 });
   const mouseY = useSpring(0, { stiffness: 60, damping: 30 });
 
   useEffect(() => {
+    const mq = window.matchMedia("(max-width: 767px)");
+    setIsMobile(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    mq.addEventListener("change", handler);
+
     setMounted(true);
     const handleMouseMove = (e: MouseEvent) => {
       mouseX.set(e.clientX);
       mouseY.set(e.clientY);
     };
     window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      mq.removeEventListener("change", handler);
+    };
   }, [mouseX, mouseY]);
 
-  if (!mounted) return null;
+  if (!mounted || isMobile) return null;
 
   return (
     <motion.div

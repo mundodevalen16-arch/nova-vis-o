@@ -25,15 +25,8 @@ const Index = () => (
     <ConstellationBackground />
     <MouseGlow />
     
-    {/* No mobile: Hero primeiro, FrameAnimation depois. No desktop: FrameAnimation primeiro */}
-    <div className="flex flex-col md:contents">
-      <div className="order-2 md:order-none">
-        <FrameAnimation />
-      </div>
-      <div className="order-1 md:order-none">
-        <Hero />
-      </div>
-    </div>
+    <Hero />
+    <FrameAnimation />
     <SocialProof />
     <ValueProp />
     <TargetAudience />

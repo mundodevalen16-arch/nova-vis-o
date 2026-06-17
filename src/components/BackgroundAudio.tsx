@@ -56,7 +56,7 @@ export default function BackgroundAudio() {
 
   return (
     <div className="fixed bottom-6 left-6 z-50">
-      <audio ref={audioRef} src="/audiosite.mp3" loop />
+      <audio ref={audioRef} src="/audiosite.mp3" loop preload="none" />
       <Button 
         variant="outline" 
         size="icon" 

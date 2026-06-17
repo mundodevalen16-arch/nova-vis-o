@@ -11,6 +11,10 @@ const EnergyBackground = () => {
   const bloomScale = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [1, 1.15, 1.05, 0.95]);
 
   useEffect(() => {
+    // No mobile não há mouse — manter posição central fixa
+    const mq = window.matchMedia("(max-width: 767px)");
+    if (mq.matches) return;
+
     const onMove = (e: MouseEvent) => {
       setMousePos({
         x: e.clientX / window.innerWidth,

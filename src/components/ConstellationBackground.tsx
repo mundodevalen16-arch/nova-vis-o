@@ -13,8 +13,9 @@ const ConstellationBackground = () => {
     let stars: { x: number; y: number; r: number; twinkle: number; speed: number }[] = [];
     let lightnings: { x1: number; y1: number; x2: number; y2: number; life: number; maxLife: number; branches: { x: number; y: number }[] }[] = [];
     
-    const STAR_COUNT = 200;
-    const CONNECTION_DIST = 100;
+    const isMobile = window.matchMedia("(max-width: 767px)").matches;
+    const STAR_COUNT = isMobile ? 80 : 200;
+    const CONNECTION_DIST = isMobile ? 70 : 100;
 
     const resize = () => {
       canvas.width = window.innerWidth;

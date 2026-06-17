@@ -119,11 +119,10 @@ export default function FrameAnimation() {
     };
   }, [isMobile, autoPlayDone, drawFrame, phrase.length]);
 
-  // Carrega todas as imagens
-  useEffect(() => {
-    resizeCanvas();
-    window.addEventListener("resize", resizeCanvas);
+  // Função que carrega todas as imagens de frame
+  const loadAllFrames = useCallback(() => {
     for (let i = 1; i <= TOTAL_FRAMES; i++) {
+      if (imagesRef.current[i - 1]) continue; // já carregada
       const img = new Image();
       img.src = `/frame/ezgif-frame-${i.toString().padStart(3, "0")}.jpg`;
       const idx = i;
@@ -132,8 +131,36 @@ export default function FrameAnimation() {
         if (idx === currentFrameRef.current || idx === 1) drawFrame(currentFrameRef.current);
       };
     }
+  }, [drawFrame]);
+
+  // Carrega imagens: no desktop imediatamente, no mobile só quando próximo da viewport
+  useEffect(() => {
+    resizeCanvas();
+    window.addEventListener("resize", resizeCanvas);
+
+    if (!isMobile) {
+      // Desktop: carrega imediatamente (scroll-tracking precisa delas)
+      loadAllFrames();
+    } else {
+      // Mobile: lazy load — carrega quando a seção estiver a 200px da viewport
+      const lazyObserver = new IntersectionObserver(
+        (entries) => {
+          if (entries[0].isIntersecting) {
+            loadAllFrames();
+            lazyObserver.disconnect();
+          }
+        },
+        { rootMargin: "200px" }
+      );
+      if (containerRef.current) lazyObserver.observe(containerRef.current);
+      return () => {
+        window.removeEventListener("resize", resizeCanvas);
+        lazyObserver.disconnect();
+      };
+    }
+
     return () => window.removeEventListener("resize", resizeCanvas);
-  }, [resizeCanvas, drawFrame]);
+  }, [resizeCanvas, drawFrame, isMobile, loadAllFrames]);
 
   // ──────────────────────────────────
   // MOBILE: seção normal, auto-play, sem scroll-lock
