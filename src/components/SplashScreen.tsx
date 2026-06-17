@@ -157,7 +157,8 @@ export default function SplashScreen({ onComplete }: IntroPreloaderProps) {
 
     // No mobile a fonte precisa ser menor para caber. A fonte mais fina melhora a leitura das partículas
     const isMobile = canvas.width < 768;
-    const fontSize = isMobile ? Math.min(canvas.width / 8, 45) : Math.min(canvas.width / 12, 90);
+    // Aumentado drasticamente no mobile (divisão por 5.5 em vez de 8, e limite subiu para 75)
+    const fontSize = isMobile ? Math.min(canvas.width / 5.5, 75) : Math.min(canvas.width / 12, 90);
     offscreenCtx.fillStyle = "white";
     offscreenCtx.font = `bold ${fontSize}px 'Montserrat', 'Inter', sans-serif`;
     offscreenCtx.textAlign = "center";
@@ -258,15 +259,17 @@ export default function SplashScreen({ onComplete }: IntroPreloaderProps) {
     }
 
     frameCountRef.current++;
-    if (frameCountRef.current === 150) {
+    // Aumentado de 150 para 240 frames (~4 segundos)
+    if (frameCountRef.current === 240) {
       wordIndexRef.current = 1;
       nextWord(WORDS[1], canvas);
-    } else if (frameCountRef.current === 300) {
+    // Aumentado de 300 para 480 frames (~8 segundos total)
+    } else if (frameCountRef.current === 480) {
       setComplete(true);
       setTimeout(onComplete, 800);
     }
 
-    if (frameCountRef.current < 400) {
+    if (frameCountRef.current < 600) {
       animationRef.current = requestAnimationFrame(animate);
     }
   };
@@ -278,9 +281,9 @@ export default function SplashScreen({ onComplete }: IntroPreloaderProps) {
     const updateSize = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
-      if (frameCountRef.current < 150) {
+      if (frameCountRef.current < 240) {
         nextWord(WORDS[0], canvas);
-      } else if (frameCountRef.current < 300) {
+      } else if (frameCountRef.current < 480) {
         nextWord(WORDS[1], canvas);
       }
     };
