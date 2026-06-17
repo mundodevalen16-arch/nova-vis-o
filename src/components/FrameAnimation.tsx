@@ -21,7 +21,7 @@ export default function FrameAnimation() {
   const [isMobile, setIsMobile] = useState(false);
   const [visibleChars, setVisibleChars] = useState(0);
   const [autoPlayDone, setAutoPlayDone] = useState(false);
-  const phrase = "A maioria tenta. Poucos dominam.";
+  const phrase = "A fraqueza é o maior pecado.";
 
   // Detecta se é mobile
   useEffect(() => {

@@ -1,12 +1,12 @@
 import { lazy, Suspense } from "react";
 
 // ─── Critical path: carregados imediatamente ────────────────────────────────
-import MouseGlow from "@/components/MouseGlow";
-import EnergyBackground from "@/components/EnergyBackground";
-import ConstellationBackground from "@/components/ConstellationBackground";
 import Hero from "@/components/Hero";
 
-// ─── Below the fold: lazy-loaded após o Hero ser pintado ────────────────────
+// ─── Below the fold / Backgrounds: lazy-loaded após o Hero ser pintado ────
+const EnergyBackground = lazy(() => import("@/components/EnergyBackground"));
+const ConstellationBackground = lazy(() => import("@/components/ConstellationBackground"));
+const MouseGlow        = lazy(() => import("@/components/MouseGlow"));
 const FrameAnimation   = lazy(() => import("@/components/FrameAnimation"));
 const SocialProof      = lazy(() => import("@/components/SocialProof"));
 const ValueProp        = lazy(() => import("@/components/ValueProp"));
@@ -25,16 +25,14 @@ const Navbar           = lazy(() => import("@/components/Navbar"));
 
 const Index = () => (
   <main className="min-h-screen bg-background text-foreground overflow-x-clip">
-    {/* Backgrounds fixos — carregam imediatamente */}
-    <EnergyBackground />
-    <ConstellationBackground />
-    <MouseGlow />
-
-    {/* Hero carrega imediatamente — first paint instantâneo */}
+    {/* Hero carrega imediatamente — first paint instantâneo absoluto */}
     <Hero />
 
-    {/* Tudo abaixo é lazy-loaded sem bloquear o Hero */}
+    {/* Fundos e restante da página lazy-loaded sem bloquear a renderização inicial */}
     <Suspense fallback={null}>
+      <EnergyBackground />
+      <ConstellationBackground />
+      <MouseGlow />
       <Navbar />
       <FrameAnimation />
       <SocialProof />
