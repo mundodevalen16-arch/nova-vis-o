@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { AnimatePresence } from "framer-motion";
 import MouseGlow from "@/components/MouseGlow";
 import EnergyBackground from "@/components/EnergyBackground";
 import ConstellationBackground from "@/components/ConstellationBackground";
@@ -21,43 +22,44 @@ import Navbar from "@/components/Navbar";
 import SplashScreen from "@/components/SplashScreen";
 
 const Index = () => {
-  const [splashDone, setSplashDone] = useState(false);
+  const [showIntro, setShowIntro] = useState(true);
 
   return (
     <>
-      {/* Tela de abertura com animação de partículas */}
-      <SplashScreen onDone={() => setSplashDone(true)} />
+      <AnimatePresence mode="wait">
+        {showIntro && (
+          <SplashScreen
+            key="intro"
+            onComplete={() => setShowIntro(false)}
+          />
+        )}
+      </AnimatePresence>
 
-      {/* Conteúdo principal — sempre renderiza em background para não atrasar o load */}
-      <main
-        className="min-h-screen bg-background text-foreground overflow-x-clip"
-        style={{
-          // Bloqueia interação enquanto o splash está visível, mas o conteúdo já está carregado
-          pointerEvents: splashDone ? "auto" : "none",
-        }}
-      >
-        <EnergyBackground />
-        <ConstellationBackground />
-        <MouseGlow />
+      {!showIntro && (
+        <main className="min-h-screen bg-background text-foreground overflow-x-clip">
+          <EnergyBackground />
+          <ConstellationBackground />
+          <MouseGlow />
 
-        <Hero />
+          <Hero />
 
-        <Navbar />
-        <FrameAnimation />
-        <SocialProof />
-        <ValueProp />
-        <TargetAudience />
-        <Modules />
-        <BeforeAfterSlider />
-        <Transformation />
-        <WhoIsBehind />
-        <LifestyleGallery />
-        <Bonus />
-        <Price />
-        <FAQ />
-        <Footer />
-        <BackgroundAudio />
-      </main>
+          <Navbar />
+          <FrameAnimation />
+          <SocialProof />
+          <ValueProp />
+          <TargetAudience />
+          <Modules />
+          <BeforeAfterSlider />
+          <Transformation />
+          <WhoIsBehind />
+          <LifestyleGallery />
+          <Bonus />
+          <Price />
+          <FAQ />
+          <Footer />
+          <BackgroundAudio />
+        </main>
+      )}
     </>
   );
 };

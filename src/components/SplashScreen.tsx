@@ -1,116 +1,302 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ParticleTextEffect } from "@/components/ui/particle-text-effect";
 
-// Frase dividida conforme marcações:
-//  Linha 1: "Não existe"
-//  Linha 2: "vitória"
-//  Linha 3: "sem sacrifício"
-// No canvas aparecem como palavras sequenciais com partículas
-const SPLASH_WORDS = [
-  "Não existe",
-  "vitória",
-  "sem sacrifício",
-];
-
-// Quantas palavras existem (para calcular quando a sequência termina)
-const TOTAL_WORDS = SPLASH_WORDS.length;
-// Cada palavra fica ~3s (180 frames). Saímos logo após a última aparecer (+ 2.5s para contemplar)
-const SPLASH_DURATION_MS = TOTAL_WORDS * 3000 + 2500;
-
-interface SplashScreenProps {
-  onDone: () => void;
+interface Vector2D {
+  x: number;
+  y: number;
 }
 
-export default function SplashScreen({ onDone }: SplashScreenProps) {
-  const [visible, setVisible] = useState(true);
-  const [wordIndex, setWordIndex] = useState(0);
+class Particle {
+  pos: Vector2D = { x: 0, y: 0 };
+  vel: Vector2D = { x: 0, y: 0 };
+  acc: Vector2D = { x: 0, y: 0 };
+  target: Vector2D = { x: 0, y: 0 };
+
+  closeEnoughTarget = 50;
+  maxSpeed = 8.0;
+  maxForce = 0.5;
+  particleSize = 4;
+  isKilled = false;
+
+  startColor = { r: 0, g: 0, b: 0 };
+  targetColor = { r: 255, g: 255, b: 255 };
+  colorWeight = 0;
+  colorBlendRate = 0.02;
+
+  constructor(width: number, height: number) {
+    const side = Math.floor(Math.random() * 4);
+    if (side === 0) {
+      this.pos = { x: Math.random() * width, y: -20 };
+    } else if (side === 1) {
+      this.pos = { x: width + 20, y: Math.random() * height };
+    } else if (side === 2) {
+      this.pos = { x: Math.random() * width, y: height + 20 };
+    } else {
+      this.pos = { x: -20, y: Math.random() * height };
+    }
+  }
+
+  move() {
+    let proximityMult = 1;
+    const distance = Math.sqrt(
+      Math.pow(this.pos.x - this.target.x, 2) + Math.pow(this.pos.y - this.target.y, 2)
+    );
+
+    if (distance < this.closeEnoughTarget) {
+      proximityMult = Math.max(distance / this.closeEnoughTarget, 0.1);
+    }
+
+    const towardsTarget = {
+      x: this.target.x - this.pos.x,
+      y: this.target.y - this.pos.y,
+    };
+
+    const magnitude = Math.sqrt(towardsTarget.x * towardsTarget.x + towardsTarget.y * towardsTarget.y);
+    if (magnitude > 0) {
+      towardsTarget.x = (towardsTarget.x / magnitude) * this.maxSpeed * proximityMult;
+      towardsTarget.y = (towardsTarget.y / magnitude) * this.maxSpeed * proximityMult;
+    }
+
+    const steer = {
+      x: towardsTarget.x - this.vel.x,
+      y: towardsTarget.y - this.vel.y,
+    };
+
+    const steerMagnitude = Math.sqrt(steer.x * steer.x + steer.y * steer.y);
+    if (steerMagnitude > 0) {
+      const force = Math.min(steerMagnitude, this.maxForce);
+      steer.x = (steer.x / steerMagnitude) * force;
+      steer.y = (steer.y / steerMagnitude) * force;
+    }
+
+    this.acc.x += steer.x;
+    this.acc.y += steer.y;
+
+    this.vel.x += this.acc.x;
+    this.vel.y += this.acc.y;
+    this.pos.x += this.vel.x;
+    this.pos.y += this.vel.y;
+    this.acc.x = 0;
+    this.acc.y = 0;
+
+    this.vel.x *= 0.95;
+    this.vel.y *= 0.95;
+  }
+
+  draw(ctx: CanvasRenderingContext2D, drawAsPoints: boolean) {
+    if (this.colorWeight < 1.0) {
+      this.colorWeight = Math.min(this.colorWeight + this.colorBlendRate, 1.0);
+    }
+
+    const currentColor = {
+      r: Math.round(this.startColor.r + (this.targetColor.r - this.startColor.r) * this.colorWeight),
+      g: Math.round(this.startColor.g + (this.targetColor.g - this.startColor.g) * this.colorWeight),
+      b: Math.round(this.startColor.b + (this.targetColor.b - this.startColor.b) * this.colorWeight),
+    };
+
+    ctx.fillStyle = `rgb(${currentColor.r}, ${currentColor.g}, ${currentColor.b})`;
+    if (drawAsPoints) {
+      ctx.fillRect(this.pos.x, this.pos.y, 2.5, 2.5);
+    } else {
+      ctx.beginPath();
+      ctx.arc(this.pos.x, this.pos.y, this.particleSize / 2, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+
+  kill(width: number, height: number) {
+    if (!this.isKilled) {
+      const angle = Math.random() * Math.PI * 2;
+      const dist = Math.max(width, height);
+      this.target.x = width / 2 + Math.cos(angle) * dist;
+      this.target.y = height / 2 + Math.sin(angle) * dist;
+
+      this.startColor = {
+        r: this.startColor.r + (this.targetColor.r - this.startColor.r) * this.colorWeight,
+        g: this.startColor.g + (this.targetColor.g - this.startColor.g) * this.colorWeight,
+        b: this.startColor.b + (this.targetColor.b - this.startColor.b) * this.colorWeight,
+      };
+      this.targetColor = { r: 0, g: 0, b: 0 };
+      this.colorWeight = 0;
+      this.isKilled = true;
+    }
+  }
+}
+
+interface IntroPreloaderProps {
+  onComplete: () => void;
+}
+
+// Cores do site iBielZz
+const BRAND_COLORS = [
+  { r: 240, g: 10, b: 120 },   // Rosa primário
+  { r: 168, g: 85, b: 247 },   // Roxo
+  { r: 255, g: 60, b: 180 },   // Magenta claro
+];
+
+// Dividido em 2 para ser rápido (carregamento não ficar lento) e legível
+const WORDS = ["NÃO EXISTE VITÓRIA", "SEM SACRIFÍCIO"];
+
+export default function SplashScreen({ onComplete }: IntroPreloaderProps) {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const animationRef = useRef<number>();
+  const particlesRef = useRef<Particle[]>([]);
+  const frameCountRef = useRef(0);
+  const wordIndexRef = useRef(0);
+  const [complete, setComplete] = useState(false);
+
+  const pixelSteps = 6;
+  const drawAsPoints = true;
+
+  const nextWord = (word: string, canvas: HTMLCanvasElement) => {
+    const offscreenCanvas = document.createElement("canvas");
+    offscreenCanvas.width = canvas.width;
+    offscreenCanvas.height = canvas.height;
+    const offscreenCtx = offscreenCanvas.getContext("2d")!;
+
+    // No mobile a fonte precisa ser bem menor para caber palavras longas como "SACRIFÍCIO"
+    const isMobile = canvas.width < 768;
+    const fontSize = isMobile ? Math.min(canvas.width / 8, 40) : Math.min(canvas.width / 12, 90);
+    offscreenCtx.fillStyle = "white";
+    offscreenCtx.font = `900 ${fontSize}px 'Impact', 'Arial Black', sans-serif`;
+    offscreenCtx.textAlign = "center";
+    offscreenCtx.textBaseline = "middle";
+    offscreenCtx.fillText(word, canvas.width / 2, canvas.height / 2);
+
+    const imageData = offscreenCtx.getImageData(0, 0, canvas.width, canvas.height);
+    const pixels = imageData.data;
+
+    const colorIndex = wordIndexRef.current % BRAND_COLORS.length;
+    const newColor = BRAND_COLORS[colorIndex];
+
+    const particles = particlesRef.current;
+    let particleIndex = 0;
+
+    const coordsIndexes: number[] = [];
+    for (let i = 0; i < pixels.length; i += pixelSteps * 4) {
+      coordsIndexes.push(i);
+    }
+
+    for (let i = coordsIndexes.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [coordsIndexes[i], coordsIndexes[j]] = [coordsIndexes[j], coordsIndexes[i]];
+    }
+
+    for (const coordIndex of coordsIndexes) {
+      const alpha = pixels[coordIndex + 3];
+
+      if (alpha > 128) {
+        const x = (coordIndex / 4) % canvas.width;
+        const y = Math.floor(coordIndex / 4 / canvas.width);
+
+        let particle: Particle;
+
+        if (particleIndex < particles.length) {
+          particle = particles[particleIndex];
+          particle.isKilled = false;
+          particleIndex++;
+        } else {
+          particle = new Particle(canvas.width, canvas.height);
+          particle.maxSpeed = Math.random() * 4 + 6;
+          particle.maxForce = particle.maxSpeed * 0.08;
+          particle.colorBlendRate = 0.02 + Math.random() * 0.02;
+          particles.push(particle);
+        }
+
+        particle.startColor = {
+          r: particle.startColor.r + (particle.targetColor.r - particle.startColor.r) * particle.colorWeight,
+          g: particle.startColor.g + (particle.targetColor.g - particle.startColor.g) * particle.colorWeight,
+          b: particle.startColor.b + (particle.targetColor.b - particle.startColor.b) * particle.colorWeight,
+        };
+        particle.targetColor = newColor;
+        particle.colorWeight = 0;
+
+        particle.target.x = x;
+        particle.target.y = y;
+      }
+    }
+
+    for (let i = particleIndex; i < particles.length; i++) {
+      particles[i].kill(canvas.width, canvas.height);
+    }
+  };
+
+  const animate = () => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const ctx = canvas.getContext("2d")!;
+    const particles = particlesRef.current;
+
+    ctx.fillStyle = "rgba(10, 10, 10, 1)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    for (let i = particles.length - 1; i >= 0; i--) {
+      const particle = particles[i];
+      particle.move();
+      particle.draw(ctx, drawAsPoints);
+
+      if (particle.isKilled) {
+        if (
+          particle.pos.x < -50 ||
+          particle.pos.x > canvas.width + 50 ||
+          particle.pos.y < -50 ||
+          particle.pos.y > canvas.height + 50
+        ) {
+          particles.splice(i, 1);
+        }
+      }
+    }
+
+    frameCountRef.current++;
+    if (frameCountRef.current === 150) {
+      wordIndexRef.current = 1;
+      nextWord(WORDS[1], canvas);
+    } else if (frameCountRef.current === 300) {
+      setComplete(true);
+      setTimeout(onComplete, 800);
+    }
+
+    if (frameCountRef.current < 400) {
+      animationRef.current = requestAnimationFrame(animate);
+    }
+  };
 
   useEffect(() => {
-    // Garante que o site carrega em background. Após SPLASH_DURATION_MS inicia a saída.
-    const timer = setTimeout(() => {
-      setVisible(false);
-    }, SPLASH_DURATION_MS);
+    const canvas = canvasRef.current;
+    if (!canvas) return;
 
-    return () => clearTimeout(timer);
+    const updateSize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      if (frameCountRef.current < 150) {
+        nextWord(WORDS[0], canvas);
+      } else if (frameCountRef.current < 300) {
+        nextWord(WORDS[1], canvas);
+      }
+    };
+
+    window.addEventListener("resize", updateSize);
+    updateSize();
+
+    nextWord(WORDS[0], canvas);
+    animate();
+
+    return () => {
+      if (animationRef.current) cancelAnimationFrame(animationRef.current);
+      window.removeEventListener("resize", updateSize);
+    };
   }, []);
 
   return (
-    <AnimatePresence onExitComplete={onDone}>
-      {visible && (
-        <motion.div
-          key="splash"
-          initial={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.8, ease: "easeInOut" }}
-          className="fixed inset-0 z-[9999] flex flex-col items-center justify-center overflow-hidden"
-          style={{ background: "hsl(270 30% 4%)" }}
-        >
-          {/* Glow de fundo — roxo/rosa ambiance */}
-          <div
-            className="absolute inset-0 pointer-events-none"
-            style={{
-              background:
-                "radial-gradient(ellipse 70% 50% at 50% 50%, hsl(328 100% 48% / 0.12) 0%, transparent 70%)",
-            }}
-          />
-
-          {/* Canvas de partículas ocupa toda a área central */}
-          <div className="relative w-full flex-1 flex flex-col items-center justify-center">
-            <div className="w-full" style={{ height: "55vmin", maxHeight: 400 }}>
-              <ParticleTextEffect
-                words={SPLASH_WORDS}
-                onWordCycle={(idx) => setWordIndex(idx)}
-              />
-            </div>
-
-            {/* Indicador de qual frase está sendo exibida — bolinhas de progresso */}
-            <div className="flex items-center gap-3 mt-6">
-              {SPLASH_WORDS.map((_, i) => (
-                <motion.span
-                  key={i}
-                  animate={{
-                    width: wordIndex === i ? 28 : 8,
-                    opacity: wordIndex === i ? 1 : 0.3,
-                  }}
-                  transition={{ duration: 0.35 }}
-                  style={{
-                    height: 8,
-                    borderRadius: 9999,
-                    background:
-                      "linear-gradient(90deg, hsl(328 100% 55%), hsl(270 80% 65%))",
-                    display: "inline-block",
-                  }}
-                />
-              ))}
-            </div>
-          </div>
-
-          {/* Logo e tagline na parte inferior */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5, duration: 0.8 }}
-            className="pb-10 text-center select-none"
-          >
-            <p
-              className="text-lg font-black tracking-wider italic"
-              style={{
-                fontFamily: "'Impact', 'Arial Black', sans-serif",
-                background:
-                  "linear-gradient(135deg, hsl(328 100% 60%), hsl(270 80% 70%))",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-              }}
-            >
-              iBielZz
-            </p>
-            <p className="text-xs text-white/30 tracking-[0.25em] uppercase mt-1 font-light">
-              360 Digital
-            </p>
-          </motion.div>
-        </motion.div>
-      )}
-    </AnimatePresence>
+    <motion.div
+      initial={{ opacity: 1 }}
+      animate={{ opacity: complete ? 0 : 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.8 }}
+      className="fixed inset-0 z-[9999] bg-[#0a0a0a] flex items-center justify-center overflow-hidden touch-none"
+    >
+      <canvas ref={canvasRef} className="w-full h-full" />
+    </motion.div>
   );
 }
