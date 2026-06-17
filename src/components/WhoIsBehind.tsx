@@ -31,6 +31,7 @@ const statScatter = [
 const WhoIsBehind = () => {
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
+  const isMobile = typeof window !== "undefined" && window.matchMedia("(max-width: 767px)").matches;
   
   const nameScale = useTransform(scrollYProgress, [0.1, 0.35], [4, 1]);
   const nameOpacity = useTransform(scrollYProgress, [0.1, 0.25], [0, 1]);
@@ -138,27 +139,39 @@ const WhoIsBehind = () => {
           </motion.div>
 
           {/* Stats explode in from scattered positions — bidirectional */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-5">
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "50px" }}
+            className="grid grid-cols-2 sm:grid-cols-3 gap-5"
+          >
             {stats.map((s, i) => (
               <motion.div
                 key={i}
-                initial={{ 
-                  x: statScatter[i].x, 
-                  y: statScatter[i].y, 
-                  rotate: statScatter[i].rotate, 
-                  scale: 0.3, 
-                  opacity: 0 
+                variants={{
+                  hidden: {
+                    x: isMobile ? statScatter[i].x * 0.4 : statScatter[i].x,
+                    y: isMobile ? statScatter[i].y * 0.4 : statScatter[i].y,
+                    rotate: statScatter[i].rotate,
+                    scale: 0.3,
+                    opacity: 0,
+                  },
+                  visible: {
+                    x: 0,
+                    y: 0,
+                    rotate: 0,
+                    scale: 1,
+                    opacity: 1,
+                    transition: { type: "spring", stiffness: 50, damping: 15, mass: 1.2, delay: i * 0.08 }
+                  }
                 }}
-                whileInView={{ x: 0, y: 0, rotate: 0, scale: 1, opacity: 1 }}
-                viewport={{ once: true, margin: "0px" }}
-                transition={{ type: "spring", stiffness: 50, damping: 15, mass: 1.2, delay: i * 0.08 }}
                 className="glass rounded-2xl p-5"
               >
                 <p className="text-3xl font-black text-gradient-pink">{s.value}</p>
                 <p className="text-xs text-muted-foreground mt-1">{s.label}</p>
               </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>
